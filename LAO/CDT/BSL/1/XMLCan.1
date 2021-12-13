@@ -1,0 +1,46 @@
+s0="a b c"
+s1="a b c"
+s2="a b c"
+s0="Éditions Gallimard"
+s1="< ' " >"
+s2="&unknown; &amp; °"
+<prefill where='here'/>
+
+<!DOCTYPE SAMPLE SYSTEM "sample.dtd">
+<!-- Various pieces of XML for a minimal test coverage. -->
+<samples>
+
+  <customer>
+    <name>
+      <first-name>John</first-name>
+      <last-name>Smith</last-name>
+    </name>
+    <street1>12345 Happy Lane</street1>
+    <city>Plunk</city>
+    <state>WA</state>
+    <zip>98059</zip>
+    <phone>888.555.1234</phone>
+  </customer>
+
+  <p>An ampersand (&) may be escaped
+  numerically (&#38;) or with a general entity
+  (&amp;).</p>
+
+  <p xml:lang="en">The quick brown fox jumps over the lazy dog.</p>
+  <p xml:lang="en-GB">What colour is it?</p>
+  <p xml:lang="en-US">What color is it?</p>
+  <sp who="Faust" desc='leise' xml:lang="de">
+    <l>Habe nun, ach! Philosophie,</l>
+    <l>Juristerei, und Medizin</l>
+    <l>und leider auch Theologie</l>
+    <l>durchaus studiert mit heißem Bemüh'n.</l>
+  </sp>
+
+  <IMG align="left" src="http://www.w3.org/Icons/WWW/w3c_home"/>
+  <br></br>
+  <br/>
+
+  <![CDATA[<greeting>Hello, world!</greeting>]]> 
+  <![CDATA[]]> 
+
+</samples>

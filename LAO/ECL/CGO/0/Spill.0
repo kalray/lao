@@ -1,0 +1,81 @@
+functions:
+  - label: spill-by-hand
+    test: Spill by hand on a straight-line code
+    bbs:
+      - label: BB_1
+        ops:
+          - { op: _APPLY, defs: [V100], uses: ['0']}
+          - { op: _APPLY, defs: [V101], uses: ['1']}
+          - { op: _APPLY, defs: [V102], uses: ['2']}
+          - { op: _ADD, defs: [V103], uses: [V101, V102]}
+          - { op: _ADD, defs: [V104], uses: [V100, V103]}
+          - { op: _RETURN }
+
+---          
+SSA: true
+functions:
+  - label: spill-everywhere one
+    test: Spill test one variable
+    entries: [BB_1]
+    exits: [BB_1]
+    bbs:
+      - label: BB_1
+        succs: []
+        ops:
+          - { op: _APPLY, defs: [V100], uses: ['0']}
+          - { op: _APPLY, defs: [V101], uses: ['1']}
+          - { op: _ADD, defs: [V102], uses: [V100, V101]}
+          - { op: _ADD, defs: [V103], uses: [V102, V100]}
+          - { op: _RETURN }
+
+
+---          
+SSA: true
+functions:
+  - label: spill-everywhere all
+    test: Spill test all variables
+    entries: [BB_1]
+    exits: [BB_1]
+    bbs:
+      - label: BB_1
+        succs: []
+        ops:
+          - { op: _APPLY, defs: [V100], uses: ['0']}
+          - { op: _APPLY, defs: [V101], uses: ['1']}
+          - { op: _ADD, defs: [V102], uses: [V100, V101]}
+          - { op: _ADD, defs: [V103], uses: [V102, V100]}
+          - { op: _RETURN }
+
+---          
+SSA: true
+functions:
+  - label: spill-everywhere complete
+    test: Spill test all variables with control-flow
+    entries: [BB_1]
+    exits: [BB_4]
+    bbs:
+      - label: BB_1
+        succs: [BB_2, BB_3]
+        ops:
+          - { op: _APPLY, defs: [V100], uses: ['0']}
+          - { op: _APPLY, defs: [V101], uses: ['1']}
+          - { op: _ADD, defs: [V102], uses: [V100, V101]}
+          - { op: _IFTRUE, uses: [V101, BB_3], target: BB_3, fallthru: .next}
+
+      - label: BB_2
+        succs: [BB_4]
+        ops:
+          - { op: _ADD, defs: [V103], uses: [V100, V102]}
+          - { op: _GOTO, uses: [BB_4], target: BB_4}
+
+      - label: BB_3
+        succs: [BB_4]
+        ops:
+          - { op: _ADD, defs: [V105], uses: [V101, V102]}
+
+      - label: BB_4
+        preds: [BB_2, BB_3]
+        ops:
+          - { op: _PHI, defs: [V106], uses: [V103, V105]}
+          - { op: _ADD, defs: [V104], uses: [V101, V106]}
+          - { op: _RETURN }

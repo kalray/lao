@@ -1,0 +1,12 @@
+/*
+ * kv3/Format.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Format
+#define Format(ID, OPERANDS)
+#else /*Format*/
+#endif/*Format*/
+#undef Format
+

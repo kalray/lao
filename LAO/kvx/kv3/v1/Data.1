@@ -1,0 +1,32 @@
+	.file ""
+	.nonopinsertion
+
+
+	.section	.data,"aw"
+	.globl	str
+	.align 4
+str:
+	.ascii	"Ala ma kota a kot ma ale i bawili sie wspaniale\n\0"
+
+	.globl	tmp
+	.align 4
+tmp:
+	.ascii	"Ala ma kota a kot ma ale i bawili sie wspaniale\n\0\0\0\0\0Hidden Text!\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+	.word	0xfffffffe
+	.hword	0xffff
+	.space	2
+	.word	0x3f8ccccd, 0x3e280000
+	.quad	0x000000000001e240
+	.word	tmp
+	.space	4
+	.quad	0x3ff199999999999a, 0x3fb7048860f91800
+
+	.section	.bss,"aw"
+	.globl	main.j
+	.align 2
+main.j:
+	.word	0x00000000
+
+
+
+	.ident "GCC+Tirex+LAO (Kalray compiler chain)"

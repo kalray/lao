@@ -1,0 +1,489 @@
+/**
+@page codingStyle C Coding Style
+
+These C coding style recommendations, <a href="http://www.lysator.liu.se/~sven-e/CSG/genCodeStd.cgi">like many others</a>, are hopefully designed to
+improve software robustness, maintainability, portability and performance of C
+programs.
+
+
+ @section cs_dialects C Language Dialects
+
+The main constraint on the C language dialect is that it should
+compile with "enhanced" C89 compilers, that is, C compilers that
+understand =long long= types and map them to 64 bits.
+
+There is no reason to ensure that the C language dialect is acceptable to a
+standard C++ compiler.  Compiling for C++ comes at the cost of explicit casting
+of all the pointer conversions from/to @c void*. Adding type casts is bad
+programming style. In addition C++ has polluted the C namespace with extra
+reserved keywords. See <a href="http://david.tribble.com/text/cdiffs.htm">Incompatibilities Between ISO C
+and ISO C++</a> for further information.
+
+When compiling with GCC under @c -Wall @c -Wno-unused, there should be no
+warnings. The @c -Wno-unused option is needed because in debug mode there are
+checking macros that verify code invariants and these macros are defined to
+nothing when building high-performance code. When the checking macros are the
+only ones to refer to some variables, this yields irrelevant warnings about
+unused variables.
+
+
+  @subsection cs_sttypes Use Standard Types
+
+Use @c \<stdbool.h\>. This header contains a @c typedef for @c bool and macros for
+@c true and @c false.
+
+Use types from @c \<stdint.h\>. This header defines: @c int8_t, @c uint8_t,
+@c int16_t, @c uint16_t, @c int32_t, @c uint32_t, @c int64_t, @c uint64_t, @c intptr_t,
+@c uintptr_t. In particular the two latter types should be used in place of
+@c diffptr_t and @c size_t. Don't assume @c void* fits in plain @c int.
+
+Assume @c int may only be 16-bits? The impact is that we have to use
+@c int_least32_t for indexing loops or arrays. Conversely, if @c int is at least
+32-bit, we can use plain @c int for indexing.
+
+These header files are always available in a properly organized
+package even with C89 compilers thanks to the GNU autotools.
+
+
+  @subsection cs_langexts C Language Extensions
+
+Don't use the GCC language extensions.
+
+Assume that only the C89 standard C library is available.
+
+Don't use @c alloca(), as it can silently fail and return a bogus pointer.
+
+Assume that some of the code may be compiled with GCC @c -fshort-enums. To ensure
+inter-operability, no library should export types that depend on the storage
+size of an @c enum. In particular, avoid exporting pointer to @c enum types and
+structure definitions with @c enum members.
+
+Don't step into the reserved C namespace. This includes identifiers starting
+with a double underscore, identifiers starting with a single underscore followed
+by capital letter, and identifiers ending with @c _t.
+
+
+  @subsection cs_c99features Use of C99 Features
+
+Allow C++ line comments and comments after preprocessor directives. The @c //
+comment is part of C99 standard. And with old C compilers one can always use a
+modern @c cpp.
+
+No other C99 features except @c restrict and <code>static inline</code>.
+
+Assume that the compiler will apply C99 aliasing rules to optimize code. This
+yields better optimizations by removing dependences but is invalid in most cases
+case of pointer casting. Precisely, according to ANSI C:
+
+>	
+7: An object shall have its stored value accessed only by an lvalue
+expression that has one of the following types: {footnote 73}
+ *	a type compatible with the effective type of the object,
+ *	a qualified version of a type compatible with the effective
+type of the object,
+ *	a type that is the signed or unsigned type corresponding to
+the effective type of the object,
+ *	a type that is the signed or unsigned type corresponding to a
+qualified version of the effective type of the object,
+ *	an aggregate or union type that includes one of the
+aforementioned types among its members (including, recursively, a
+member of a subaggregate or contained union), or
+ *	a character type.
+	{footnote 73} The intent of this list is to specify those
+circumstances in which an object may or may not be aliased.
+<	
+
+To disable optimizations based on alias-analysis of ANSI C, the GCC option
+@c -fno-strict-aliasing can be used as a work-around.
+
+
+  @subsection cs_machdep Machine Dependencies
+
+May assume that the target machine is byte-addressable with 8-bit bytes.
+Byte-addressable means that incrementing a pointer increases its value by the
+@c sizeof the pointed to type.
+
+May assume that the target machine uses 2's complement arithmetic.
+
+Don't assume that large shift amounts are modular, eg @c (foo<<(-1)) equals
+@c (foo<<31) on a 32-bit machine.
+
+
+ @section cs_lexconv Lexical Conventions
+
+
+  @subsection cs_whitespace White Space
+
+All lines should fit within a 100-character window without wrapping.
+
+Indent with 2 or 4 spaces, and do not allow the editor to convert 8 consecutive
+spaces into |\<TAB>| characters.
+
+The |\<TAB>| characters are only allowed for aligning comments. No source code
+line should beging with a |\<TAB>|.
+
+Here's a <GNU Coding Standard
+http://www.gnu.org/prep/standards/standards.html#Writing-C> advice that can be
+used:
+
+>	
+Please use formfeed characters (control-L) to divide the program
+into pages at logical places (but not within a function). It does not matter
+just how long the pages are, since they do not have to fit on a printed page.
+The formfeeds should appear alone on lines by themselves.
+<	
+
+  @subsection cs_blockbraces Block Braces
+
+Use the K&R recommended layout, that is, the opening brace of a
+compound-statement ends the preceding line and the closing brace is on its own
+line at the level of the containing statement:
+
+	if (cond) {
+	   ...
+	}
+
+	for (i = init; i < limit; i++) {
+	    ...
+	}
+
+	if (cond1) {
+	   ...
+	} else if (cond2) {
+	    ...
+	} else {
+	    ...
+	}
+
+Always use braces unless the whole @c if, @c for or @c while and the controlled
+statement fits on one line:
+
+	if (cond)
+	    statement;              // Bad.
+	if (cond) statement;        // Better.
+	if (cond) {
+	    statement;              // Best.
+	}
+
+
+  @subsection cs_switch Switch Statements
+
+Each @c case statement is indented at the same level as the @c switch.
+
+Every @c switch statement must include the @c default case.
+
+	switch (val) {
+	case 1:
+	    ...
+	    break;
+	case 2: {
+	    ...
+	    break;
+	}
+	default:
+	    ...
+	    break;
+	}
+
+
+  @subsection cs_logexpr Logical Expressions
+
+Ensure that the control expression in @c if, @c while, @c for tests a logical
+value:
+
+	if (pointer) {         // Implicit test against NULL: avoid
+	    ...
+	}
+	if (pointer != NULL) { // Explicit test of a logical value: better
+	    ...
+	}
+
+Avoid comparing a unsigned value with a signed value.  If it can not be avoided,
+use explicit conversions.
+
+
+@subsection cs_funcalls Function Calls
+
+Function calls should not have whitespaces before opening '('.
+
+Use ', ' to separate the arguments.
+
+
+  @subsection cs_fundefs Function Definitions
+
+According to the <GNU Coding Standard
+http://www.gnu.org/prep/standards/standards.html>:
+
+>	
+It is also important for function definitions to start the name of
+the function in column zero. This helps people to search for function
+definitions, and may also help certain tools recognize them. Thus,
+the proper format is this:
+
+	static char *
+	concat (char *s1, char *s2)
+	{
+	  ...
+	}
+
+	In ANSI C, if the arguments don't fit nicely on one line, split it
+like this:
+
+	int
+	lots_of_args (int an_integer, long a_long, short a_short,
+	              double a_double, float a_float)
+<	
+
+  @subsection cs_multilinestate Multi-Line Statements
+
+When an expression does not fit on a single line, break it up
+according to these rules:
+   *	Break after a comma.
+   *	Break before an operator.
+   *	Prefer higher-level breaks to lower-level breaks.
+   *	Align the new line with the beginning of the expression at the same
+        level on the previous line.
+
+	long_function(expr1, expr2,
+	              expr3, expr4, expr5);
+
+So, according to these rules and by using the One True Brace Style (1TBS) as
+seen in K&R:
+
+	if (   cond1
+	    && (   cond 2
+	        || cond 3)) {
+	    ...
+	}
+	for (iter1 = val1,
+	     iter2 = val2;
+	     iter1 < limit1
+	     iter2 < limit2;
+	     ++iter1,
+	     iter2 = iter2 + expr2) {
+	   ...
+	}
+
+
+  @subsection cs_lineblockcomments Line and Block Comments
+
+Use @c TODO and @c HACK tags in comments where applicable, so they can be globally
+searched.
+
+Use line comments introduced with <code>// ...</code> in function bodies. The comment
+should apply to the next line(s).
+
+Use block comments <code>\/* ... *\/</code> outside functions, mainly before the declaration
+or definitions.
+
+Avoid fancy markup language inside comment, whether XML-like or Doxygen. The
+markup if any should be WLM (Wiki Like Markup).
+
+
+ @section cs_identifiers Identifier Names
+
+There are three main conventions for capitalizing identifiers:
+
+Pascal case:	The first letter in the identifier and the first letter of each
+subsequent concatenated word are capitalized. For example @c BackColor.
+
+Camel case:	The first letter of an identifier is lowercase and the first letter
+of each subsequent concatenated word is capitalized. For example
+@c backColor.
+
+Upper case:	All letters in the identifier are capitalized. For example
+@c BACKCOLOR.
+
+Linux case:	All letters are lowercase and the words are separated by '_'.
+For example @c back_color.
+
+  @subsection cs_typenames Type Names
+
+All types defined by a module should have a name whose prefix is the name of the
+module. In addition, there should be no underscores in such type names to
+distinguish them from function names. For instance in some module @c Module.h:
+
+	typedef int (*ModuleCompare)(int, int);
+	typedef struct {
+	  int16_t REAL;
+	  int16_t IMAG;
+	} ModuleComplex;
+
+  @subsection cs_functions Functions
+
+All function names consist of upper and lower-case letters, digits, and
+underscores. If a name consists of multiple words, the individual words are
+capitalized; the other letters are lower case. Underscores can be used to
+separate multiple idioms. Functions associated with a type should be prefixed by
+the name of the type followed by an underscore. Functions with external linkage
+not associated with a type should be prefixed by the module name followed by an
+underscore.
+
+	static void someFunc(...);
+	void ModuleObj_someObjFunc(...);
+	void Module_someFunc(...);
+
+
+  @subsection cs_structures Structures
+
+Each data structure or type should have a set of functions associated
+to it (whose declaration immediately follows the struct definition).
+The name of these functions must start with the type name:
+
+	struct ModuleString_ {
+	  uint16_t LENGTH;
+	  char *NAME;
+	};
+	typedef struct ModuleString_ ModuleString_, *ModuleString;
+
+	ModuleString ModuleString_Ctor(ModuleString this, char *);
+	ModuleString ModuleString_Copy(ModuleString this, ModuleString that);
+	void ModuleString_Dtor(ModuleString this);
+	size_t ModuleString_Size(ModuleString this, char *);
+
+	uint16_t ModuleString_length(ModuleString this);
+	void ModuleString_setLength(ModuleString this, int16_t length);
+	const char *ModuleString_name(ModuleString this);
+	void ModuleString_setName(ModuleString this, const char *name);
+
+
+  @subsection cs_enumerations Enumerations
+
+Enumeration names should have the same capitalization rules as types.  All
+enumeration member names should use the enumeration name as a prefix. All
+enumerations should have some method to allow clients to print the enumeration.
+
+	typedef enum {
+	  ModuleFlag_Opened,
+	  ModuleFlag_Closed,
+	  ModuleFlag_
+	} ModuleFlag;
+
+
+  @subsection cs_global Global/Local Variables
+
+All global variables names should be prefixed by namespace followed
+by an underscore.
+
+Many local variables are pointers to structures. Assuming the
+type(def) name of the structure pointer use the Pascal case, then the
+local variable should have the corresponding name in camel case:
+
+	ModuleString_ string_;
+	ModuleString string = ModuleString_Ctor(&string_, name);
+	ModuleString this_string, string_1, string_2, old_string;
+
+
+  @subsection cs_macro Macro Names
+
+  Macro names should start with the namespace prefix and have the
+remainder in upper case.
+
+  Temporary variables used inside macros should also follow this
+convention to avoid unexpected name clashes.
+
+
+  @section cs_bettercode Writing Better Code
+
+
+  @subsection cs_function Function Inlining
+
+  When the programmer judges inlining preferable for a given function (even if
+she judges affordable the impact of not doing it), then she should declare it
+=static inline=.
+
+  Using =static inline= might be a performance problem for
+compilers that do not honor @c inline. This Coding Conventions recommend using
+macros-like functions for accessing structure members between friends (shared
+between modules of a library), but keep real functions for anything public
+(exported for use outside a library).
+
+
+  @subsection cs_variable Variable Initializations
+
+All scalar local variables should be initialized in their
+declaration. If an useful initiatization value is not available,
+initialize it with zero.
+
+All global variables should have one definition and zero or more declarations.
+Do not rely on the common feature of C for global variables.
+
+
+  @subsection cs_unlocking Unlocking Instruction Scheduling
+
+  Avoid using expressions that involve several memory indirections.
+These should be broken into a series of simpler access steps.
+
+  Put rvalues in local variables as early as possible.
+
+  Assign to lvalues as late as possible.
+
+
+  @subsection cs_memory Memory Aligment of Objects
+
+  Lay structure members in decreasing memory alignment constraint.
+Assume pointers are 32-bit or wider so their alignment constraint is
+same as @c int32_t or larger.
+
+  Avoid misaligned data even if the architecture supports it. Native
+types should be on addresses multiple of their size.
+
+
+  @subsection cs_checking Checking Code Invariants
+
+  Design by contract. According to Bertrand Meyer, the key is
+"viewing the relationship between a class and its clients as a formal
+agreement, expressing each party's right and obligations". In
+procedural language, this implies that the caller must meet all the
+preconditions of the function being called and the callee or the
+function must meet its own postconditions. The failure of either
+party to live up to the terms of the contract is a bug in the
+software. The minimum support of design by contract is to provide
+@c REQUIRE and @c ENSURE macros that are used to respectively check
+preconditions and postconditions.
+
+Distinguish code invariant by checking them with different macros, like:
+@c Except_REQUIRE, @c Except_ENSURE, @c Except_CHECK.
+
+
+  @subsection cs_integer Integer Variable Overflow
+
+Try to avoid unsigned integer types for variables involved in
+arithmetic expressions, especially with loop induction variables.
+This is because overflow of unsigned integers has a defined effect in
+C, as opposed to signed integer overflow. A C compiler may be more
+aggressive with signed integer arithmetic because it may assume
+overflow will not occur.
+
+Beware of structure members that use small integers. While this is
+useful to reduce the structure footprint, any mutator function should
+check that the value stored equals the value assigned to the
+structure member.
+
+
+  @subsection cs_exception Exception Handling
+
+The C language does not have language support for exception handling.
+However, the @c setjmp and @c longjmp standard functions can be used to
+this support: <Exception Handling in C without C++
+http://www.on-time.com/index.html?page=ddj0011.htm>
+
+We are writing system code for embedded applications, so the
+exceptions we must be able to recover from are the out of memory
+conditions. Whenever an out of memory condition occurs, the code
+should @c longjmp to a point where the failed processing can be
+bypassed.
+
+
+ @section Package Package Organization
+
+Warning: obsolete information here. Cmake is used now instead of the autotools.
+
+A package is a set of libraries or executables that is configured and
+installed as a unit. This is the traditional notion of GNU source
+packages. The package should have a @c configure script generated by
+GNU @c autoconf and its top-level @c Makefile must obey the
+<GNU Coding Standard http://www.gnu.org/prep/standards/standards.html>. One
+option is to write a @c Makefile.am and use GNU @c automake.
+
+*/

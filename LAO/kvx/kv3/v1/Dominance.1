@@ -1,0 +1,138 @@
+
+Briggs-Harvey Forward
+
+Cooper-Harvey-Kennedy Figure 2
+
+Cooper-Harvey-Kennedy Figure 4
+
+Briggs-Harvey Backward
+
+Briggs-Harvey Backward infinite loop
+
+WTF? check old tests
+
+Das-Ramakrishna Forward
+
+Briggs-Harvey Forward:
+block_1:	CHILDREN={ block_2 block_4 block_5 block_8 block_9 block_10 block_11 block_12 }	DOMINATORS={ block_0 block_1 }	FRONTIER={ block_1 }	MERGESET={ block_1 }	TREELEVEL=1
+block_2:	CHILDREN={ block_3 block_6 }	DOMINATORS={ block_0 block_1 block_2 }	FRONTIER={ block_4 }	MERGESET={ block_1 block_4 block_5 }	TREELEVEL=2
+block_3:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_2 block_3 }	FRONTIER={ block_4 }	MERGESET={ block_1 block_4 block_5 }	TREELEVEL=3
+block_4:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_4 }	FRONTIER={ block_5 }	MERGESET={ block_1 block_4 block_5 }	TREELEVEL=2
+block_5:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_5 }	FRONTIER={ block_1 block_4 }	MERGESET={ block_1 block_4 block_5 }	TREELEVEL=2
+block_6:	CHILDREN={ block_7 }	DOMINATORS={ block_0 block_1 block_2 block_6 }	FRONTIER={ block_4 }	MERGESET={ block_1 block_4 block_5 }	TREELEVEL=3
+block_7:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_2 block_6 block_7 }	FRONTIER={ block_4 }	MERGESET={ block_1 block_4 block_5 }	TREELEVEL=4
+block_8:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_8 }	FRONTIER={ block_9 block_11 block_12 }	MERGESET={ block_1 block_4 block_5 block_9 block_10 block_11 block_12 }	TREELEVEL=2
+block_9:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_9 }	FRONTIER={ block_10 }	MERGESET={ block_1 block_4 block_5 block_9 block_10 }	TREELEVEL=2
+block_10:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_10 }	FRONTIER={ block_5 block_9 }	MERGESET={ block_1 block_4 block_5 block_9 block_10 }	TREELEVEL=2
+block_11:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_11 }	FRONTIER={ block_12 }	MERGESET={ block_1 block_4 block_5 block_9 block_10 block_12 }	TREELEVEL=2
+block_12:	CHILDREN={ block_13 }	DOMINATORS={ block_0 block_1 block_12 }	FRONTIER={ block_10 }	MERGESET={ block_1 block_4 block_5 block_9 block_10 }	TREELEVEL=2
+block_13:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_12 block_13 }	FRONTIER={ block_10 }	MERGESET={ block_1 block_4 block_5 block_9 block_10 }	TREELEVEL=3
+treeOrder:	block_1=>1	block_2=>2	block_4=>2	block_5=>2	block_8=>2	block_9=>2	block_10=>2	block_11=>2	block_12=>2	block_3=>3	block_6=>3	block_13=>3	block_7=>4
+block_1 dominates:	block_1	block_2	block_3	block_4	block_5	block_6	block_7	block_8	block_9	block_10	block_11	block_12	block_13
+block_2 dominates:	block_2	block_3	block_6	block_7
+block_3 dominates:	block_3
+block_4 dominates:	block_4
+block_5 dominates:	block_5
+block_6 dominates:	block_6	block_7
+block_7 dominates:	block_7
+block_8 dominates:	block_8
+block_9 dominates:	block_9
+block_10 dominates:	block_10
+block_11 dominates:	block_11
+block_12 dominates:	block_12	block_13
+block_13 dominates:	block_13
+
+Cooper-Harvey-Kennedy Figure 2:
+block_1:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_5 }	FRONTIER={ block_2 }	MERGESET={ block_1 block_2 }	TREELEVEL=2
+block_2:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_5 }	FRONTIER={ block_1 }	MERGESET={ block_1 block_2 }	TREELEVEL=2
+block_3:	CHILDREN={ }	DOMINATORS={ block_0 block_3 block_5 }	FRONTIER={ block_2 }	MERGESET={ block_1 block_2 }	TREELEVEL=2
+block_4:	CHILDREN={ }	DOMINATORS={ block_0 block_4 block_5 }	FRONTIER={ block_1 }	MERGESET={ block_1 block_2 }	TREELEVEL=2
+block_5:	CHILDREN={ block_1 block_2 block_3 block_4 }	DOMINATORS={ block_0 block_5 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=1
+treeOrder:	block_5=>1	block_1=>2	block_2=>2	block_3=>2	block_4=>2
+block_1 dominates:	block_1
+block_2 dominates:	block_2
+block_3 dominates:	block_3
+block_4 dominates:	block_4
+block_5 dominates:	block_1	block_2	block_3	block_4	block_5
+post-order:
+	block_2	block_1	block_4	block_3	block_5
+reverse post-order:
+	block_5	block_3	block_4	block_1	block_2
+
+Cooper-Harvey-Kennedy Figure 4:
+block_1:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_6 }	FRONTIER={ block_2 }	MERGESET={ block_1 block_2 block_3 }	TREELEVEL=2
+block_2:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_6 }	FRONTIER={ block_1 block_3 }	MERGESET={ block_1 block_2 block_3 }	TREELEVEL=2
+block_3:	CHILDREN={ }	DOMINATORS={ block_0 block_3 block_6 }	FRONTIER={ block_2 }	MERGESET={ block_1 block_2 block_3 }	TREELEVEL=2
+block_4:	CHILDREN={ }	DOMINATORS={ block_0 block_4 block_6 }	FRONTIER={ block_2 block_3 }	MERGESET={ block_1 block_2 block_3 }	TREELEVEL=2
+block_5:	CHILDREN={ }	DOMINATORS={ block_0 block_5 block_6 }	FRONTIER={ block_1 }	MERGESET={ block_1 block_2 block_3 }	TREELEVEL=2
+block_6:	CHILDREN={ block_1 block_2 block_3 block_4 block_5 }	DOMINATORS={ block_0 block_6 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=1
+treeOrder:	block_6=>1	block_1=>2	block_2=>2	block_3=>2	block_4=>2	block_5=>2
+block_1 dominates:	block_1
+block_2 dominates:	block_2
+block_3 dominates:	block_3
+block_4 dominates:	block_4
+block_5 dominates:	block_5
+block_6 dominates:	block_1	block_2	block_3	block_4	block_5	block_6
+
+Briggs-Harvey Backward:
+block_1:	CHILDREN={ }	DOMINATORS={ block_0 block_1 block_6 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=2
+block_2:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_5 block_6 }	FRONTIER={ block_1 }	MERGESET={ block_1 }	TREELEVEL=3
+block_3:	CHILDREN={ }	DOMINATORS={ block_0 block_3 block_5 block_6 }	FRONTIER={ block_2 }	MERGESET={ block_1 block_2 }	TREELEVEL=3
+block_4:	CHILDREN={ }	DOMINATORS={ block_0 block_4 block_5 block_6 }	FRONTIER={ block_2 }	MERGESET={ block_1 block_2 }	TREELEVEL=3
+block_5:	CHILDREN={ block_2 block_3 block_4 }	DOMINATORS={ block_0 block_5 block_6 }	FRONTIER={ block_1 }	MERGESET={ block_1 }	TREELEVEL=2
+block_6:	CHILDREN={ block_1 block_5 }	DOMINATORS={ block_0 block_6 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=1
+treeOrder:	block_6=>1	block_1=>2	block_5=>2	block_2=>3	block_3=>3	block_4=>3
+block_1 dominates:	block_1
+block_2 dominates:	block_2
+block_3 dominates:	block_3
+block_4 dominates:	block_4
+block_5 dominates:	block_2	block_3	block_4	block_5
+block_6 dominates:	block_1	block_2	block_3	block_4	block_5	block_6
+Das-Ramakrishna Forward:
+block_1:	CHILDREN={ }	DOMINATORS={ block_0 block_1 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=1
+block_2:	CHILDREN={ block_3 }	DOMINATORS={ block_0 block_2 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=1
+block_3:	CHILDREN={ block_4 block_5 block_8 block_23 }	DOMINATORS={ block_0 block_2 block_3 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=2
+block_4:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_4 }	FRONTIER={ block_5 }	MERGESET={ block_5 block_8 }	TREELEVEL=3
+block_5:	CHILDREN={ block_6 block_7 }	DOMINATORS={ block_0 block_2 block_3 block_5 }	FRONTIER={ block_5 block_8 }	MERGESET={ block_5 block_8 }	TREELEVEL=3
+block_6:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_5 block_6 }	FRONTIER={ block_7 }	MERGESET={ block_5 block_7 block_8 }	TREELEVEL=4
+block_7:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_5 block_7 }	FRONTIER={ block_5 block_8 }	MERGESET={ block_5 block_8 }	TREELEVEL=4
+block_8:	CHILDREN={ block_9 block_10 block_14 }	DOMINATORS={ block_0 block_2 block_3 block_8 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=3
+block_9:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_9 }	FRONTIER={ block_10 }	MERGESET={ block_10 }	TREELEVEL=4
+block_10:	CHILDREN={ block_11 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_10 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=4
+block_11:	CHILDREN={ block_12 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_10 block_11 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=5
+block_12:	CHILDREN={ block_13 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_10 block_11 block_12 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=6
+block_13:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_10 block_11 block_12 block_13 }	FRONTIER={ }	MERGESET={ }	TREELEVEL=7
+block_14:	CHILDREN={ block_15 block_16 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 }	FRONTIER={ block_10 }	MERGESET={ block_10 }	TREELEVEL=4
+block_15:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_15 }	FRONTIER={ block_16 }	MERGESET={ block_10 block_16 }	TREELEVEL=5
+block_16:	CHILDREN={ block_17 block_22 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 }	FRONTIER={ block_10 }	MERGESET={ block_10 }	TREELEVEL=5
+block_17:	CHILDREN={ block_18 block_21 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 block_17 }	FRONTIER={ block_22 }	MERGESET={ block_10 block_22 }	TREELEVEL=6
+block_18:	CHILDREN={ block_19 block_20 }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 block_17 block_18 }	FRONTIER={ block_18 block_21 }	MERGESET={ block_10 block_18 block_21 block_22 }	TREELEVEL=7
+block_19:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 block_17 block_18 block_19 }	FRONTIER={ block_20 }	MERGESET={ block_10 block_18 block_20 block_21 block_22 }	TREELEVEL=8
+block_20:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 block_17 block_18 block_20 }	FRONTIER={ block_18 block_21 }	MERGESET={ block_10 block_18 block_21 block_22 }	TREELEVEL=8
+block_21:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 block_17 block_21 }	FRONTIER={ block_22 }	MERGESET={ block_10 block_22 }	TREELEVEL=7
+block_22:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_8 block_14 block_16 block_22 }	FRONTIER={ block_10 }	MERGESET={ block_10 }	TREELEVEL=6
+block_23:	CHILDREN={ }	DOMINATORS={ block_0 block_2 block_3 block_23 }	FRONTIER={ block_5 block_8 }	MERGESET={ block_5 block_8 }	TREELEVEL=3
+treeOrder:	block_1=>1	block_2=>1	block_3=>2	block_4=>3	block_5=>3	block_8=>3	block_23=>3	block_6=>4	block_7=>4	block_9=>4	block_10=>4	block_14=>4	block_11=>5	block_15=>5	block_16=>5	block_12=>6	block_17=>6	block_22=>6	block_13=>7	block_18=>7	block_21=>7	block_19=>8	block_20=>8
+block_1 dominates:	block_1
+block_2 dominates:	block_2	block_3	block_4	block_5	block_6	block_7	block_8	block_9	block_10	block_11	block_12	block_13	block_14	block_15	block_16	block_17	block_18	block_19	block_20	block_21	block_22	block_23
+block_3 dominates:	block_3	block_4	block_5	block_6	block_7	block_8	block_9	block_10	block_11	block_12	block_13	block_14	block_15	block_16	block_17	block_18	block_19	block_20	block_21	block_22	block_23
+block_4 dominates:	block_4
+block_5 dominates:	block_5	block_6	block_7
+block_6 dominates:	block_6
+block_7 dominates:	block_7
+block_8 dominates:	block_8	block_9	block_10	block_11	block_12	block_13	block_14	block_15	block_16	block_17	block_18	block_19	block_20	block_21	block_22
+block_9 dominates:	block_9
+block_10 dominates:	block_10	block_11	block_12	block_13
+block_11 dominates:	block_11	block_12	block_13
+block_12 dominates:	block_12	block_13
+block_13 dominates:	block_13
+block_14 dominates:	block_14	block_15	block_16	block_17	block_18	block_19	block_20	block_21	block_22
+block_15 dominates:	block_15
+block_16 dominates:	block_16	block_17	block_18	block_19	block_20	block_21	block_22
+block_17 dominates:	block_17	block_18	block_19	block_20	block_21
+block_18 dominates:	block_18	block_19	block_20
+block_19 dominates:	block_19
+block_20 dominates:	block_20
+block_21 dominates:	block_21
+block_22 dominates:	block_22
+block_23 dominates:	block_23

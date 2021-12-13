@@ -1,0 +1,74 @@
+/** @file
+ * Entry point of LAO documentation.
+ */
+
+/** @mainpage
+ *
+ * @section intro Introduction
+ *
+ * LAO stands for <b>Linear Assembly Optimizer</b>. It is comprised of four 
+ * main sub-projects:
+ * 
+ * - CDT: @ref CDT
+ * - TSL: @ref TSL
+ * - ECL: @ref ECL
+ * - PRO: @ref PRO (formerly known as Pro64)
+ *
+ * Also note the existence of the following directory:
+ * - RE2C: snapshot of the corresponding open-source project. It is included in 
+ *   order to have a compatible build and cross-build system with the rest of 
+ *   the LAO and the Open64. Currently not in use.
+ * 
+ * <hr>
+ *
+ * Requirements & Installation: see the @ref install "INSTALL" file, included below.
+ *
+ * Coding Rules: see the @ref codingRules.
+ *
+ * C Coding Style: see the @ref codingStyle.
+ *
+ * Programming yet to be documented guidelines: see the @ref guidelines.
+ *
+ * Tutorials on LAO:
+ * - @ref lirTutorial.
+ *
+ * <hr>
+ * @section install Installation
+ * (Verbatim inclusion of the INSTALL file at the root of LAO)
+ * @verbinclude INSTALL
+ *
+ * <hr>
+ * @section readme Readme
+ * @verbinclude README
+ */
+
+/**
+ * @page guidelines LAO Programming Guidelines
+ *
+ * No guidelines yet. What needs to be documented is:
+ *
+ * - historic use of XCC
+ * - heritage from XCC:
+ *   - header generation: .h and $XCC_h blocks
+ *   - "private" headers: _.h and $XCC__h blocks
+ *   - self tests: _.c and $XCC_c blocks + XCC_C main()
+ *   - Structures and usage of _ (Toto_ is the object, Toto is a pointer to the object)
+ *
+ * - Loop macros: xxx_FOREACH_xxx(...) {  must be ended by } xxx_ENDEACH_xxx ;
+ * - no empty line between #ifdef $XCC... and #endif//$XCC...
+ * - and much more...
+ *
+ *
+ */
+/*
+ * <hr>
+ * @section notes release.notes
+ * release.notes
+ * <hr>
+ * @section requirements requirements
+ * @verbinclude requirements
+ * <hr> 
+ * @todo [optionally include text about more work to be done]
+ * @todo Give each todo item its own line
+ *
+ */

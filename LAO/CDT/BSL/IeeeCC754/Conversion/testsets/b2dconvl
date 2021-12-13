@@ -1,0 +1,223 @@
+!!
+!! This file contains test vectors for binary (format -l or -e 15 -t 64) 
+!! to decimal conversion (b2dl) . The first character in each
+!! test vector refers to the origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: b2dconvl 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+Ab2d l UN +0 E-16383 OK +0 E+0
+Ab2d l UN -0 E-16383 OK -0 E+0
+
+!! 1 dec digits
+!! just over exact
+Ab2d l UN 8fd0c16206306bac E-1020 x +1_0000000000000000000& E-307 
+!! just under exact
+Ab2d l UN ffffffffffffffff E-1020 x +1_9& E-307 
+
+!! 2 dec digits
+!! just over exact
+Ab2d l UN c7924d1785dd85a0 E+613 x +53_0000000000000000000000& E+183 
+Ab2d l UN -f976e05d6754e708 E+616 x -53_0000000000000000000000& E+184
+Ab2d l UN -d0cf4b50cfe20766 E+186 x -16_000000000000000000000& E+55 
+Ab2d l UN eb642d399226245c E-180 x +12_000000000000000000000& E-55 
+Ab2d l UN -b08b21eb2d9c9b45 E-179 x -18_000000000000000000000& E-55 
+Ab2d l UN b08b21eb2d9c9b45 E-178 x +36_000000000000000000000& E-55 
+Ab2d l UN -e73a2fd364553a20 E-666 x -59_000000000000000000000& E-202 
+!! just under exact
+Ab2d l UN f3b4f599e90ba3e4 E+969 x +94_99999999999999999999& E+290 
+Ab2d l UN -a16cb5f8ecd7ddfc E+223 x -16_99999999999999999999& E+66 
+Ab2d l UN f224fdffd362a19a E+451 x +10_99999999999999999999& E+135 
+Ab2d l UN -da818e3433141c66 E+528 x -14_99999999999999999999& E+158 
+Ab2d l UN c6d0a8a9d3999d48 E-983 x +18_9999999999999999999999& E-297 
+Ab2d l UN -8c4ddd3ec51f1103 E-158 x -29_999999999999999999999& E-49 
+Ab2d l UN 8c4ddd3ec51f1103 E-157 x +59_999999999999999999999& E-49 
+Ab2d l UN -f884d2d44880049a E-980 x -18_9999999999999999999999& E-296 
+
+!! 3 dec digits
+!! just over exact
+Ab2d l UN -bd412cd783bb0643 E+133 x -161_0000000000000000000000& E+38 
+!! just under exact
+Ab2d l UN 8cb8a1f8172f9752 E+999 x +588_999999999999999999999& E+298 
+
+!! 4 dec digits
+!! just over exact
+!! just under exact
+Ab2d l UN -ffac7c320f02d788 E+264 x -5920_999999999999999999999& E+76 
+Ab2d l UN d1a62af0e58f6844 E+874 x +2062_999999999999999999999& E+260 
+Ab2d l UN -d1a62af0e58f6844 E+875 x -4125_999999999999999999999& E+260 
+
+!! 5 dec digits
+!! just over exact
+Ab2d l UN 9e3f82d885b61df8 E+515 x +13261_000000000000000000000& E+151 
+Ab2d l UN -c5cf638ea723a576 E+518 x -13261_000000000000000000000& E+152
+Ab2d l UN -e4c1a8c0ad7b676f E+147 x -31884_00000000000000000000& E+40 
+Ab2d l UN a2a5c8dc2a988ca6 E-459 x +85363_000000000000000000000& E-143
+Ab2d l UN -8674d960d9dad244 E-443 x -46247_00000000000000000000& E-138 
+!! just under exact
+Ab2d l UN 9e51e4682d04a6cb E+824 x +13836_999999999999999999999& E+244 
+Ab2d l UN -92dcaeb27f08c54a E+676 x -35972_999999999999999999999& E+199 
+Ab2d l UN 92dcaeb27f08c54a E+677 x +71945_999999999999999999999& E+199 
+Ab2d l UN -c5165038932f64ae E+428 x -10672_999999999999999999999& E+125 
+Ab2d l UN dc66ea989382011b E-708 x +12786_999999999999999999999& E-217 
+Ab2d l UN -dc66ea989382011b E-707 x -25573_999999999999999999999& E-217 
+Ab2d l UN ceff4917ffd39c4d E-332 x +18483_99999999999999999999& E-104 
+Ab2d l UN -ceff4917ffd39c4d E-331 x -36967_99999999999999999999& E-104 
+
+!! 6 dec digits
+!! just over exact
+Ab2d l UN -f5cc76f1b27895a2 E+129 x -130689_000000000000000000000& E+34 
+!! just under exact
+Ab2d l UN 90c90f4bd7dd19a2 E-169 x +151162_9999999999999999999999& E-56 
+Ab2d l UN ba2d74d6a66a8b88 E-746 x +392952_999999999999999999999& E-230 
+Ab2d l UN -ba2d74d6a66a8b88 E-745 x -785905_999999999999999999999& E-230 
+
+!! 7 dec digits
+!! just over exact
+!! just under exact
+Ab2d l UN -ab43289f8370c1d4 E+884 x -1725710_9999999999999999999999& E+260 
+Ab2d l UN d613f2c7644cf249 E+887 x +1725710_9999999999999999999999& E+261 
+Ab2d l UN -89801d0405cddf52 E+929 x -4874836_9999999999999999999999& E+273 
+
+!! 8 dec digits
+!! just over exact
+!! just under exact
+
+!! 9 dec digits
+!! just over exact
+!! just under exact 
+
+!! 10 dec digits
+!! just over exact 
+!! just under exact
+
+!! 1 dec digits
+!! just over half ulp
+!! just under half ulp
+Ab2d l UN d7b922130948a181 E-1020 x +1_4999999999999999999& E-307
+
+!! 2 dec digits
+!! just over half ulp
+Ab2d l UN bd412cd783bb0643 E+132 x +80_5000000000000000000000& E+38 
+Ab2d l UN -c7924d1785dd85a0 E+612 x -26_5000000000000000000000& E+183 
+Ab2d l UN -f976e05d6754e708 E+615 x -26_5000000000000000000000& E+184 
+Ab2d l UN cf615a2bfb95af97 E-958 x +66_500000000000000000000& E-290 
+Ab2d l UN -b08b21eb2d9c9b45 E-182 x -22_500000000000000000000& E-56 
+Ab2d l UN 9fd561f1fd0f9bd4 E-485 x +12_50000000000000000000& E-147 
+Ab2d l UN -8fd9a4f363c13f72 E-484 x -22_50000000000000000000& E-147 
+!! just under half ulp
+Ab2d l UN e77a9195081f0156 E+780 x +11_499999999999999999999& E+234 
+Ab2d l UN -a83f6c268bd34a0c E+332 x -11_499999999999999999999& E+99 
+Ab2d l UN d24f47302ec81c8f E+335 x +11_499999999999999999999& E+100 
+Ab2d l UN -9c235ce315758651 E+474 x -59_49999999999999999999& E+141 
+Ab2d l UN fd28ea01e5ac3844 E-704 x +23_499999999999999999999& E-213 
+Ab2d l UN -c6d0a8a9d3999d48 E-985 x -47_499999999999999999999& E-298 
+Ab2d l UN a3b0d9a9eb7656cd E-946 x +21_499999999999999999999& E-286 
+Ab2d l UN -8c4ddd3ec51f1103 E-161 x -37_499999999999999999999& E-50 
+
+!! 3 dec digits
+!! just over half ulp
+Ab2d l UN e75e66451e864a09 E-109 x +278_500000000000000000000& E-35 
+!! just under half ulp
+Ab2d l UN -ce953c2e98e12dce E+110 x -209_499999999999999999999& E+31 
+
+!! 4 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 5 dec digits
+!! just over half ulp
+Ab2d l UN e459b0121faa0082 E+159 x +13036_500000000000000000000& E+44
+Ab2d l UN f5cc76f1b27895a2 E+128 x +65344_500000000000000000000& E+34 
+Ab2d l UN -912405a5528f3ba7 E+376 x -17452_50000000000000000000& E+109 
+Ab2d l UN bc783a7cce2fed7d E-119 x +22154_500000000000000000000& E-40 
+Ab2d l UN -96c69530a4f32464 E-122 x -22154_500000000000000000000& E-41 
+Ab2d l UN c9af461146c83b66 E-443 x +69370_50000000000000000000& E-138 
+Ab2d l UN -db79954273b6b2c4 E-62 x -37180_50000000000000000000& E-23 
+!! just under half ulp
+Ab2d l UN c3a4a07cd5975d3d E+576 x +37803_499999999999999999999& E+169 
+Ab2d l UN -ca1586ac6e679fbe E+770 x -98043_499999999999999999999& E+227 
+Ab2d l UN dc4b060bbe8d27ef E+676 x +53959_499999999999999999999& E+199 
+Ab2d l UN -bfc15d258b4221a6 E+264 x -44407_49999999999999999999& E+75 
+Ab2d l UN e2d33ebc05203b9e E-422 x +16361_499999999999999999999& E-131 
+Ab2d l UN -90c90f4bd7dd19a2 E-170 x -75581_4999999999999999999999& E-56 
+Ab2d l UN b65ac8d3ef68cae8 E-901 x +84271_49999999999999999999& E-276 
+Ab2d l UN -e1e2f421d408491c E-865 x -71735_49999999999999999999& E-265 
+
+!! 6 dec digits
+!! just over half ulp
+Ab2d l UN -ecded45e8eb8cb0b E+778 x -294196_500000000000000000000& E+229 
+Ab2d l UN -b2f3299ec7be0c0a E+214 x -368078_500000000000000000000& E+59 
+Ab2d l UN f3f8ad4a3fe4d2f9 E-459 x +128044_500000000000000000000& E-143 
+Ab2d l UN -f15aec95e8a83cca E-910 x -217846_500000000000000000000& E-279 
+!! just under half ulp
+Ab2d l UN -ab43289f8370c1d4 E+883 x -862855_4999999999999999999999& E+260 
+Ab2d l UN d613f2c7644cf249 E+886 x +862855_4999999999999999999999& E+261 
+Ab2d l UN -916413426bd2488c E+456 x -211351_499999999999999999999& E+132
+Ab2d l UN 8ba217a0fccfe8a6 E-745 x +589429_499999999999999999999& E-230 
+Ab2d l UN -90c90f4bd7dd19a2 E-171 x -377907_499999999999999999999& E-57 
+
+!! 7 dec digits
+!! just over half ulp
+!! just under half ulp
+Ab2d l UN -ce402b8608b4cefb E+929 x -7312255_4999999999999999999999& E+273 
+
+!! 8 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 9 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 10 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! EOF
+

@@ -1,0 +1,112 @@
+============
+Notes on LAO (by Florent Bouchez Tichadou)
+============
+
+
+Register allocation
+===================
+The code is available in ECL/CGO/Spill.c.
+
+A rudimentary register allocation pass is available under SSA Form.
+The Spill.c file contains auxiliary spill functions, creation and insertion of
+store/load instructions, spilling of a SSA variable, as well as the entry point
+to the register allocation algorithm.
+The scheme employed is Belady-like, with spilling and register assignment
+being performed on a per-block fashion.
+Variables are required to be in memory between basic blocks.
+The spill used is "spill everywhere."
+
+
+Spill_allGlobalEverywhereLocalBelady
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Performs allocation on a code region. It first spills all global variables
+(i.e., variables that spans across more than one basic block), then calls the
+following spill function on every basic block.
+
+
+Spill_basicBlockBelady
+~~~~~~~~~~~~~~~~~~~~~~
+This is where the Belady-like spill algorithm is applied.  Starting from the
+end of the block, every instruction is scanned while maintaining the number of
+live variables. Whenever there are more variables alive than the number of
+available registers, the one that is used the latests is spilled to memory
+(furthest-first strategy). Then, we assign a register to each new live variable
+(i.e., the arguments of the instruction that where not already in the live
+set).
+
+
+Spill_variableEverywhere
+~~~~~~~~~~~~~~~~~~~~~~~~
+The spill "everywhere" method means that once we decide to spill a variable, we
+put it in memory on its whole live-range, i.e., a store is inserted at the
+definition and loads before every use.
+
+
+
+BWLU
+====
+
+LAO can output the data-flow graph in a text file so it can be read by a ruby
+prototype that looks for opportunities for using BWLU instructions.
+The code is in ECL/CGO/Accelerator.c
+This is triggered by setting the BWLU_TRACE environment variable to 1.
+LAO has also an incomplete skeleton for selecting BWLU instructions with a
+greedy (hence not optimal) algorithm.
+
+
+SSAForm_getBFGmagicbox
+~~~~~~~~~~~~~~~~~~~~~~
+This function prints the data-flow graph in yaml format, easy to parse in ruby.
+
+
+SSAForm_getdottyDFGmagicbox
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This function prints the data-flow graph in dot format, for easy debugging.
+
+
+SSAForm_selectBWLU
+~~~~~~~~~~~~~~~~~~
+Tries to replace bit-wise operations with BWLU on an SSAForm by calling the
+following function on every basic block.
+
+
+SSAForm_basicBlock_greedyBWLU
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Creates a data-flow graph where the leaves are instructions producing live-out
+variables.  Then a greedy algorithm scans the DAG from the leaves, trying to
+start a new BWLU when it encounters a bit-wise instruction, by calling the
+following function.
+
+
+greedyBWLU_select_best_BWLU
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This function is currently empty. The goal was, starting from a "root"
+bit-wise instruction, to try augmenting the BWLU with other bit-wise
+instructions that are not yet matched to BWLU, and are either producer of a
+value used in the BWLU (initially, by root), or use the same set of input
+values to create a second output (BWLUs can output two values). This stops
+whenever the number of required input/output would exceed the limit (currently
+4 inputs / 2 outputs).
+
+
+
+
+
+Tirex
+=====
+
+LAO can read Tirex program using two different ways. Benoit's way uses yaml
+events and is faster, Florent's way creates the whole yaml representation in
+memory then parses it, it is slower but provides feedback on lines and position
+whenever the format is invalid. The code can be found respectively in
+ECL/LIR/Tirex.c
+ECL/LIR/Minir.c
+
+Actually, the second one is also capable of reading Minir style code, however,
+Minir program are not complete as they do not include data.
+Currently, the LAO uses the Minir parser by default in the ECL/lao.c file,
+entry point of the k1-lao program.
+This is the version of LAO that is used to parse Tirex code output using the
+GCC Tirex plugin.
+This is also the parser that is used for the LAO self-tests.

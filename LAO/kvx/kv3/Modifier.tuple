@@ -1,0 +1,284 @@
+/*
+ * kv3/Modifier.enum
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Modifier
+#define Modifier(ID, MEMBERS, ENCODE, DECODE)
+#else /*Modifier*/
+Modifier(kv3_exunum,
+         MEMBERS(4,
+                 MEMBER(kv3_exunum_ALU0, NAME(ALU0), LCNAME(alu0), VALUE(0))
+                 MEMBER(kv3_exunum_ALU1, NAME(ALU1), LCNAME(alu1), VALUE(1))
+                 MEMBER(kv3_exunum_MAU, NAME(MAU), LCNAME(mau), VALUE(2))
+                 MEMBER(kv3_exunum_LSU, NAME(LSU), LCNAME(lsu), VALUE(3))),
+         ENCODE(VALUE -= 1),
+         DECODE(VALUE += 1))
+Modifier(kv3_scalarcond,
+         MEMBERS(14,
+                 MEMBER(kv3_scalarcond_DNEZ, NAME(.DNEZ), LCNAME(.dnez), VALUE(0))
+                 MEMBER(kv3_scalarcond_DEQZ, NAME(.DEQZ), LCNAME(.deqz), VALUE(1))
+                 MEMBER(kv3_scalarcond_DLTZ, NAME(.DLTZ), LCNAME(.dltz), VALUE(2))
+                 MEMBER(kv3_scalarcond_DGEZ, NAME(.DGEZ), LCNAME(.dgez), VALUE(3))
+                 MEMBER(kv3_scalarcond_DLEZ, NAME(.DLEZ), LCNAME(.dlez), VALUE(4))
+                 MEMBER(kv3_scalarcond_DGTZ, NAME(.DGTZ), LCNAME(.dgtz), VALUE(5))
+                 MEMBER(kv3_scalarcond_ODD, NAME(.ODD), LCNAME(.odd), VALUE(6))
+                 MEMBER(kv3_scalarcond_EVEN, NAME(.EVEN), LCNAME(.even), VALUE(7))
+                 MEMBER(kv3_scalarcond_WNEZ, NAME(.WNEZ), LCNAME(.wnez), VALUE(8))
+                 MEMBER(kv3_scalarcond_WEQZ, NAME(.WEQZ), LCNAME(.weqz), VALUE(9))
+                 MEMBER(kv3_scalarcond_WLTZ, NAME(.WLTZ), LCNAME(.wltz), VALUE(10))
+                 MEMBER(kv3_scalarcond_WGEZ, NAME(.WGEZ), LCNAME(.wgez), VALUE(11))
+                 MEMBER(kv3_scalarcond_WLEZ, NAME(.WLEZ), LCNAME(.wlez), VALUE(12))
+                 MEMBER(kv3_scalarcond_WGTZ, NAME(.WGTZ), LCNAME(.wgtz), VALUE(13))),
+         ENCODE(VALUE -= 5),
+         DECODE(VALUE += 5))
+Modifier(kv3_simplecond,
+         MEMBERS(8,
+                 MEMBER(kv3_simplecond_NEZ, NAME(.NEZ), LCNAME(.nez), VALUE(0))
+                 MEMBER(kv3_simplecond_EQZ, NAME(.EQZ), LCNAME(.eqz), VALUE(1))
+                 MEMBER(kv3_simplecond_LTZ, NAME(.LTZ), LCNAME(.ltz), VALUE(2))
+                 MEMBER(kv3_simplecond_GEZ, NAME(.GEZ), LCNAME(.gez), VALUE(3))
+                 MEMBER(kv3_simplecond_LEZ, NAME(.LEZ), LCNAME(.lez), VALUE(4))
+                 MEMBER(kv3_simplecond_GTZ, NAME(.GTZ), LCNAME(.gtz), VALUE(5))
+                 MEMBER(kv3_simplecond_ODD, NAME(.ODD), LCNAME(.odd), VALUE(6))
+                 MEMBER(kv3_simplecond_EVEN, NAME(.EVEN), LCNAME(.even), VALUE(7))),
+         ENCODE(VALUE -= 19),
+         DECODE(VALUE += 19))
+Modifier(kv3_comparison,
+         MEMBERS(14,
+                 MEMBER(kv3_comparison_NE, NAME(.NE), LCNAME(.ne), VALUE(0))
+                 MEMBER(kv3_comparison_EQ, NAME(.EQ), LCNAME(.eq), VALUE(1))
+                 MEMBER(kv3_comparison_LT, NAME(.LT), LCNAME(.lt), VALUE(2))
+                 MEMBER(kv3_comparison_GE, NAME(.GE), LCNAME(.ge), VALUE(3))
+                 MEMBER(kv3_comparison_LE, NAME(.LE), LCNAME(.le), VALUE(4))
+                 MEMBER(kv3_comparison_GT, NAME(.GT), LCNAME(.gt), VALUE(5))
+                 MEMBER(kv3_comparison_LTU, NAME(.LTU), LCNAME(.ltu), VALUE(6))
+                 MEMBER(kv3_comparison_GEU, NAME(.GEU), LCNAME(.geu), VALUE(7))
+                 MEMBER(kv3_comparison_LEU, NAME(.LEU), LCNAME(.leu), VALUE(8))
+                 MEMBER(kv3_comparison_GTU, NAME(.GTU), LCNAME(.gtu), VALUE(9))
+                 MEMBER(kv3_comparison_ALL, NAME(.ALL), LCNAME(.all), VALUE(10))
+                 MEMBER(kv3_comparison_NALL, NAME(.NALL), LCNAME(.nall), VALUE(11))
+                 MEMBER(kv3_comparison_ANY, NAME(.ANY), LCNAME(.any), VALUE(12))
+                 MEMBER(kv3_comparison_NONE, NAME(.NONE), LCNAME(.none), VALUE(13))),
+         ENCODE(VALUE -= 27),
+         DECODE(VALUE += 27))
+Modifier(kv3_floatcomp,
+         MEMBERS(8,
+                 MEMBER(kv3_floatcomp_ONE, NAME(.ONE), LCNAME(.one), VALUE(0))
+                 MEMBER(kv3_floatcomp_UEQ, NAME(.UEQ), LCNAME(.ueq), VALUE(1))
+                 MEMBER(kv3_floatcomp_OEQ, NAME(.OEQ), LCNAME(.oeq), VALUE(2))
+                 MEMBER(kv3_floatcomp_UNE, NAME(.UNE), LCNAME(.une), VALUE(3))
+                 MEMBER(kv3_floatcomp_OLT, NAME(.OLT), LCNAME(.olt), VALUE(4))
+                 MEMBER(kv3_floatcomp_UGE, NAME(.UGE), LCNAME(.uge), VALUE(5))
+                 MEMBER(kv3_floatcomp_OGE, NAME(.OGE), LCNAME(.oge), VALUE(6))
+                 MEMBER(kv3_floatcomp_ULT, NAME(.ULT), LCNAME(.ult), VALUE(7))),
+         ENCODE(VALUE -= 41),
+         DECODE(VALUE += 41))
+Modifier(kv3_rounding,
+         MEMBERS(8,
+                 MEMBER(kv3_rounding_RN, NAME(.RN), LCNAME(.rn), VALUE(0))
+                 MEMBER(kv3_rounding_RU, NAME(.RU), LCNAME(.ru), VALUE(1))
+                 MEMBER(kv3_rounding_RD, NAME(.RD), LCNAME(.rd), VALUE(2))
+                 MEMBER(kv3_rounding_RZ, NAME(.RZ), LCNAME(.rz), VALUE(3))
+                 MEMBER(kv3_rounding_RNA, NAME(.RNA), LCNAME(.rna), VALUE(4))
+                 MEMBER(kv3_rounding_RNZ, NAME(.RNZ), LCNAME(.rnz), VALUE(5))
+                 MEMBER(kv3_rounding_RO, NAME(.RO), LCNAME(.ro), VALUE(6))
+                 MEMBER(kv3_rounding_, NAME(), LCNAME(), VALUE(7))),
+         ENCODE(VALUE -= 49),
+         DECODE(VALUE += 49))
+Modifier(kv3_silent,
+         MEMBERS(2,
+                 MEMBER(kv3_silent_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_silent_S, NAME(.S), LCNAME(.s), VALUE(1))),
+         ENCODE(VALUE -= 57),
+         DECODE(VALUE += 57))
+Modifier(kv3_roundint,
+         MEMBERS(5,
+                 MEMBER(kv3_roundint_RN, NAME(.RN), LCNAME(.rn), VALUE(0))
+                 MEMBER(kv3_roundint_RU, NAME(.RU), LCNAME(.ru), VALUE(1))
+                 MEMBER(kv3_roundint_RD, NAME(.RD), LCNAME(.rd), VALUE(2))
+                 MEMBER(kv3_roundint_RZ, NAME(.RZ), LCNAME(.rz), VALUE(3))
+                 MEMBER(kv3_roundint_RHU, NAME(.RHU), LCNAME(.rhu), VALUE(4))),
+         ENCODE(VALUE -= 59),
+         DECODE(VALUE += 59))
+Modifier(kv3_saturate,
+         MEMBERS(2,
+                 MEMBER(kv3_saturate_SAT, NAME(.SAT), LCNAME(.sat), VALUE(0))
+                 MEMBER(kv3_saturate_SATU, NAME(.SATU), LCNAME(.satu), VALUE(1))),
+         ENCODE(VALUE -= 64),
+         DECODE(VALUE += 64))
+Modifier(kv3_rectify,
+         MEMBERS(2,
+                 MEMBER(kv3_rectify_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_rectify_RELU, NAME(.RELU), LCNAME(.relu), VALUE(1))),
+         ENCODE(VALUE -= 66),
+         DECODE(VALUE += 66))
+Modifier(kv3_variant,
+         MEMBERS(4,
+                 MEMBER(kv3_variant_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_variant_S, NAME(.S), LCNAME(.s), VALUE(1))
+                 MEMBER(kv3_variant_U, NAME(.U), LCNAME(.u), VALUE(2))
+                 MEMBER(kv3_variant_US, NAME(.US), LCNAME(.us), VALUE(3))),
+         ENCODE(VALUE -= 68),
+         DECODE(VALUE += 68))
+Modifier(kv3_speculate,
+         MEMBERS(2,
+                 MEMBER(kv3_speculate_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_speculate_S, NAME(.S), LCNAME(.s), VALUE(1))),
+         ENCODE(VALUE -= 72),
+         DECODE(VALUE += 72))
+Modifier(kv3_column,
+         MEMBERS(4,
+                 MEMBER(kv3_column_C0, NAME(.C0), LCNAME(.c0), VALUE(0))
+                 MEMBER(kv3_column_C1, NAME(.C1), LCNAME(.c1), VALUE(1))
+                 MEMBER(kv3_column_C2, NAME(.C2), LCNAME(.c2), VALUE(2))
+                 MEMBER(kv3_column_C3, NAME(.C3), LCNAME(.c3), VALUE(3))),
+         ENCODE(VALUE -= 74),
+         DECODE(VALUE += 74))
+Modifier(kv3_doscale,
+         MEMBERS(2,
+                 MEMBER(kv3_doscale_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_doscale_XS, NAME(.XS), LCNAME(.xs), VALUE(1))),
+         ENCODE(VALUE -= 78),
+         DECODE(VALUE += 78))
+Modifier(kv3_splat32,
+         MEMBERS(2,
+                 MEMBER(kv3_splat32_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_splat32__, NAME(.@), LCNAME(.@), VALUE(1))),
+         ENCODE(VALUE -= 80),
+         DECODE(VALUE += 80))
+Modifier(kv3_cachelev,
+         MEMBERS(3,
+                 MEMBER(kv3_cachelev_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_cachelev_L2, NAME(.L2), LCNAME(.l2), VALUE(1))
+                 MEMBER(kv3_cachelev_L1L2, NAME(.L1L2), LCNAME(.l1l2), VALUE(2))),
+         ENCODE(VALUE -= 82),
+         DECODE(VALUE += 82))
+Modifier(kv3_boolcas,
+         MEMBERS(2,
+                 MEMBER(kv3_boolcas_V, NAME(.V), LCNAME(.v), VALUE(0))
+                 MEMBER(kv3_boolcas_, NAME(), LCNAME(), VALUE(1))),
+         ENCODE(VALUE -= 85),
+         DECODE(VALUE += 85))
+Modifier(kv3_channel,
+         MEMBERS(2,
+                 MEMBER(kv3_channel_F, NAME(.F), LCNAME(.f), VALUE(0))
+                 MEMBER(kv3_channel_B, NAME(.B), LCNAME(.b), VALUE(1))),
+         ENCODE(VALUE -= 87),
+         DECODE(VALUE += 87))
+Modifier(kv3_conjugate,
+         MEMBERS(2,
+                 MEMBER(kv3_conjugate_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_conjugate_C, NAME(.C), LCNAME(.c), VALUE(1))),
+         ENCODE(VALUE -= 89),
+         DECODE(VALUE += 89))
+Modifier(kv3_transpose,
+         MEMBERS(4,
+                 MEMBER(kv3_transpose_, NAME(), LCNAME(), VALUE(0))
+                 MEMBER(kv3_transpose_TN, NAME(.TN), LCNAME(.tn), VALUE(1))
+                 MEMBER(kv3_transpose_NT, NAME(.NT), LCNAME(.nt), VALUE(2))
+                 MEMBER(kv3_transpose_TT, NAME(.TT), LCNAME(.tt), VALUE(3))),
+         ENCODE(VALUE -= 91),
+         DECODE(VALUE += 91))
+#endif/*Modifier*/
+#undef Modifier
+
+
+#ifndef ModifierMemberValue
+#define ModifierMemberValue_kv3_exunum_ALU0	0
+#define ModifierMemberValue_kv3_exunum_ALU1	1
+#define ModifierMemberValue_kv3_exunum_MAU	2
+#define ModifierMemberValue_kv3_exunum_LSU	3
+#define ModifierMemberValue_kv3_scalarcond_DNEZ	0
+#define ModifierMemberValue_kv3_scalarcond_DEQZ	1
+#define ModifierMemberValue_kv3_scalarcond_DLTZ	2
+#define ModifierMemberValue_kv3_scalarcond_DGEZ	3
+#define ModifierMemberValue_kv3_scalarcond_DLEZ	4
+#define ModifierMemberValue_kv3_scalarcond_DGTZ	5
+#define ModifierMemberValue_kv3_scalarcond_ODD	6
+#define ModifierMemberValue_kv3_scalarcond_EVEN	7
+#define ModifierMemberValue_kv3_scalarcond_WNEZ	8
+#define ModifierMemberValue_kv3_scalarcond_WEQZ	9
+#define ModifierMemberValue_kv3_scalarcond_WLTZ	10
+#define ModifierMemberValue_kv3_scalarcond_WGEZ	11
+#define ModifierMemberValue_kv3_scalarcond_WLEZ	12
+#define ModifierMemberValue_kv3_scalarcond_WGTZ	13
+#define ModifierMemberValue_kv3_simplecond_NEZ	0
+#define ModifierMemberValue_kv3_simplecond_EQZ	1
+#define ModifierMemberValue_kv3_simplecond_LTZ	2
+#define ModifierMemberValue_kv3_simplecond_GEZ	3
+#define ModifierMemberValue_kv3_simplecond_LEZ	4
+#define ModifierMemberValue_kv3_simplecond_GTZ	5
+#define ModifierMemberValue_kv3_simplecond_ODD	6
+#define ModifierMemberValue_kv3_simplecond_EVEN	7
+#define ModifierMemberValue_kv3_comparison_NE	0
+#define ModifierMemberValue_kv3_comparison_EQ	1
+#define ModifierMemberValue_kv3_comparison_LT	2
+#define ModifierMemberValue_kv3_comparison_GE	3
+#define ModifierMemberValue_kv3_comparison_LE	4
+#define ModifierMemberValue_kv3_comparison_GT	5
+#define ModifierMemberValue_kv3_comparison_LTU	6
+#define ModifierMemberValue_kv3_comparison_GEU	7
+#define ModifierMemberValue_kv3_comparison_LEU	8
+#define ModifierMemberValue_kv3_comparison_GTU	9
+#define ModifierMemberValue_kv3_comparison_ALL	10
+#define ModifierMemberValue_kv3_comparison_NALL	11
+#define ModifierMemberValue_kv3_comparison_ANY	12
+#define ModifierMemberValue_kv3_comparison_NONE	13
+#define ModifierMemberValue_kv3_floatcomp_ONE	0
+#define ModifierMemberValue_kv3_floatcomp_UEQ	1
+#define ModifierMemberValue_kv3_floatcomp_OEQ	2
+#define ModifierMemberValue_kv3_floatcomp_UNE	3
+#define ModifierMemberValue_kv3_floatcomp_OLT	4
+#define ModifierMemberValue_kv3_floatcomp_UGE	5
+#define ModifierMemberValue_kv3_floatcomp_OGE	6
+#define ModifierMemberValue_kv3_floatcomp_ULT	7
+#define ModifierMemberValue_kv3_rounding_RN	0
+#define ModifierMemberValue_kv3_rounding_RU	1
+#define ModifierMemberValue_kv3_rounding_RD	2
+#define ModifierMemberValue_kv3_rounding_RZ	3
+#define ModifierMemberValue_kv3_rounding_RNA	4
+#define ModifierMemberValue_kv3_rounding_RNZ	5
+#define ModifierMemberValue_kv3_rounding_RO	6
+#define ModifierMemberValue_kv3_rounding_	7
+#define ModifierMemberValue_kv3_silent_	0
+#define ModifierMemberValue_kv3_silent_S	1
+#define ModifierMemberValue_kv3_roundint_RN	0
+#define ModifierMemberValue_kv3_roundint_RU	1
+#define ModifierMemberValue_kv3_roundint_RD	2
+#define ModifierMemberValue_kv3_roundint_RZ	3
+#define ModifierMemberValue_kv3_roundint_RHU	4
+#define ModifierMemberValue_kv3_saturate_SAT	0
+#define ModifierMemberValue_kv3_saturate_SATU	1
+#define ModifierMemberValue_kv3_rectify_	0
+#define ModifierMemberValue_kv3_rectify_RELU	1
+#define ModifierMemberValue_kv3_variant_	0
+#define ModifierMemberValue_kv3_variant_S	1
+#define ModifierMemberValue_kv3_variant_U	2
+#define ModifierMemberValue_kv3_variant_US	3
+#define ModifierMemberValue_kv3_speculate_	0
+#define ModifierMemberValue_kv3_speculate_S	1
+#define ModifierMemberValue_kv3_column_C0	0
+#define ModifierMemberValue_kv3_column_C1	1
+#define ModifierMemberValue_kv3_column_C2	2
+#define ModifierMemberValue_kv3_column_C3	3
+#define ModifierMemberValue_kv3_doscale_	0
+#define ModifierMemberValue_kv3_doscale_XS	1
+#define ModifierMemberValue_kv3_splat32_	0
+#define ModifierMemberValue_kv3_splat32__	1
+#define ModifierMemberValue_kv3_cachelev_	0
+#define ModifierMemberValue_kv3_cachelev_L2	1
+#define ModifierMemberValue_kv3_cachelev_L1L2	2
+#define ModifierMemberValue_kv3_boolcas_V	0
+#define ModifierMemberValue_kv3_boolcas_	1
+#define ModifierMemberValue_kv3_channel_F	0
+#define ModifierMemberValue_kv3_channel_B	1
+#define ModifierMemberValue_kv3_conjugate_	0
+#define ModifierMemberValue_kv3_conjugate_C	1
+#define ModifierMemberValue_kv3_transpose_	0
+#define ModifierMemberValue_kv3_transpose_TN	1
+#define ModifierMemberValue_kv3_transpose_NT	2
+#define ModifierMemberValue_kv3_transpose_TT	3
+#endif/*ModifierMemberValue*/
+

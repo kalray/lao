@@ -1,0 +1,108 @@
+Testing int64_to_float64, rounding nearest_even.
+756 tests total.
+No errors found in int64_to_float64, rounding nearest_even.
+Testing int64_to_float64, rounding up.
+756 tests total.
+No errors found in int64_to_float64, rounding up.
+Testing int64_to_float64, rounding down.
+756 tests total.
+No errors found in int64_to_float64, rounding down.
+Testing int64_to_float64, rounding to_zero.
+756 tests total.
+No errors found in int64_to_float64, rounding to_zero.
+Testing float64_to_int64, rounding nearest_even.
+768 tests total.
+No errors found in float64_to_int64, rounding nearest_even.
+Testing float64_to_int64, rounding up.
+768 tests total.
+No errors found in float64_to_int64, rounding up.
+Testing float64_to_int64, rounding down.
+768 tests total.
+No errors found in float64_to_int64, rounding down.
+Testing float64_to_int64, rounding to_zero.
+768 tests total.
+No errors found in float64_to_int64, rounding to_zero.
+Testing float64_add, rounding nearest_even.
+46464 tests total.
+No errors found in float64_add, rounding nearest_even.
+Testing float64_add, rounding up.
+46464 tests total.
+No errors found in float64_add, rounding up.
+Testing float64_add, rounding down.
+46464 tests total.
+No errors found in float64_add, rounding down.
+Testing float64_add, rounding to_zero.
+46464 tests total.
+No errors found in float64_add, rounding to_zero.
+Testing float64_sub, rounding nearest_even.
+46464 tests total.
+No errors found in float64_sub, rounding nearest_even.
+Testing float64_sub, rounding up.
+46464 tests total.
+No errors found in float64_sub, rounding up.
+Testing float64_sub, rounding down.
+46464 tests total.
+No errors found in float64_sub, rounding down.
+Testing float64_sub, rounding to_zero.
+46464 tests total.
+No errors found in float64_sub, rounding to_zero.
+Testing float64_mul, rounding nearest_even, tininess before rounding.
+46464 tests total.
+No errors found in float64_mul, rounding nearest_even, tininess before rounding.
+Testing float64_mul, rounding up, tininess before rounding.
+46464 tests total.
+No errors found in float64_mul, rounding up, tininess before rounding.
+Testing float64_mul, rounding down, tininess before rounding.
+46464 tests total.
+No errors found in float64_mul, rounding down, tininess before rounding.
+Testing float64_mul, rounding to_zero, tininess before rounding.
+46464 tests total.
+No errors found in float64_mul, rounding to_zero, tininess before rounding.
+Testing float64_min, rounding nearest_even, tininess before rounding.
+46464 tests total.
+No errors found in float64_min, rounding nearest_even, tininess before rounding.
+Testing float64_min, rounding up, tininess before rounding.
+46464 tests total.
+No errors found in float64_min, rounding up, tininess before rounding.
+Testing float64_min, rounding down, tininess before rounding.
+46464 tests total.
+No errors found in float64_min, rounding down, tininess before rounding.
+Testing float64_min, rounding to_zero, tininess before rounding.
+46464 tests total.
+No errors found in float64_min, rounding to_zero, tininess before rounding.
+Testing float64_max, rounding nearest_even, tininess before rounding.
+46464 tests total.
+No errors found in float64_max, rounding nearest_even, tininess before rounding.
+Testing float64_max, rounding up, tininess before rounding.
+46464 tests total.
+No errors found in float64_max, rounding up, tininess before rounding.
+Testing float64_max, rounding down, tininess before rounding.
+46464 tests total.
+No errors found in float64_max, rounding down, tininess before rounding.
+Testing float64_max, rounding to_zero, tininess before rounding.
+46464 tests total.
+No errors found in float64_max, rounding to_zero, tininess before rounding.
+Taking input from IeeeCC754/testsets/add.
+
+
+Counting 611 lines.
+Taking input from IeeeCC754/testsets/multiply.
+
+
+Counting 1067 lines.
+Taking input from IeeeCC754/testsets/rint64.
+
+
+Counting 97 lines.
+Taking input from IeeeCC754/testsets/ruint64.
+
+
+Counting 61 lines.
+Taking input from IeeeCC754/testsets/cint64.
+
+
+Counting 20 lines.
+Taking input from IeeeCC754/testsets/cuint64.
+
+
+Counting 18 lines.

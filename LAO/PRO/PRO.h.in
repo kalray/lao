@@ -1,0 +1,37 @@
+/** 
+ * @file
+ * @defgroup PRO Interface to Open64
+ *
+ * Legacy superblock scheduling and software pipelining code that is used in
+ * the ST and Kalray production compilers, which are based on the Open64
+ * (formerly Pro64, hence the name).
+ *
+ */
+
+
+#ifndef _INCLUDED_PRO
+#define _INCLUDED_PRO
+
+/*
+ * Set _OPTIMIZE according to __OPTIMIZE__ (defined by gcc and icc) and NDEBUG.
+ */
+#ifdef __OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 3
+#  else//!NDEBUG
+#    define _OPTIMIZE 2
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#else//!__OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 1
+#  else//!NDEBUG
+#    define _OPTIMIZE 0
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#endif//__OPTIMIZE__
+
+#endif//_INCLUDED_PRO
+

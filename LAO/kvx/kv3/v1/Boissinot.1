@@ -1,0 +1,1571 @@
+
+Sreedhar's Translating out of SSA form; Fig. 1
+*** PHI Operations	maxPhiArity=3
+    Block_3	frequency=0
+	  3:PHI[26]	 V1203(g1303) = V1201(g1301), V1202(g1302)
+*** Before Boissinot CSSA
+------- Region 0 (sreedhar-fig-1) -----
+   1:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	2:Block_2( 0%)	3:Block_3( 0%)	
+	.LAO_0_1:
+		  0:APPLY[6]	 V1200(g1300) = 1
+		  1:APPLY[8]	 V1201(g1301) = 2
+
+   2:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	3:Block_3( 0%)	
+	.LAO_0_2:
+		  2:COPY[19]	 V1202(g1302) = V1200(g1300)
+
+   3:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	2:Block_2(-1)	
+	successors:	0:Block_0( 0%)	
+	.LAO_0_3:
+		  3:PHI[26]	 V1203(g1303) = V1201(g1301), V1202(g1302)
+		  4:COPY[31]	 V1204(g1304) = V1203(g1303)
+
+------- contributed=0 -----
+    V1200(g1300):
+	Producer	  0:APPLY[6]	 V1200(g1300) = 1
+	Consumer	  2:COPY[19]	 V1202(g1302) = V1200(g1300)
+    V1201(g1301):
+	Producer	  1:APPLY[8]	 V1201(g1301) = 2
+	Consumer	  3:PHI[26]	 V1203(g1303) = V1201(g1301), V1202(g1302)
+    V1202(g1302):
+	Producer	  2:COPY[19]	 V1202(g1302) = V1200(g1300)
+	Consumer	  3:PHI[26]	 V1203(g1303) = V1201(g1301), V1202(g1302)
+    V1203(g1303):
+	Producer	  3:PHI[26]	 V1203(g1303) = V1201(g1301), V1202(g1302)
+	Consumer	  4:COPY[31]	 V1204(g1304) = V1203(g1303)
+    V1204(g1304):
+	Producer	  4:COPY[31]	 V1204(g1304) = V1203(g1303)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V1202(g1302) => { V1202(g1302) }
+V1200(g1300) => { V1200(g1300) }
+V1203(g1303) => { V1203(g1303) }
+V1201(g1301) => { V1201(g1301) }
+V1204(g1304) => { V1204(g1304) }
+V1305(g1303) => { V1306(g1301) V1307(g1302) V1305(g1303) }
+V1306(g1301) => { V1306(g1301) V1307(g1302) V1305(g1303) }
+V1307(g1302) => { V1306(g1301) V1307(g1302) V1305(g1303) }
+ *** After Exact Step I
+------- Region 0 (sreedhar-fig-1) -----
+   1:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	2:Block_2( 0%)	3:Block_3( 0%)	
+	.LAO_0_1:
+		  0:APPLY[6]	 V1200(g1300) = 1
+		  1:APPLY[8]	 V1201(g1301) = 2
+		  6:LCOPY[11]	 V1306(g1301) = V1201(g1301)
+
+   2:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	3:Block_3( 0%)	
+	.LAO_0_2:
+		  2:COPY[19]	 V1202(g1302) = V1200(g1300)
+		  7:LCOPY[22]	 V1307(g1302) = V1202(g1302)
+
+   3:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	2:Block_2(-1)	
+	successors:	0:Block_0( 0%)	
+	.LAO_0_3:
+		  3:PHI[26]	 V1305(g1303) = V1306(g1301), V1307(g1302)
+		  5:ECOPY[28]	 V1203(g1303) = V1305(g1303)
+		  4:COPY[31]	 V1204(g1304) = V1203(g1303)
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V1201(g1301) V1200(g1300)
+Intersection V1306(g1301) V1200(g1300)
+------- Region 0 (sreedhar-fig-1) -----
+   1:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	2:Block_2( 0%)	3:Block_3( 0%)	
+	.LAO_0_1:
+		  0:APPLY  	 g1308 = 1
+		  1:APPLY  	 g1309 = 2
+		  8:COPY  	 g1310 = g1309
+
+   2:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	3:Block_3( 0%)	
+	.LAO_0_2:
+		  2:COPY  	 g1311 = g1308
+		  9:COPY  	 g1310 = g1311
+
+   3:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	2:Block_2(-1)	
+	successors:	0:Block_0( 0%)	
+	.LAO_0_3:
+		 10:COPY  	 g1312 = g1310
+		  4:COPY  	 g1313 = g1312
+
+------- contributed=0 -----
+
+Sreedhar's Translating out of SSA form; Fig. 3
+*** PHI Operations	maxPhiArity=3
+    Block_3	frequency=0
+	 13:PHI[24]	 V2503(g2603) = V2501(g2601), V2500(g2600)
+*** Before Boissinot CSSA
+------- Region 0 (sreedhar-fig-3) -----
+   5:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_0(-1)	
+	successors:	6:Block_2( 0%)	7:Block_3( 0%)	
+	.LAO_1_5:
+		 11:APPLY[6]	 V2500(g2600) = 1
+		 12:APPLY[8]	 V2501(g2601) = 2
+
+   6:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	5:Block_1(-1)	
+	successors:	7:Block_3( 0%)	
+	.LAO_1_6:
+
+   7:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	5:Block_1(-1)	6:Block_2(-1)	
+	successors:	4:Block_0( 0%)	
+	.LAO_1_7:
+		 13:PHI[24]	 V2503(g2603) = V2501(g2601), V2500(g2600)
+		 14:COPY[29]	 V2504(g2604) = V2503(g2603)
+
+------- contributed=0 -----
+    V2500(g2600):
+	Producer	 11:APPLY[6]	 V2500(g2600) = 1
+	Consumer	 13:PHI[24]	 V2503(g2603) = V2501(g2601), V2500(g2600)
+    V2501(g2601):
+	Producer	 12:APPLY[8]	 V2501(g2601) = 2
+	Consumer	 13:PHI[24]	 V2503(g2603) = V2501(g2601), V2500(g2600)
+    V2503(g2603):
+	Producer	 13:PHI[24]	 V2503(g2603) = V2501(g2601), V2500(g2600)
+	Consumer	 14:COPY[29]	 V2504(g2604) = V2503(g2603)
+    V2504(g2604):
+	Producer	 14:COPY[29]	 V2504(g2604) = V2503(g2603)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V2503(g2603) => { V2503(g2603) }
+V2501(g2601) => { V2501(g2601) }
+V2500(g2600) => { V2500(g2600) }
+V2504(g2604) => { V2504(g2604) }
+V2605(g2603) => { V2606(g2601) V2607(g2600) V2605(g2603) }
+V2606(g2601) => { V2606(g2601) V2607(g2600) V2605(g2603) }
+V2607(g2600) => { V2606(g2601) V2607(g2600) V2605(g2603) }
+ *** After Exact Step I
+------- Region 0 (sreedhar-fig-3) -----
+   5:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_0(-1)	
+	successors:	6:Block_2( 0%)	7:Block_3( 0%)	
+	.LAO_1_5:
+		 11:APPLY[6]	 V2500(g2600) = 1
+		 12:APPLY[8]	 V2501(g2601) = 2
+		 16:LCOPY[11]	 V2606(g2601) = V2501(g2601)
+
+   6:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	5:Block_1(-1)	
+	successors:	7:Block_3( 0%)	
+	.LAO_1_6:
+		 17:LCOPY[20]	 V2607(g2600) = V2500(g2600)
+
+   7:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	5:Block_1(-1)	6:Block_2(-1)	
+	successors:	4:Block_0( 0%)	
+	.LAO_1_7:
+		 13:PHI[24]	 V2605(g2603) = V2606(g2601), V2607(g2600)
+		 15:ECOPY[26]	 V2503(g2603) = V2605(g2603)
+		 14:COPY[29]	 V2504(g2604) = V2503(g2603)
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V2501(g2601) V2500(g2600)
+Intersection V2606(g2601) V2500(g2600)
+------- Region 0 (sreedhar-fig-3) -----
+   5:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_0(-1)	
+	successors:	6:Block_2( 0%)	7:Block_3( 0%)	
+	.LAO_1_5:
+		 11:APPLY  	 g2608 = 1
+		 12:APPLY  	 g2609 = 2
+		 18:COPY  	 g2610 = g2609
+
+   6:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	5:Block_1(-1)	
+	successors:	7:Block_3( 0%)	
+	.LAO_1_6:
+		 19:COPY  	 g2610 = g2608
+
+   7:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	5:Block_1(-1)	6:Block_2(-1)	
+	successors:	4:Block_0( 0%)	
+	.LAO_1_7:
+		 20:COPY  	 g2611 = g2610
+		 14:COPY  	 g2612 = g2611
+
+------- contributed=0 -----
+
+Sreedhar's Translating out of SSA form; Fig. 6
+*** PHI Operations	maxPhiArity=4
+    Block_5	frequency=0
+	 24:PHI[43]	 V3800(g3900) = V3803(g3903), V3801(g3901), V3802(g3902)
+*** Before Boissinot CSSA
+------- Region 0 (sreedhar-fig-6) -----
+   9:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	8:Block_0(-1)	
+	successors:	10:Block_2( 0%)	13:Block_5( 0%)	
+	.LAO_2_9 L3:
+		 21:APPLY[6]	 V3803(g3903) = 1
+		 22:APPLY[8]	 V3801(g3901) = 2
+
+  10:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	
+	successors:	11:Block_3( 0%)	12:Block_4( 0%)	
+	.LAO_2_10 L4:
+		 23:APPLY[19]	 V3802(g3902) = 3
+
+  11:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	10:Block_2(-1)	
+	successors:	13:Block_5( 0%)	
+	.LAO_2_11 L1:
+
+  12:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	10:Block_2(-1)	
+	successors:	13:Block_5( 0%)	
+	.LAO_2_12 L2:
+
+  13:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	11:Block_3(-1)	12:Block_4(-1)	
+	successors:	8:Block_0( 0%)	
+	.LAO_2_13 L0:
+		 24:PHI[43]	 V3800(g3900) = V3803(g3903), V3801(g3901), V3802(g3902)
+
+------- contributed=0 -----
+    V3803(g3903):
+	Producer	 21:APPLY[6]	 V3803(g3903) = 1
+	Consumer	 24:PHI[43]	 V3800(g3900) = V3803(g3903), V3801(g3901), V3802(g3902)
+    V3801(g3901):
+	Producer	 22:APPLY[8]	 V3801(g3901) = 2
+	Consumer	 24:PHI[43]	 V3800(g3900) = V3803(g3903), V3801(g3901), V3802(g3902)
+    V3802(g3902):
+	Producer	 23:APPLY[19]	 V3802(g3902) = 3
+	Consumer	 24:PHI[43]	 V3800(g3900) = V3803(g3903), V3801(g3901), V3802(g3902)
+    V3800(g3900):
+	Producer	 24:PHI[43]	 V3800(g3900) = V3803(g3903), V3801(g3901), V3802(g3902)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V3800(g3900) => { V3800(g3900) }
+V3803(g3903) => { V3803(g3903) }
+V3801(g3901) => { V3801(g3901) }
+V3802(g3902) => { V3802(g3902) }
+V3907(g3900) => { V3908(g3903) V3909(g3901) V3910(g3902) V3907(g3900) }
+V3908(g3903) => { V3908(g3903) V3909(g3901) V3910(g3902) V3907(g3900) }
+V3909(g3901) => { V3908(g3903) V3909(g3901) V3910(g3902) V3907(g3900) }
+V3910(g3902) => { V3908(g3903) V3909(g3901) V3910(g3902) V3907(g3900) }
+ *** After Exact Step I
+------- Region 0 (sreedhar-fig-6) -----
+   9:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	8:Block_0(-1)	
+	successors:	10:Block_2( 0%)	13:Block_5( 0%)	
+	.LAO_2_9 L3:
+		 21:APPLY[6]	 V3803(g3903) = 1
+		 22:APPLY[8]	 V3801(g3901) = 2
+		 26:LCOPY[11]	 V3908(g3903) = V3803(g3903)
+
+  10:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	
+	successors:	11:Block_3( 0%)	12:Block_4( 0%)	
+	.LAO_2_10 L4:
+		 23:APPLY[19]	 V3802(g3902) = 3
+
+  11:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	10:Block_2(-1)	
+	successors:	13:Block_5( 0%)	
+	.LAO_2_11 L1:
+		 27:LCOPY[30]	 V3909(g3901) = V3801(g3901)
+
+  12:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	10:Block_2(-1)	
+	successors:	13:Block_5( 0%)	
+	.LAO_2_12 L2:
+		 28:LCOPY[39]	 V3910(g3902) = V3802(g3902)
+
+  13:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	11:Block_3(-1)	12:Block_4(-1)	
+	successors:	8:Block_0( 0%)	
+	.LAO_2_13 L0:
+		 24:PHI[43]	 V3907(g3900) = V3908(g3903), V3909(g3901), V3910(g3902)
+		 25:ECOPY[45]	 V3800(g3900) = V3907(g3900)
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V3803(g3903) V3801(g3901)
+Intersection V3802(g3902) V3801(g3901)
+Intersection V3908(g3903) V3801(g3901)
+------- Region 0 (sreedhar-fig-6) -----
+   9:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	8:Block_0(-1)	
+	successors:	10:Block_2( 0%)	13:Block_5( 0%)	
+	.LAO_2_9 L3:
+		 21:APPLY  	 g3911 = 1
+		 22:APPLY  	 g3912 = 2
+		 29:COPY  	 g3913 = g3911
+
+  10:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	
+	successors:	11:Block_3( 0%)	12:Block_4( 0%)	
+	.LAO_2_10 L4:
+		 23:APPLY  	 g3914 = 3
+
+  11:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	10:Block_2(-1)	
+	successors:	13:Block_5( 0%)	
+	.LAO_2_11 L1:
+		 30:COPY  	 g3913 = g3912
+
+  12:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	10:Block_2(-1)	
+	successors:	13:Block_5( 0%)	
+	.LAO_2_12 L2:
+		 31:COPY  	 g3913 = g3914
+
+  13:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	11:Block_3(-1)	12:Block_4(-1)	
+	successors:	8:Block_0( 0%)	
+	.LAO_2_13 L0:
+		 32:COPY  	 g3915 = g3913
+
+------- contributed=0 -----
+
+Lost-Copy Problem in Sreedhar's paper: Fig. 7
+*** Before SSA construct
+------- Region 0 (lost-copy) -----
+  15:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	14:Block_0(-1)	
+	successors:	16:Block_2( 0%)	
+	.LAO_3_15:
+		 33:APPLY  	 G5100 = 1
+
+  16:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	15:Block_1(-1)	16:Block_2(-1)	
+	successors:	17:Block_3( 0%)	16:Block_2( 0%)	
+	.LAO_3_16:
+		 34:COPY  	 G5101 = G5100
+		 35:ADD  	 G5100 = G5100, 1
+
+  17:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	16:Block_2(-1)	
+	successors:	14:Block_0( 0%)	
+	.LAO_3_17:
+		 36:SUB  	 g5102 = G5101, 42
+
+------- contributed=0 -----
+*** Folding	 34:COPY  	 G5101 = V5105(G5100)
+*** After SSA construct
+------- Region 0 (lost-copy) -----
+  15:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	14:Block_0(-1)	
+	successors:	16:Block_2( 0%)	
+	.LAO_3_15:
+		 33:APPLY  	 V5104(G5100) = 1
+
+  16:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	15:Block_1(-1)	16:Block_2(-1)	
+	successors:	17:Block_3( 0%)	16:Block_2( 0%)	
+	.LAO_3_16:
+		 37:PHI  	 V5105(G5100) = V5104(G5100), V5106(G5100)
+		 35:ADD  	 V5106(G5100) = V5105(G5100), 1
+
+  17:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	16:Block_2(-1)	
+	successors:	14:Block_0( 0%)	
+	.LAO_3_17:
+		 36:SUB  	 V5107(g5102) = V5105(G5100), 42
+
+------- contributed=0 -----
+*** PHI Operations	maxPhiArity=3
+    Block_2	frequency=0
+	 37:PHI[13]	 V5105(G5100) = V5104(G5100), V5106(G5100)
+*** Before Boissinot CSSA
+------- Region 0 (lost-copy) -----
+  15:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	14:Block_0(-1)	
+	successors:	16:Block_2( 0%)	
+	.LAO_3_15:
+		 33:APPLY[6]	 V5104(G5100) = 1
+
+  16:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	15:Block_1(-1)	16:Block_2(-1)	
+	successors:	17:Block_3( 0%)	16:Block_2( 0%)	
+	.LAO_3_16:
+		 37:PHI[13]	 V5105(G5100) = V5104(G5100), V5106(G5100)
+		 35:ADD[18]	 V5106(G5100) = V5105(G5100), 1
+
+  17:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	16:Block_2(-1)	
+	successors:	14:Block_0( 0%)	
+	.LAO_3_17:
+		 36:SUB[29]	 V5107(g5102) = V5105(G5100), 42
+
+------- contributed=0 -----
+    V5104(G5100):
+	Producer	 33:APPLY[6]	 V5104(G5100) = 1
+	Consumer	 37:PHI[13]	 V5105(G5100) = V5104(G5100), V5106(G5100)
+    V5105(G5100):
+	Producer	 37:PHI[13]	 V5105(G5100) = V5104(G5100), V5106(G5100)
+	Consumer	 35:ADD[18]	 V5106(G5100) = V5105(G5100), 1
+	Consumer	 36:SUB[29]	 V5107(g5102) = V5105(G5100), 42
+    V5106(G5100):
+	Producer	 35:ADD[18]	 V5106(G5100) = V5105(G5100), 1
+	Consumer	 37:PHI[13]	 V5105(G5100) = V5104(G5100), V5106(G5100)
+    V5107(g5102):
+	Producer	 36:SUB[29]	 V5107(g5102) = V5105(G5100), 42
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V5105(G5100) => { V5105(G5100) }
+V5104(G5100) => { V5104(G5100) }
+V5106(G5100) => { V5106(G5100) }
+V5108(G5100) => { V5109(G5100) V5108(G5100) V5110(G5100) }
+V5109(G5100) => { V5109(G5100) V5108(G5100) V5110(G5100) }
+V5110(G5100) => { V5109(G5100) V5108(G5100) V5110(G5100) }
+ *** After Exact Step I
+------- Region 0 (lost-copy) -----
+  15:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	14:Block_0(-1)	
+	successors:	16:Block_2( 0%)	
+	.LAO_3_15:
+		 33:APPLY[6]	 V5104(G5100) = 1
+		 39:LCOPY[9]	 V5109(G5100) = V5104(G5100)
+
+  16:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	15:Block_1(-1)	16:Block_2(-1)	
+	successors:	17:Block_3( 0%)	16:Block_2( 0%)	
+	.LAO_3_16:
+		 37:PHI[13]	 V5108(G5100) = V5109(G5100), V5110(G5100)
+		 38:ECOPY[15]	 V5105(G5100) = V5108(G5100)
+		 35:ADD[18]	 V5106(G5100) = V5105(G5100), 1
+		 40:LCOPY[21]	 V5110(G5100) = V5106(G5100)
+
+  17:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	16:Block_2(-1)	
+	successors:	14:Block_0( 0%)	
+	.LAO_3_17:
+		 36:SUB[29]	 V5107(g5102) = V5105(G5100), 42
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V5106(G5100) V5105(G5100)
+Intersection V5110(G5100) V5105(G5100)
+------- Region 0 (lost-copy) -----
+  15:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	14:Block_0(-1)	
+	successors:	16:Block_2( 0%)	
+	.LAO_3_15:
+		 33:APPLY  	 g5111 = 1
+		 41:COPY  	 g5112 = g5111
+
+  16:Block_2
+	Natural+Widening
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	15:Block_1(-1)	16:Block_2(Loop,-1)	
+	successors:	17:Block_3( 0%)	16:Block_2( 0%)	
+	.LAO_3_16:
+		 42:COPY  	 g5113 = g5112
+		 35:ADD  	 g5114 = g5113, 1
+		 43:COPY  	 g5112 = g5114
+
+  17:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	16:Block_2(-1)	
+	successors:	14:Block_0( 0%)	
+	.LAO_3_17:
+		 36:SUB  	 g5115 = g5113, 42
+
+------- contributed=0 -----
+
+Swap Problem in Sreedhar's paper: Fig. 8
+*** Before SSA construct
+------- Region 0 (swap-problem) -----
+  19:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_0(-1)	
+	successors:	20:Block_2( 0%)	
+	.LAO_4_19:
+		 44:APPLY  	 G6300 = 1
+		 45:APPLY  	 G6301 = 2
+
+  20:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	19:Block_1(-1)	20:Block_2(-1)	
+	successors:	21:Block_3( 0%)	20:Block_2( 0%)	
+	.LAO_4_20:
+		 46:COPY  	 g6302 = G6300
+		 47:COPY  	 G6300 = G6301
+		 48:COPY  	 G6301 = g6302
+
+  21:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	20:Block_2(-1)	
+	successors:	18:Block_0( 0%)	
+	.LAO_4_21:
+
+------- contributed=0 -----
+*** Folding	 46:COPY  	 g6302 = V6305(G6300)
+*** Folding	 47:COPY  	 G6300 = V6306(G6301)
+*** Folding	 48:COPY  	 G6301 = V6305(G6300)
+*** After SSA construct
+------- Region 0 (swap-problem) -----
+  19:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_0(-1)	
+	successors:	20:Block_2( 0%)	
+	.LAO_4_19:
+		 44:APPLY  	 V6303(G6300) = 1
+		 45:APPLY  	 V6304(G6301) = 2
+
+  20:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	19:Block_1(-1)	20:Block_2(-1)	
+	successors:	21:Block_3( 0%)	20:Block_2( 0%)	
+	.LAO_4_20:
+		 50:PHI  	 V6305(G6300) = V6303(G6300), V6306(G6301)
+		 49:PHI  	 V6306(G6301) = V6304(G6301), V6305(G6300)
+
+  21:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	20:Block_2(-1)	
+	successors:	18:Block_0( 0%)	
+	.LAO_4_21:
+
+------- contributed=0 -----
+*** PHI Operations	maxPhiArity=3
+    Block_2	frequency=0
+	 50:PHI[16]	 V6305(G6300) = V6303(G6300), V6306(G6301)
+	 49:PHI[16]	 V6306(G6301) = V6304(G6301), V6305(G6300)
+*** Before Boissinot CSSA
+------- Region 0 (swap-problem) -----
+  19:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_0(-1)	
+	successors:	20:Block_2( 0%)	
+	.LAO_4_19:
+		 44:APPLY[6]	 V6303(G6300) = 1
+		 45:APPLY[8]	 V6304(G6301) = 2
+
+  20:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	19:Block_1(-1)	20:Block_2(-1)	
+	successors:	21:Block_3( 0%)	20:Block_2( 0%)	
+	.LAO_4_20:
+		 50:PHI[16]	 V6305(G6300) = V6303(G6300), V6306(G6301)
+		 49:PHI[16]	 V6306(G6301) = V6304(G6301), V6305(G6300)
+
+  21:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	20:Block_2(-1)	
+	successors:	18:Block_0( 0%)	
+	.LAO_4_21:
+
+------- contributed=0 -----
+    V6303(G6300):
+	Producer	 44:APPLY[6]	 V6303(G6300) = 1
+	Consumer	 50:PHI[16]	 V6305(G6300) = V6303(G6300), V6306(G6301)
+    V6304(G6301):
+	Producer	 45:APPLY[8]	 V6304(G6301) = 2
+	Consumer	 49:PHI[16]	 V6306(G6301) = V6304(G6301), V6305(G6300)
+    V6305(G6300):
+	Producer	 50:PHI[16]	 V6305(G6300) = V6303(G6300), V6306(G6301)
+	Consumer	 49:PHI[16]	 V6306(G6301) = V6304(G6301), V6305(G6300)
+    V6306(G6301):
+	Producer	 49:PHI[16]	 V6306(G6301) = V6304(G6301), V6305(G6300)
+	Consumer	 50:PHI[16]	 V6305(G6300) = V6303(G6300), V6306(G6301)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V6305(G6300) => { V6305(G6300) }
+V6303(G6300) => { V6303(G6300) }
+V6306(G6301) => { V6306(G6301) }
+V6304(G6301) => { V6304(G6301) }
+V6307(G6300) => { V6308(G6300) V6307(G6300) V6309(G6301) }
+V6308(G6300) => { V6308(G6300) V6307(G6300) V6309(G6301) }
+V6309(G6301) => { V6308(G6300) V6307(G6300) V6309(G6301) }
+V6310(G6301) => { V6311(G6301) V6310(G6301) V6312(G6300) }
+V6311(G6301) => { V6311(G6301) V6310(G6301) V6312(G6300) }
+V6312(G6300) => { V6311(G6301) V6310(G6301) V6312(G6300) }
+ *** After Exact Step I
+------- Region 0 (swap-problem) -----
+  19:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_0(-1)	
+	successors:	20:Block_2( 0%)	
+	.LAO_4_19:
+		 44:APPLY[6]	 V6303(G6300) = 1
+		 45:APPLY[8]	 V6304(G6301) = 2
+		 52:LCOPY[11]	 V6308(G6300), V6311(G6301) = V6303(G6300), V6304(G6301)
+
+  20:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	19:Block_1(-1)	20:Block_2(-1)	
+	successors:	21:Block_3( 0%)	20:Block_2( 0%)	
+	.LAO_4_20:
+		 50:PHI[16]	 V6307(G6300) = V6308(G6300), V6309(G6301)
+		 49:PHI[16]	 V6310(G6301) = V6311(G6301), V6312(G6300)
+		 51:ECOPY[19]	 V6305(G6300), V6306(G6301) = V6307(G6300), V6310(G6301)
+		 53:LCOPY[23]	 V6309(G6301), V6312(G6300) = V6306(G6301), V6305(G6300)
+
+  21:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	20:Block_2(-1)	
+	successors:	18:Block_0( 0%)	
+	.LAO_4_21:
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V6306(G6301) V6305(G6300)
+Intersection V6304(G6301) V6303(G6300)
+Intersection V6310(G6301) V6307(G6300)
+Intersection V6311(G6301) V6308(G6300)
+Intersection V6312(G6300) V6309(G6301)
+------- Region 0 (swap-problem) -----
+  19:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_0(-1)	
+	successors:	20:Block_2( 0%)	
+	.LAO_4_19:
+		 44:APPLY  	 g6313 = 1
+		 45:APPLY  	 g6314 = 2
+		 54:COPY  	 g6315 = g6313
+		 55:COPY  	 g6316 = g6314
+
+  20:Block_2
+	Natural+Widening
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	19:Block_1(-1)	20:Block_2(Loop,-1)	
+	successors:	21:Block_3( 0%)	20:Block_2( 0%)	
+	.LAO_4_20:
+		 56:COPY  	 g6317 = g6315
+		 57:COPY  	 g6318 = g6316
+		 58:COPY  	 g6315 = g6318
+		 59:COPY  	 g6316 = g6317
+
+  21:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	20:Block_2(-1)	
+	successors:	18:Block_0( 0%)	
+	.LAO_4_21:
+
+------- contributed=0 -----
+
+Virtual Swap Problem in Budimlic's paper
+*** Before SSA construct
+------- Region 0 (virtual-swap-problem) -----
+  23:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	22:Block_0(-1)	
+	successors:	24:Block_2( 0%)	25:Block_3( 0%)	
+	.LAO_5_23:
+		 60:APPLY  	 G7500 = 1
+		 61:APPLY  	 G7501 = 2
+
+  24:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_24:
+		 62:COPY  	 G7502 = G7500
+		 63:COPY  	 G7503 = G7501
+
+  25:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_25:
+		 64:COPY  	 G7502 = G7501
+		 65:COPY  	 G7503 = G7500
+
+  26:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	24:Block_2(-1)	25:Block_3(-1)	
+	successors:	22:Block_0( 0%)	
+	.LAO_5_26:
+		 66:SUB  	 g7505 = G7502, G7503
+
+------- contributed=0 -----
+*** Folding	 62:COPY  	 G7502 = V7506(G7500)
+*** Folding	 63:COPY  	 G7503 = V7507(G7501)
+*** Folding	 64:COPY  	 G7502 = V7507(G7501)
+*** Folding	 65:COPY  	 G7503 = V7506(G7500)
+*** After SSA construct
+------- Region 0 (virtual-swap-problem) -----
+  23:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	22:Block_0(-1)	
+	successors:	24:Block_2( 0%)	25:Block_3( 0%)	
+	.LAO_5_23:
+		 60:APPLY  	 V7506(G7500) = 1
+		 61:APPLY  	 V7507(G7501) = 2
+
+  24:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_24:
+
+  25:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_25:
+
+  26:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	24:Block_2(-1)	25:Block_3(-1)	
+	successors:	22:Block_0( 0%)	
+	.LAO_5_26:
+		 68:PHI  	 V7508(G7503) = V7507(G7501), V7506(G7500)
+		 67:PHI  	 V7509(G7502) = V7506(G7500), V7507(G7501)
+		 66:SUB  	 V7510(g7505) = V7509(G7502), V7508(G7503)
+
+------- contributed=0 -----
+*** PHI Operations	maxPhiArity=3
+    Block_4	frequency=0
+	 68:PHI[34]	 V7508(G7503) = V7507(G7501), V7506(G7500)
+	 67:PHI[34]	 V7509(G7502) = V7506(G7500), V7507(G7501)
+*** Before Boissinot CSSA
+------- Region 0 (virtual-swap-problem) -----
+  23:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	22:Block_0(-1)	
+	successors:	24:Block_2( 0%)	25:Block_3( 0%)	
+	.LAO_5_23:
+		 60:APPLY[6]	 V7506(G7500) = 1
+		 61:APPLY[8]	 V7507(G7501) = 2
+
+  24:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_24:
+
+  25:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_25:
+
+  26:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	24:Block_2(-1)	25:Block_3(-1)	
+	successors:	22:Block_0( 0%)	
+	.LAO_5_26:
+		 68:PHI[34]	 V7508(G7503) = V7507(G7501), V7506(G7500)
+		 67:PHI[34]	 V7509(G7502) = V7506(G7500), V7507(G7501)
+		 66:SUB[40]	 V7510(g7505) = V7509(G7502), V7508(G7503)
+
+------- contributed=0 -----
+    V7506(G7500):
+	Producer	 60:APPLY[6]	 V7506(G7500) = 1
+	Consumer	 68:PHI[34]	 V7508(G7503) = V7507(G7501), V7506(G7500)
+	Consumer	 67:PHI[34]	 V7509(G7502) = V7506(G7500), V7507(G7501)
+    V7507(G7501):
+	Producer	 61:APPLY[8]	 V7507(G7501) = 2
+	Consumer	 68:PHI[34]	 V7508(G7503) = V7507(G7501), V7506(G7500)
+	Consumer	 67:PHI[34]	 V7509(G7502) = V7506(G7500), V7507(G7501)
+    V7508(G7503):
+	Producer	 68:PHI[34]	 V7508(G7503) = V7507(G7501), V7506(G7500)
+	Consumer	 66:SUB[40]	 V7510(g7505) = V7509(G7502), V7508(G7503)
+    V7509(G7502):
+	Producer	 67:PHI[34]	 V7509(G7502) = V7506(G7500), V7507(G7501)
+	Consumer	 66:SUB[40]	 V7510(g7505) = V7509(G7502), V7508(G7503)
+    V7510(g7505):
+	Producer	 66:SUB[40]	 V7510(g7505) = V7509(G7502), V7508(G7503)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V7508(G7503) => { V7508(G7503) }
+V7507(G7501) => { V7507(G7501) }
+V7506(G7500) => { V7506(G7500) }
+V7509(G7502) => { V7509(G7502) }
+V7511(G7503) => { V7512(G7501) V7513(G7500) V7511(G7503) }
+V7512(G7501) => { V7512(G7501) V7513(G7500) V7511(G7503) }
+V7513(G7500) => { V7512(G7501) V7513(G7500) V7511(G7503) }
+V7514(G7502) => { V7515(G7500) V7516(G7501) V7514(G7502) }
+V7515(G7500) => { V7515(G7500) V7516(G7501) V7514(G7502) }
+V7516(G7501) => { V7515(G7500) V7516(G7501) V7514(G7502) }
+ *** After Exact Step I
+------- Region 0 (virtual-swap-problem) -----
+  23:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	22:Block_0(-1)	
+	successors:	24:Block_2( 0%)	25:Block_3( 0%)	
+	.LAO_5_23:
+		 60:APPLY[6]	 V7506(G7500) = 1
+		 61:APPLY[8]	 V7507(G7501) = 2
+
+  24:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_24:
+		 70:LCOPY[19]	 V7512(G7501), V7515(G7500) = V7507(G7501), V7506(G7500)
+
+  25:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_25:
+		 71:LCOPY[29]	 V7513(G7500), V7516(G7501) = V7506(G7500), V7507(G7501)
+
+  26:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	24:Block_2(-1)	25:Block_3(-1)	
+	successors:	22:Block_0( 0%)	
+	.LAO_5_26:
+		 68:PHI[34]	 V7511(G7503) = V7512(G7501), V7513(G7500)
+		 67:PHI[34]	 V7514(G7502) = V7515(G7500), V7516(G7501)
+		 69:ECOPY[37]	 V7508(G7503), V7509(G7502) = V7511(G7503), V7514(G7502)
+		 66:SUB[40]	 V7510(g7505) = V7509(G7502), V7508(G7503)
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V7507(G7501) V7506(G7500)
+Intersection V7509(G7502) V7508(G7503)
+Intersection V7514(G7502) V7511(G7503)
+Intersection V7515(G7500) V7512(G7501)
+Intersection V7516(G7501) V7513(G7500)
+------- Region 0 (virtual-swap-problem) -----
+  23:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	22:Block_0(-1)	
+	successors:	24:Block_2( 0%)	25:Block_3( 0%)	
+	.LAO_5_23:
+		 60:APPLY  	 g7517 = 1
+		 61:APPLY  	 g7518 = 2
+
+  24:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_24:
+		 72:COPY  	 g7519 = g7518
+		 73:COPY  	 g7520 = g7517
+
+  25:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	23:Block_1(-1)	
+	successors:	26:Block_4( 0%)	
+	.LAO_5_25:
+		 74:COPY  	 g7519 = g7517
+		 75:COPY  	 g7520 = g7518
+
+  26:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	24:Block_2(-1)	25:Block_3(-1)	
+	successors:	22:Block_0( 0%)	
+	.LAO_5_26:
+		 76:COPY  	 g7521 = g7519
+		 77:COPY  	 g7522 = g7520
+		 66:SUB  	 g7523 = g7522, g7521
+
+------- contributed=0 -----
+
+A weird case
+*** Before SSA construct
+------- Region 0 (weird-case) -----
+  28:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	27:Block_0(-1)	
+	successors:	29:Block_2( 0%)	30:Block_3( 0%)	
+	.LAO_6_28:
+		 78:APPLY  	 G8700 = 1
+		 79:APPLY  	 G8701 = 15
+
+  29:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_29:
+		 80:ADD  	 G8700 = G8700, G8701
+		 81:MUL  	 G8701 = G8700, 2
+
+  30:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_30:
+		 82:COPY  	 G8701 = G8700
+
+  31:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	29:Block_2(-1)	30:Block_3(-1)	
+	successors:	27:Block_0( 0%)	
+	.LAO_6_31:
+		 83:ADD  	 g8702 = G8700, 1
+		 84:MUL  	 g8703 = G8701, 1
+
+------- contributed=0 -----
+*** Folding	 82:COPY  	 G8701 = V8706(G8700)
+*** After SSA construct
+------- Region 0 (weird-case) -----
+  28:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	27:Block_0(-1)	
+	successors:	29:Block_2( 0%)	30:Block_3( 0%)	
+	.LAO_6_28:
+		 78:APPLY  	 V8706(G8700) = 1
+		 79:APPLY  	 V8707(G8701) = 15
+
+  29:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_29:
+		 80:ADD  	 V8708(G8700) = V8706(G8700), V8707(G8701)
+		 81:MUL  	 V8709(G8701) = V8708(G8700), 2
+
+  30:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_30:
+
+  31:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	29:Block_2(-1)	30:Block_3(-1)	
+	successors:	27:Block_0( 0%)	
+	.LAO_6_31:
+		 86:PHI  	 V8710(G8701) = V8709(G8701), V8706(G8700)
+		 85:PHI  	 V8711(G8700) = V8708(G8700), V8706(G8700)
+		 83:ADD  	 V8712(g8702) = V8711(G8700), 1
+		 84:MUL  	 V8713(g8703) = V8710(G8701), 1
+
+------- contributed=0 -----
+*** PHI Operations	maxPhiArity=3
+    Block_4	frequency=0
+	 86:PHI[38]	 V8710(G8701) = V8709(G8701), V8706(G8700)
+	 85:PHI[38]	 V8711(G8700) = V8708(G8700), V8706(G8700)
+*** Before Boissinot CSSA
+------- Region 0 (weird-case) -----
+  28:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	27:Block_0(-1)	
+	successors:	29:Block_2( 0%)	30:Block_3( 0%)	
+	.LAO_6_28:
+		 78:APPLY[6]	 V8706(G8700) = 1
+		 79:APPLY[8]	 V8707(G8701) = 15
+
+  29:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_29:
+		 80:ADD[18]	 V8708(G8700) = V8706(G8700), V8707(G8701)
+		 81:MUL[20]	 V8709(G8701) = V8708(G8700), 2
+
+  30:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_30:
+
+  31:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	29:Block_2(-1)	30:Block_3(-1)	
+	successors:	27:Block_0( 0%)	
+	.LAO_6_31:
+		 86:PHI[38]	 V8710(G8701) = V8709(G8701), V8706(G8700)
+		 85:PHI[38]	 V8711(G8700) = V8708(G8700), V8706(G8700)
+		 83:ADD[44]	 V8712(g8702) = V8711(G8700), 1
+		 84:MUL[46]	 V8713(g8703) = V8710(G8701), 1
+
+------- contributed=0 -----
+    V8706(G8700):
+	Producer	 78:APPLY[6]	 V8706(G8700) = 1
+	Consumer	 80:ADD[18]	 V8708(G8700) = V8706(G8700), V8707(G8701)
+	Consumer	 86:PHI[38]	 V8710(G8701) = V8709(G8701), V8706(G8700)
+	Consumer	 85:PHI[38]	 V8711(G8700) = V8708(G8700), V8706(G8700)
+    V8707(G8701):
+	Producer	 79:APPLY[8]	 V8707(G8701) = 15
+    V8708(G8700):
+	Producer	 80:ADD[18]	 V8708(G8700) = V8706(G8700), V8707(G8701)
+	Consumer	 81:MUL[20]	 V8709(G8701) = V8708(G8700), 2
+	Consumer	 85:PHI[38]	 V8711(G8700) = V8708(G8700), V8706(G8700)
+    V8709(G8701):
+	Producer	 81:MUL[20]	 V8709(G8701) = V8708(G8700), 2
+	Consumer	 86:PHI[38]	 V8710(G8701) = V8709(G8701), V8706(G8700)
+    V8710(G8701):
+	Producer	 86:PHI[38]	 V8710(G8701) = V8709(G8701), V8706(G8700)
+	Consumer	 84:MUL[46]	 V8713(g8703) = V8710(G8701), 1
+    V8711(G8700):
+	Producer	 85:PHI[38]	 V8711(G8700) = V8708(G8700), V8706(G8700)
+	Consumer	 83:ADD[44]	 V8712(g8702) = V8711(G8700), 1
+    V8712(g8702):
+	Producer	 83:ADD[44]	 V8712(g8702) = V8711(G8700), 1
+    V8713(g8703):
+	Producer	 84:MUL[46]	 V8713(g8703) = V8710(G8701), 1
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V8710(G8701) => { V8710(G8701) }
+V8709(G8701) => { V8709(G8701) }
+V8706(G8700) => { V8706(G8700) }
+V8711(G8700) => { V8711(G8700) }
+V8708(G8700) => { V8708(G8700) }
+V8714(G8701) => { V8715(G8701) V8716(G8700) V8714(G8701) }
+V8715(G8701) => { V8715(G8701) V8716(G8700) V8714(G8701) }
+V8716(G8700) => { V8715(G8701) V8716(G8700) V8714(G8701) }
+V8717(G8700) => { V8718(G8700) V8719(G8700) V8717(G8700) }
+V8718(G8700) => { V8718(G8700) V8719(G8700) V8717(G8700) }
+V8719(G8700) => { V8718(G8700) V8719(G8700) V8717(G8700) }
+ *** After Exact Step I
+------- Region 0 (weird-case) -----
+  28:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	27:Block_0(-1)	
+	successors:	29:Block_2( 0%)	30:Block_3( 0%)	
+	.LAO_6_28:
+		 78:APPLY[6]	 V8706(G8700) = 1
+		 79:APPLY[8]	 V8707(G8701) = 15
+
+  29:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_29:
+		 80:ADD[18]	 V8708(G8700) = V8706(G8700), V8707(G8701)
+		 81:MUL[20]	 V8709(G8701) = V8708(G8700), 2
+		 88:LCOPY[23]	 V8715(G8701), V8718(G8700) = V8709(G8701), V8708(G8700)
+
+  30:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_30:
+		 89:LCOPY[33]	 V8716(G8700), V8719(G8700) = V8706(G8700), V8706(G8700)
+
+  31:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	29:Block_2(-1)	30:Block_3(-1)	
+	successors:	27:Block_0( 0%)	
+	.LAO_6_31:
+		 86:PHI[38]	 V8714(G8701) = V8715(G8701), V8716(G8700)
+		 85:PHI[38]	 V8717(G8700) = V8718(G8700), V8719(G8700)
+		 87:ECOPY[41]	 V8710(G8701), V8711(G8700) = V8714(G8701), V8717(G8700)
+		 83:ADD[44]	 V8712(g8702) = V8711(G8700), 1
+		 84:MUL[46]	 V8713(g8703) = V8710(G8701), 1
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V8709(G8701) V8708(G8700)
+Intersection V8711(G8700) V8710(G8701)
+Intersection V8717(G8700) V8714(G8701)
+Intersection V8718(G8700) V8715(G8701)
+Intersection But Same Value V8719(G8700) V8716(G8700)
+------- Region 0 (weird-case) -----
+  28:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	27:Block_0(-1)	
+	successors:	29:Block_2( 0%)	30:Block_3( 0%)	
+	.LAO_6_28:
+		 78:APPLY  	 g8720 = 1
+		 79:APPLY  	 g8721 = 15
+
+  29:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_29:
+		 80:ADD  	 g8722 = g8720, g8721
+		 81:MUL  	 g8723 = g8722, 2
+		 90:COPY  	 g8724 = g8723
+		 91:COPY  	 g8725 = g8722
+
+  30:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	28:Block_1(-1)	
+	successors:	31:Block_4( 0%)	
+	.LAO_6_30:
+		 92:COPY  	 g8724 = g8720
+		 93:COPY  	 g8725 = g8720
+
+  31:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	29:Block_2(-1)	30:Block_3(-1)	
+	successors:	27:Block_0( 0%)	
+	.LAO_6_31:
+		 94:COPY  	 g8726 = g8724
+		 95:COPY  	 g8727 = g8725
+		 83:ADD  	 g8728 = g8727, 1
+		 84:MUL  	 g8729 = g8726, 1
+
+------- contributed=0 -----
+
+Sreedhar's Translating out of SSA form; Fig. 10
+*** PHI Operations	maxPhiArity=3
+    Block_5	frequency=0
+	100:PHI[46]	 V9913(g10013) = V9911(g10011), V9912(g10012)
+    Block_6	frequency=0
+	103:PHI[57]	 V9903(g10003) = V9901(g10001), V9902(g10002)
+*** Before Boissinot CSSA
+------- Region 0 (ssa-coalescing) -----
+  33:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	32:Block_0(-1)	
+	successors:	34:Block_2( 0%)	35:Block_3( 0%)	36:Block_4( 0%)	
+	.LAO_7_33:
+
+  34:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	37:Block_5( 0%)	38:Block_6( 0%)	
+	.LAO_7_34:
+		 96:APPLY[14]	 V9911(g10011) = 30
+		 97:COPY[16]	 V9901(g10001) = V9911(g10011)
+
+  35:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	37:Block_5( 0%)	
+	.LAO_7_35:
+		 98:APPLY[28]	 V9912(g10012) = 10
+
+  36:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	38:Block_6( 0%)	
+	.LAO_7_36:
+		 99:APPLY[39]	 V9902(g10002) = 20
+
+  37:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	34:Block_2(-1)	35:Block_3(-1)	
+	successors:	32:Block_0( 0%)	
+	.LAO_7_37:
+		100:PHI[46]	 V9913(g10013) = V9911(g10011), V9912(g10012)
+		101:COPY[51]	 $r1 = V9913(g10013)
+		102:CALL[55]	 foo
+
+  38:Block_6
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	34:Block_2(-1)	36:Block_4(-1)	
+	successors:	32:Block_0( 0%)	
+	.LAO_7_38:
+		103:PHI[57]	 V9903(g10003) = V9901(g10001), V9902(g10002)
+		104:COPY[62]	 $r1 = V9903(g10003)
+		105:CALL[66]	 goo
+
+------- contributed=0 -----
+    V9911(g10011):
+	Producer	 96:APPLY[14]	 V9911(g10011) = 30
+	Consumer	 97:COPY[16]	 V9901(g10001) = V9911(g10011)
+	Consumer	100:PHI[46]	 V9913(g10013) = V9911(g10011), V9912(g10012)
+    V9901(g10001):
+	Producer	 97:COPY[16]	 V9901(g10001) = V9911(g10011)
+	Consumer	103:PHI[57]	 V9903(g10003) = V9901(g10001), V9902(g10002)
+    V9912(g10012):
+	Producer	 98:APPLY[28]	 V9912(g10012) = 10
+	Consumer	100:PHI[46]	 V9913(g10013) = V9911(g10011), V9912(g10012)
+    V9902(g10002):
+	Producer	 99:APPLY[39]	 V9902(g10002) = 20
+	Consumer	103:PHI[57]	 V9903(g10003) = V9901(g10001), V9902(g10002)
+    V9913(g10013):
+	Producer	100:PHI[46]	 V9913(g10013) = V9911(g10011), V9912(g10012)
+	Consumer	101:COPY[51]	 $r1 = V9913(g10013)
+    V9903(g10003):
+	Producer	103:PHI[57]	 V9903(g10003) = V9901(g10001), V9902(g10002)
+	Consumer	104:COPY[62]	 $r1 = V9903(g10003)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V9901(g10001) => { V9901(g10001) }
+V9911(g10011) => { V9911(g10011) }
+V9913(g10013) => { V9913(g10013) }
+V9912(g10012) => { V9912(g10012) }
+V9903(g10003) => { V9903(g10003) }
+V9902(g10002) => { V9902(g10002) }
+V10017(g10013) => { V10018(g10011) V10019(g10012) V10017(g10013) }
+V10018(g10011) => { V10018(g10011) V10019(g10012) V10017(g10013) }
+V10019(g10012) => { V10018(g10011) V10019(g10012) V10017(g10013) }
+V10020(g10003) => { V10021(g10001) V10022(g10002) V10020(g10003) }
+V10021(g10001) => { V10021(g10001) V10022(g10002) V10020(g10003) }
+V10022(g10002) => { V10021(g10001) V10022(g10002) V10020(g10003) }
+ *** After Exact Step I
+------- Region 0 (ssa-coalescing) -----
+  33:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	32:Block_0(-1)	
+	successors:	34:Block_2( 0%)	35:Block_3( 0%)	36:Block_4( 0%)	
+	.LAO_7_33:
+
+  34:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	37:Block_5( 0%)	38:Block_6( 0%)	
+	.LAO_7_34:
+		 96:APPLY[14]	 V9911(g10011) = 30
+		 97:COPY[16]	 V9901(g10001) = V9911(g10011)
+		107:LCOPY[19]	 V10018(g10011), V10021(g10001) = V9911(g10011), V9901(g10001)
+
+  35:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	37:Block_5( 0%)	
+	.LAO_7_35:
+		 98:APPLY[28]	 V9912(g10012) = 10
+		108:LCOPY[31]	 V10019(g10012) = V9912(g10012)
+
+  36:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	38:Block_6( 0%)	
+	.LAO_7_36:
+		 99:APPLY[39]	 V9902(g10002) = 20
+		110:LCOPY[42]	 V10022(g10002) = V9902(g10002)
+
+  37:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	34:Block_2(-1)	35:Block_3(-1)	
+	successors:	32:Block_0( 0%)	
+	.LAO_7_37:
+		100:PHI[46]	 V10017(g10013) = V10018(g10011), V10019(g10012)
+		106:ECOPY[48]	 V9913(g10013) = V10017(g10013)
+		101:COPY[51]	 $r1 = V9913(g10013)
+		102:CALL[55]	 foo
+
+  38:Block_6
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	34:Block_2(-1)	36:Block_4(-1)	
+	successors:	32:Block_0( 0%)	
+	.LAO_7_38:
+		103:PHI[57]	 V10020(g10003) = V10021(g10001), V10022(g10002)
+		109:ECOPY[59]	 V9903(g10003) = V10020(g10003)
+		104:COPY[62]	 $r1 = V9903(g10003)
+		105:CALL[66]	 goo
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection But Same Value V9911(g10011) V9901(g10001)
+Intersection But Same Value V10021(g10001) V10018(g10011)
+*** Congruence Coalescing:
+Coalescing V9901(g10001) V9911(g10011)
+Coalescing V10018(g10011) V9911(g10011)
+Coalescing V10021(g10001) V9901(g10001)
+Coalescing V10019(g10012) V9912(g10012)
+Coalescing V10022(g10002) V9902(g10002)
+Coalescing V9913(g10013) V10017(g10013)
+Coalescing V9903(g10003) V10020(g10003)
+------- Region 0 (ssa-coalescing) -----
+  33:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	32:Block_0(-1)	
+	successors:	34:Block_2( 0%)	35:Block_3( 0%)	36:Block_4( 0%)	
+	.LAO_7_33:
+
+  34:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	37:Block_5( 0%)	38:Block_6( 0%)	
+	.LAO_7_34:
+		 96:APPLY  	 g10023 = 30
+
+  35:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	37:Block_5( 0%)	
+	.LAO_7_35:
+		 98:APPLY  	 g10023 = 10
+
+  36:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	33:Block_1(-1)	
+	successors:	38:Block_6( 0%)	
+	.LAO_7_36:
+		 99:APPLY  	 g10023 = 20
+
+  37:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	34:Block_2(-1)	35:Block_3(-1)	
+	successors:	32:Block_0( 0%)	
+	.LAO_7_37:
+		101:COPY  	 $r1 = g10023
+		102:CALL  	 foo
+
+  38:Block_6
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	34:Block_2(-1)	36:Block_4(-1)	
+	successors:	32:Block_0( 0%)	
+	.LAO_7_38:
+		104:COPY  	 $r1 = g10023
+		105:CALL  	 goo
+
+------- contributed=0 -----
+
+Rastello's report, SSA-based coalescing; Fig. 10
+*** PHI Operations	maxPhiArity=3
+    Block_2	frequency=0
+	113:PHI[16]	 V11202(g11302) = V11201(g11301), V11203(g11303)
+	114:PHI[16]	 V11212(g11312) = V11211(g11311), V11213(g11313)
+    Block_4	frequency=0
+	115:PHI[38]	 V11203(g11303) = V11202(g11302), V11212(g11312)
+	116:PHI[38]	 V11213(g11313) = V11212(g11312), V11202(g11302)
+*** Before Boissinot CSSA
+------- Region 0 (rastello-test-coalescing) -----
+  40:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	39:Block_0(-1)	
+	successors:	41:Block_2( 0%)	
+	.LAO_8_40:
+		111:APPLY[6]	 V11201(g11301) = 10
+		112:APPLY[8]	 V11211(g11311) = 20
+
+  41:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	40:Block_1(-1)	43:Block_4(-1)	
+	successors:	42:Block_3( 0%)	43:Block_4( 0%)	
+	.LAO_8_41:
+		113:PHI[16]	 V11202(g11302) = V11201(g11301), V11203(g11303)
+		114:PHI[16]	 V11212(g11312) = V11211(g11311), V11213(g11313)
+
+  42:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	41:Block_2(-1)	
+	successors:	43:Block_4( 0%)	
+	.LAO_8_42:
+
+  43:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	41:Block_2(-1)	42:Block_3(-1)	
+	successors:	44:Block_5( 0%)	41:Block_2( 0%)	
+	.LAO_8_43:
+		115:PHI[38]	 V11203(g11303) = V11202(g11302), V11212(g11312)
+		116:PHI[38]	 V11213(g11313) = V11212(g11312), V11202(g11302)
+
+  44:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	43:Block_4(-1)	
+	successors:	39:Block_0( 0%)	
+	.LAO_8_44:
+		117:COPY[54]	 $r1 = V11203(g11303)
+		118:COPY[56]	 $r2 = V11213(g11313)
+		119:CALL[60]	 foo
+
+------- contributed=0 -----
+    V11201(g11301):
+	Producer	111:APPLY[6]	 V11201(g11301) = 10
+	Consumer	113:PHI[16]	 V11202(g11302) = V11201(g11301), V11203(g11303)
+    V11211(g11311):
+	Producer	112:APPLY[8]	 V11211(g11311) = 20
+	Consumer	114:PHI[16]	 V11212(g11312) = V11211(g11311), V11213(g11313)
+    V11202(g11302):
+	Producer	113:PHI[16]	 V11202(g11302) = V11201(g11301), V11203(g11303)
+	Consumer	115:PHI[38]	 V11203(g11303) = V11202(g11302), V11212(g11312)
+	Consumer	116:PHI[38]	 V11213(g11313) = V11212(g11312), V11202(g11302)
+    V11203(g11303):
+	Producer	115:PHI[38]	 V11203(g11303) = V11202(g11302), V11212(g11312)
+	Consumer	113:PHI[16]	 V11202(g11302) = V11201(g11301), V11203(g11303)
+	Consumer	117:COPY[54]	 $r1 = V11203(g11303)
+    V11212(g11312):
+	Producer	114:PHI[16]	 V11212(g11312) = V11211(g11311), V11213(g11313)
+	Consumer	115:PHI[38]	 V11203(g11303) = V11202(g11302), V11212(g11312)
+	Consumer	116:PHI[38]	 V11213(g11313) = V11212(g11312), V11202(g11302)
+    V11213(g11313):
+	Producer	116:PHI[38]	 V11213(g11313) = V11212(g11312), V11202(g11302)
+	Consumer	114:PHI[16]	 V11212(g11312) = V11211(g11311), V11213(g11313)
+	Consumer	118:COPY[56]	 $r2 = V11213(g11313)
+*** Exact Method:
+*** Exact COPY insertion:
+*** SSA Congruences
+V11202(g11302) => { V11202(g11302) }
+V11201(g11301) => { V11201(g11301) }
+V11203(g11303) => { V11203(g11303) }
+V11212(g11312) => { V11212(g11312) }
+V11211(g11311) => { V11211(g11311) }
+V11213(g11313) => { V11213(g11313) }
+V11315(g11302) => { V11316(g11301) V11315(g11302) V11317(g11303) }
+V11316(g11301) => { V11316(g11301) V11315(g11302) V11317(g11303) }
+V11317(g11303) => { V11316(g11301) V11315(g11302) V11317(g11303) }
+V11318(g11312) => { V11319(g11311) V11318(g11312) V11320(g11313) }
+V11319(g11311) => { V11319(g11311) V11318(g11312) V11320(g11313) }
+V11320(g11313) => { V11319(g11311) V11318(g11312) V11320(g11313) }
+V11321(g11303) => { V11322(g11302) V11323(g11312) V11321(g11303) }
+V11322(g11302) => { V11322(g11302) V11323(g11312) V11321(g11303) }
+V11323(g11312) => { V11322(g11302) V11323(g11312) V11321(g11303) }
+V11324(g11313) => { V11325(g11312) V11326(g11302) V11324(g11313) }
+V11325(g11312) => { V11325(g11312) V11326(g11302) V11324(g11313) }
+V11326(g11302) => { V11325(g11312) V11326(g11302) V11324(g11313) }
+ *** After Exact Step I
+------- Region 0 (rastello-test-coalescing) -----
+  40:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	39:Block_0(-1)	
+	successors:	41:Block_2( 0%)	
+	.LAO_8_40:
+		111:APPLY[6]	 V11201(g11301) = 10
+		112:APPLY[8]	 V11211(g11311) = 20
+		121:LCOPY[11]	 V11316(g11301), V11319(g11311) = V11201(g11301), V11211(g11311)
+
+  41:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	40:Block_1(-1)	43:Block_4(-1)	
+	successors:	42:Block_3( 0%)	43:Block_4( 0%)	
+	.LAO_8_41:
+		113:PHI[16]	 V11315(g11302) = V11316(g11301), V11317(g11303)
+		114:PHI[16]	 V11318(g11312) = V11319(g11311), V11320(g11313)
+		120:ECOPY[19]	 V11202(g11302), V11212(g11312) = V11315(g11302), V11318(g11312)
+		124:LCOPY[23]	 V11322(g11302), V11325(g11312) = V11202(g11302), V11212(g11312)
+
+  42:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	41:Block_2(-1)	
+	successors:	43:Block_4( 0%)	
+	.LAO_8_42:
+		125:LCOPY[33]	 V11323(g11312), V11326(g11302) = V11212(g11312), V11202(g11302)
+
+  43:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	41:Block_2(-1)	42:Block_3(-1)	
+	successors:	44:Block_5( 0%)	41:Block_2( 0%)	
+	.LAO_8_43:
+		115:PHI[38]	 V11321(g11303) = V11322(g11302), V11323(g11312)
+		116:PHI[38]	 V11324(g11313) = V11325(g11312), V11326(g11302)
+		123:ECOPY[41]	 V11203(g11303), V11213(g11313) = V11321(g11303), V11324(g11313)
+		122:LCOPY[45]	 V11317(g11303), V11320(g11313) = V11203(g11303), V11213(g11313)
+
+  44:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	43:Block_4(-1)	
+	successors:	39:Block_0( 0%)	
+	.LAO_8_44:
+		117:COPY[54]	 $r1 = V11203(g11303)
+		118:COPY[56]	 $r2 = V11213(g11313)
+		119:CALL[60]	 foo
+
+------- contributed=0 -----
+*** Exact Interference Build:
+ *** After Exact Step 2
+Intersection V11212(g11312) V11202(g11302)
+Intersection V11211(g11311) V11201(g11301)
+Intersection V11213(g11313) V11203(g11303)
+Intersection But Same Value V11317(g11303) V11203(g11303)
+Intersection V11317(g11303) V11213(g11313)
+Intersection V11318(g11312) V11315(g11302)
+Intersection V11319(g11311) V11316(g11301)
+Intersection V11320(g11313) V11203(g11303)
+Intersection But Same Value V11320(g11313) V11213(g11313)
+Intersection V11320(g11313) V11317(g11303)
+Intersection But Same Value V11322(g11302) V11202(g11302)
+Intersection V11322(g11302) V11212(g11312)
+Intersection V11324(g11313) V11321(g11303)
+Intersection V11325(g11312) V11202(g11302)
+Intersection But Same Value V11325(g11312) V11212(g11312)
+Intersection V11325(g11312) V11322(g11302)
+Intersection V11326(g11302) V11323(g11312)
+*** Congruence Coalescing:
+Coalescing V11316(g11301) V11201(g11301)
+Coalescing V11319(g11311) V11211(g11311)
+Coalescing V11202(g11302) V11315(g11302)
+Coalescing V11212(g11312) V11318(g11312)
+Coalescing V11322(g11302) V11202(g11302)
+Coalescing V11325(g11312) V11212(g11312)
+Interfere V11323(g11312) V11212(g11312)
+Interfere V11326(g11302) V11202(g11302)
+Coalescing V11203(g11303) V11321(g11303)
+Coalescing V11213(g11313) V11324(g11313)
+Coalescing V11317(g11303) V11203(g11303)
+Coalescing V11320(g11313) V11213(g11313)
+------- Region 0 (rastello-test-coalescing) -----
+  40:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	39:Block_0(-1)	
+	successors:	41:Block_2( 0%)	
+	.LAO_8_40:
+		111:APPLY  	 g11328 = 10
+		112:APPLY  	 g11329 = 20
+
+  41:Block_2
+	Natural+Widening
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	40:Block_1(-1)	43:Block_4(Loop,-1)	
+	successors:	42:Block_3( 0%)	43:Block_4( 0%)	
+	.LAO_8_41:
+
+  42:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	41:Block_2(-1)	
+	successors:	43:Block_4( 0%)	
+	.LAO_8_42:
+		127:COPY  	 g11330 = g11328
+		126:COPY  	 g11328 = g11329
+		128:COPY  	 g11329 = g11330
+
+  43:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	41:Block_2(-1)	42:Block_3(-1)	
+	successors:	44:Block_5( 0%)	41:Block_2( 0%)	
+	.LAO_8_43:
+
+  44:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	43:Block_4(-1)	
+	successors:	39:Block_0( 0%)	
+	.LAO_8_44:
+		117:COPY  	 $r1 = g11328
+		118:COPY  	 $r2 = g11329
+		119:CALL  	 foo
+
+------- contributed=0 -----

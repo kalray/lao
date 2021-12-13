@@ -1,0 +1,64 @@
+!!!!	CLI Conventions for the Embedded CLI Compilers
+
+Abstract:	This document discusses the conventions used by the embedded CLI compilers
+(AOT and JIT) to access extra information required to generate high-performance native
+code at moderate compilation time cost.
+
+
+!!!	Introduction
+
+Generating high-performance code in constrained time with an embedded CLI compiler
+(ECC) requires that extra information is associated with the CLI metadata and byte-code.
+This extra information can be classified along the following types:
+
+  *	Information that must be supplied by the upstream compiler
+because it cannot be recovered from CLI analysis:
+
+    *	C features that are not represented in CLI like =restrict=
+qualifiers and the associated scopes,
+
+    *	C performance-oriented =#pragma=
+like,
+
+    *	GCC attributes,
+
+    *	target-dependent intrinsic functions.
+
+  *	Information that is generally too expensive to compute in
+the ECC
+
+    *	register promotion opportunities,
+
+    *	loop transformation sequences,
+
+    *	code specialization points,
+
+  *	Information that is not available unless dynamic profiling is run:
+
+    *	 profiling of BasicBlock(s), BasicBlockEdge(s), paths,
+
+    *	 partitioning into CodeRegion(s), for instance hot-cold.
+
+!!!	Short-Term Requirements
+
+  Information that cannot be recovered from program analysis:
+  
+    *	C =restrict=qualifiers and the associated scopes,
+
+    *	C =#pragma ivdep= (to be implemented in GCC),
+
+
+  Information that is not available in non-dynamic mode:
+
+    *	GCC BasicBlock profiles and branch probabilities,
+
+    *	GCC 4.1 hot-cold partitions (see
+    <GCC 4.1 Release Series Changes, New Features, and Fixes
+    http://gcc.gnu.org/gcc-4.1/changes.html>).
+
+  Information that is performance-critical and expensive to recompute:
+
+    *	GCC 4.1 points-to analysis (see 
+    <GCC 4.1 Release Series Changes, New Features, and Fixes
+    http://gcc.gnu.org/gcc-4.1/changes.html>).
+

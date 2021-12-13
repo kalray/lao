@@ -1,0 +1,560 @@
+!! This file contains precision and range independent test vectors for
+!! the operation remainder (%). The first character in each
+!! test vector refers to the origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! H:  precision independent encoding of UCB/<H>ough test vector
+!!      @Unpublished{
+!!             author = {David G. Hough and others},
+!!             title  = {{UCBTEST}, a suite of programs for testing certain
+!!                difficult cases of {IEEE} 754 floating-point arithmetic},
+!!             year   = {1988},
+!!             note   = {Restricted public domain software from
+!!                http://netlib.bell-labs.com/netlib/fp/index.html}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {I}: basic operations,
+!!                       square root and remainder},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {92-118},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!! $Id: remainder 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!! Special representations
+!! zero versus zero
+2%	    ALL	    0	    0	    i	    Q
+2%	    ALL	    0	    -0		 i		 Q
+2%	    ALL	    -0		 0		 i		 Q
+2%	    ALL	    -0		 -0		  i		  Q
+! 0 rem y = 0,  y a number <> 0.
+!! zero versus denormal
+2%	    ALL	    0	    Td1	 OK		 0
+2%	    ALL	    0	    0i1	  OK	  0
+2%	    ALL	    0	    -0i1   OK	   0
+2%	    ALL	    -0		 0i1   OK	   -0
+2%	    ALL	    -0		 -0i1   OK	    -0
+2%	    ALL	    Td1	 0		 i		 Q
+2%	    ALL	    Td1	 -0		  i		  Q
+2%	    ALL	    -Td1  0		  i		  Q
+2%	    ALL	    -Td1  -0	   i	   Q
+2%	    ALL	    0i1	  0		  i		  Q
+!! zero versus normal
+2%	    ALL	    0	    1m1	  	OK	  0
+A%	    ALL	    -0	    1m1	  	OK	  -0
+A%	    ALL	    0	    -1m1	OK	  0
+A%	    ALL	    -0	    -1m1	OK	  -0
+2%	    ALL	    0	    1	    OK	    0
+2%	    ALL	    0	    -1		 OK		 0
+2%	    ALL	    -0		 1		 OK		 -0
+2%	    ALL	    -0		 -1		  OK	 -0
+2%	    ALL	    0	    1d1	  OK	  0
+2%	    ALL	    0	    Hd1	 OK		 0
+2%	    ALL	    1	    0	    i	    Q
+2%	    ALL	    1d1	  0		  i		  Q
+2%	    ALL	    Hd1	 0		 i		 Q
+2%	    ALL	    Hd1	 -0		  i		  Q
+2%	    ALL	    -Hd1  0		  i		  Q
+2%	    ALL	    -Hd1  -0	   i	   Q
+!! zero versus infinity
+2%	    ALL	    H	   0	   i	   Q
+2%	    ALL	    H	   -0	    i	    Q
+2%	    ALL	    -H	    0	    i	    Q
+2%	    ALL	    -H	    -0		 i		 Q
+2%	    ALL	    0	    H	   OK	   0
+2%	    ALL	    0	    -H	    OK	    0
+2%	    ALL	    -0	    H	   OK	  -0
+2%	    ALL	    -0	    -H	    OK	    -0
+!! zero versus NaN
+2%	    ALL	    0	    Q	    OK	    Q
+2%	    ALL	    -0	    Q	    OK	    Q
+!2%	    ALL	    0	    S	    i	    Q
+!2%	    ALL	    -0	    S	    i	    Q
+2%	    ALL	    Q	    0	    OK	    Q
+2%	    ALL	    Q	    -0	    OK	    Q
+!2%	    ALL	    S	    0	    i	    Q
+!2%	    ALL	    S	    -0	    i	    Q
+!! infinity versus infinity
+2%	    ALL	    H	   H	  i		  Q
+A%	    ALL	    -H	   -H	  i		  Q
+A%	    ALL	    H	   -H	  i		  Q
+A%	    ALL	    -H	   H	  i		  Q
+! x rem INF = x,  x a number <> 0.
+!! infinity versus denormal
+2%	    ALL	    H	   Td1  i	    Q
+2%	    ALL	    H	   0i1	 i		 Q
+2%	    ALL	    Td1	   H	 OK		 Td1
+2%	    ALL	    0i1	  H		 OK		  0i1
+2%	    ALL	    0i1	  -H	  OK	   0i1
+2%	    ALL	    -0i1   H	  OK	   -0i1
+2%	    ALL	    -0i1   -H	   OK	    -0i1
+!! infinity versus normal
+2%	    ALL	    H	   1	   i	   Q
+2%	    ALL	    H	   Hd1  i	    Q
+2%	    ALL	    H	   -Hd1	 i		 Q
+2%	    ALL	    -H	    Hd1	 i		 Q
+2%	    ALL	    -H	    -Hd1  i		  Q
+2%	    ALL	    1	    H	   OK	   1
+2%	    ALL	    1	    -H	    OK	    1
+2%	    ALL	    -1		 H	    OK	    -1
+2%	    ALL	    -1		 -H		 OK		 -1
+2%	    ALL	    1d1	  H		 OK		 1d1
+2%	    ALL	    Hd1	 H	    OK	    Hd1
+2%	    ALL	    Hd1	 -H		 OK		 Hd1
+2%	    ALL	    -Hd1  H		 OK		 -Hd1
+2%	    ALL	    -Hd1  -H	  OK	  -Hd1
+!! infinity versus NaN
+2%	    ALL	    Q	    H	   OK	   Q
+2%	    ALL	    Q	    -H	   OK	   Q
+2%	    ALL	    H	   Q	   OK	   Q
+2%	    ALL	    -H	   Q	   OK	   Q
+!2%	    ALL	    S	    H	   i	   Q
+!2%	    ALL	    S	    -H	   i	   Q
+!2%	    ALL	    H	   S	   i	   Q
+!2%	    ALL	    -H	   S	   i	   Q
+!! NaN versus NaN
+2%	    ALL	    Q	    Q	    OK	    Q
+!2%	    ALL	    Q	    S	    i	    Q
+!2%	    ALL	    S	    Q	    i	    Q
+!2%	    ALL	    S	    S	    i	    Q
+!! NaN versus denormal
+2%	    ALL	    Q	    Td1	 OK		 Q
+2%	    ALL	    Q	    -Td1 OK		 Q
+2%	    ALL	    Q	    0i1	  OK	  Q
+2%	    ALL	    Q	    -0i1  OK	  Q
+!2%	    ALL	    S	    Td1	 i		 Q
+!2%	    ALL	    S	    -Td1 i		 Q
+!2%	    ALL	    S	    0i1	  i		  Q
+!2%	    ALL	    S	    -0i1  i		  Q
+2%	    ALL	    Td1	 Q		 OK		 Q
+2%	    ALL	    -Td1 Q		 OK		 Q
+2%	    ALL	    0i1	  Q		  OK	  Q
+2%	    ALL	    -0i1  Q		  OK	  Q
+!2%	    ALL	    Td1	 S		 i		 Q
+!2%	    ALL	    -Td1 S		 i		 Q
+!2%	    ALL	    0i1	  S		  i		  Q
+!2%	    ALL	    -0i1  S		  i		  Q
+!! NaN versus normal
+2%	    ALL	    Q	    1	    OK	    Q
+2%	    ALL	    Q	    -1	    OK	    Q
+2%	    ALL	    Q	    Hd1	 OK		 Q
+2%	    ALL	    Q	    -Hd1 OK		 Q
+!2%	    ALL	    S	    1	    i	    Q
+!2%	    ALL	    S	    -1	    i	    Q
+!2%	    ALL	    S	    Hd1	 i		 Q
+!2%	    ALL	    S	    -Hd1 i		 Q
+2%	    ALL	    1	    Q	    OK	    Q
+2%	    ALL	    -1	    Q	    OK	    Q
+2%	    ALL	    Hd1	 Q		 OK		 Q
+2%	    ALL	    -Hd1 Q		 OK		 Q
+!2%	    ALL	    1	    S	    i	    Q
+!2%	    ALL	    -1	    S	    i	    Q
+!2%	    ALL	    Hd1	 S		 i		 Q
+!2%	    ALL	    -Hd1 S		 i		 Q
+
+!! exceptions
+!! invalid, see special representations
+!! inexact cannot occur
+
+!! X = kY => Z = 0
+2%	    ALL	    2	    2	    OK	    0
+2%	    ALL	    2	    -2		 OK		 0
+2%	    ALL	    -2		 2		 OK		 -0
+2%	    ALL	    -2		 -2		  OK	  -0
+2%	    ALL	    4	    4	    OK	    0
+A%	    ALL	    -4	    4	    OK	    -0
+A%	    ALL	    4	    -4	    OK	    0
+A%	    ALL	    -4	    -4	    OK	    -0
+2%	    ALL	    8	    4	    OK	    0
+A%	    ALL	    -8	    4	    OK	    -0
+A%	    ALL	    8	    -4	    OK	    0
+A%	    ALL	    -8	    -4	    OK	    -0
+2%	    ALL	    Hd1	 0i1   OK	   0
+2%	    ALL	    Hd1	 -0i1  OK	   0
+2%	    ALL	    -Hd1 0i1   OK	   -0
+2%	    ALL	    -Hd1 -0i1  OK	   -0
+2%	    ALL	    Hd1	 Tu1  OK	  0
+2%	    ALL	    Hd1	 Tp1d1  OK	    0
+A%	    ALL	    -Hd1	 Tp1d1  OK	    -0
+A%	    ALL	    Hd1	 -Tp1d1  OK	    0
+A%	    ALL	    -Hd1	 -Tp1d1  OK	    -0
+2%	    ALL	    Hd1	 T	    OK	    0
+A%	    ALL	    Hd1	 -T	    OK	    0
+A%	    ALL	    -Hd1	 T	    OK	    -0
+A%	    ALL	    -Hd1	 -T	    OK	    -0
+2%	    ALL	    0i4	  0i4   OK	    0
+2%	    ALL	    0i4	  -0i4  OK	    0
+2%	    ALL	    -0i4  -0i4  OK	    -0
+2%	    ALL	    -0i4  0i4   OK	    -0
+!! Y >= 2X => X/Y <= 1/2 => Z = X
+2%	    ALL	    1	    2	    OK	    1
+2%	    ALL	    1	    -2	    OK	    1
+2%	    ALL	    -1	    2	    OK	   -1
+2%	    ALL	    -1	    -2	    OK	    -1
+2%	    ALL	    1	    4	    OK	    1
+A%	    ALL	    1	    -4	    OK	    1
+A%	    ALL	    -1	    4	    OK	   -1
+A%	    ALL	    -1	    -4	    OK	    -1
+2%	    ALL	    2	    4	    OK	    2
+A%	    ALL	    -2	    4	    OK	    -2
+A%	    ALL	    2	    -4	    OK	    2
+A%	    ALL	    -2	    -4	    OK	    -2
+2%	    ALL	    1m3		1m1   OK	    1m3
+A%	    ALL	    -1m3	1m1   OK	    -1m3
+A%	    ALL	    1m3	  	-1m1   OK	    1m3
+A%	    ALL	    -1m3	-1m1   OK	    -1m3
+2%	    ALL	    1m2	  	1m1	OK	    1m2
+A%	    ALL	    -1m2	1m1	OK	    -1m2
+A%	    ALL	    1m2	  	-1m1	OK	    1m2
+A%	    ALL	    -1m2	-1m1	OK	    -1m2
+2%	    ALL	    1d1	  	2d1   OK	    1d1
+A%	    ALL	    -1d1	  2d1   OK	    -1d1
+A%	    ALL	    1d1	  	-2d1   OK	    1d1
+A%	    ALL	    -1d1	  -2d1   OK	    -1d1
+2%	    ALL	    Hm2		 Hm1	  OK	  Hm2
+A%	    ALL	    -Hm2	Hm1	  OK	  -Hm2
+A%	    ALL	    Hm2		 -Hm1	  OK	  Hm2
+A%	    ALL	    -Hm2	-Hm1	  OK	  -Hm2
+2%	    ALL	    Hm1u1  Hm1u4  OK	  Hm1u1
+A%	    ALL	    -Hm1u1  Hm1u4  OK	  -Hm1u1
+A%	    ALL	    Hm1u1  -Hm1u4  OK	  Hm1u1
+A%	    ALL	    -Hm1u1  -Hm1u4  OK	  -Hm1u1
+2%	    ALL	    Hm1d1  Hd1  OK	    Hm1d1
+A%	    ALL	    -Hm1d1  Hd1  OK	    -Hm1d1
+A%	    ALL	    Hm1d1  -Hd1  OK	    Hm1d1
+A%	    ALL	    -Hm1d1  -Hd1  OK	    -Hm1d1
+2%	    ALL	    0i1	  0i4   OK		 0i1
+2%	    ALL	    0i1	  -0i4  OK		 0i1
+2%	    ALL	    -0i1  0i4   OK		 -0i1
+2%	    ALL	    -0i1  -0i4  OK		 -0i1
+2%	    ALL	    0i2	  0i4   OK		 0i2
+A%	    ALL	    -0i2	  0i4   OK		 -0i2
+A%	    ALL	    0i2	  -0i4   OK		 0i2
+A%	    ALL	    -0i2	  -0i4   OK		 -0i2
+!! Y < X < 3/2 Y  => 1 < X/Y < 3/2 => Z = X - Y
+2%	    ALL	    5	    4	    OK	    1
+A%	    ALL	    -5	    4	    OK	    -1
+A%	    ALL	    5	    -4	    OK	    1
+A%	    ALL	    -5	    -4	    OK	    -1
+2%	    ALL	    3d1	  	2		  OK	  1d4
+A%	    ALL	    -3d1	2		  OK	  -1d4
+A%	    ALL	    3d1	  	-2		  OK	  1d4
+A%	    ALL	    -3d1	-2		  OK	  -1d4
+2%	    ALL	    5m3	  	1m1   	OK	    1m3
+A%	    ALL	    -5m3	1m1   	OK	    -1m3
+A%	    ALL	    5m3	  	-1m1   	OK	    1m3
+A%	    ALL	    -5m3	-1m1   	OK	    -1m3
+2%	    ALL	    6d8	  4		  OK	  2d8d8d8d8
+A%	    ALL	    -6d8	  4		  OK	  -2d8d8d8d8
+A%	    ALL	    6d8	  	-4		  OK	  2d8d8d8d8
+A%	    ALL	    -6d8	  -4		  OK	  -2d8d8d8d8
+2%	    ALL	    1i6	  	1i5   OK	    1u1
+A%	    ALL	    -1i6	1i5   OK	    -1u1
+A%	    ALL	    1i6		-1i5   OK	    1u1
+A%	    ALL	    -1i6	-1i5   OK	    -1u1
+2%	    ALL	    1i1	  	1d2   OK	    1u2
+A%	    ALL	    -1i1	1d2   OK	    -1u2
+A%	    ALL	    1i1	  	-1d2   OK	    1u2
+A%	    ALL	    -1i1	-1d2   OK	    -1u2
+2%	    ALL	    1	    	1d2	  OK	1u1
+A%	    ALL	    -1	    	1d2	  OK	-1u1
+A%	    ALL	    1	    	-1d2	  OK	1u1
+A%	    ALL	    -1	    	-1d2	  OK	-1u1
+2%	    ALL	    1	    2d1	  OK	  -1d2
+A%	    ALL	    -1	    2d1	  OK	  1d2
+A%	    ALL	    1	    -2d1	  OK	  -1d2
+A%	    ALL	    -1	    -2d1	  OK	  1d2
+2%	    ALL	    Hm1i1  Hm1d2  OK	  Hm1u2
+A%	    ALL	    -Hm1i1  Hm1d2  OK	  -Hm1u2
+A%	    ALL	    Hm1i1  -Hm1d2  OK	  Hm1u2
+A%	    ALL	    -Hm1i1  -Hm1d2  OK	  -Hm1u2
+2%	    ALL	    Hm1		 Hm1d2  OK	Hm1u1
+A%	    ALL	    -Hm1	Hm1d2  OK	-Hm1u1
+A%	    ALL	    Hm1		 -Hm1d2  OK	Hm1u1
+A%	    ALL	    -Hm1	-Hm1d2  OK	-Hm1u1
+2%	    ALL	    Hd1	 Hd2  OK	  Hd1u1
+2%	    ALL	    Hd1	 -Hd2 OK	  Hd1u1
+2%	    ALL	    -Hd1 Hd2  OK	  -Hd1u1
+2%	    ALL	    -Hd1 -Hd2 OK	  -Hd1u1
+2%	    ALL	    Hm1i6  Hm1i5  OK	  Hm1u1
+A%	    ALL	    -Hm1i6  Hm1i5  OK	  -Hm1u1
+A%	    ALL	    Hm1i6  -Hm1i5  OK	  Hm1u1
+A%	    ALL	    -Hm1i6  -Hm1i5  OK	  -Hm1u1
+2%	    ALL	    Ti1	 Td2  OK	   Tu3
+A%	    ALL	    -Ti1	 Td2  OK	   -Tu3
+A%	    ALL	    Ti1	 -Td2  OK	   Tu3
+A%	    ALL	    -Ti1	 -Td2  OK	   -Tu3
+2%	    ALL	    T	   Td2  OK		 Tu2
+A%	    ALL	    -T	   Td2  OK		-Tu2
+A%	    ALL	    T	   -Td2  OK		 Tu2
+A%	    ALL	    -T	   -Td2  OK		-Tu2
+2%	    ALL	    Td1	 Tp1d1  OK		 Td1
+A%	    ALL	    -Td1	 Tp1d1  OK		 -Td1
+A%	    ALL	    Td1	 -Tp1d1  OK		 Td1
+A%	    ALL	    -Td1	 -Tp1d1  OK		 -Td1
+2%	    ALL	    Ti6	 Ti5  OK	   Tu1
+A%	    ALL	    -Ti6	 Ti5  OK	   -Tu1
+A%	    ALL	    Ti6	 -Ti5  OK	   Tu1
+A%	    ALL	    -Ti6	 -Ti5  OK	   -Tu1
+
+2%	    ALL	    3	    4	    OK	    -1
+A%	    ALL	    -3	    4	    OK	    1
+A%	    ALL	    3	    -4	    OK	    -1
+A%	    ALL	    -3	    -4	    OK	    1
+2%	    ALL	    1i1	  2		  OK	  -1d2
+A%	    ALL	    -1i1	  2		  OK	  1d2
+A%	    ALL	    1i1	  -2		  OK	  -1d2
+A%	    ALL	    -1i1	  -2		  OK	  1d2
+2%	    ALL	    2i1	  4		  OK	  -2d2
+2%	    ALL	    2i1	  -4	  OK	  -2d2
+2%	    ALL	    -2i1  4		  OK	  2d2
+2%	    ALL	    -2i1  -4	  OK	  2d2
+2%	    ALL	    2i8	  	4		  OK	  -2d8d8
+A%	    ALL	    -2i8	4		  OK	  2d8d8
+A%	    ALL	    2i8	  	-4		  OK	  -2d8d8
+A%	    ALL	    -2i8	-4		  OK	  2d8d8
+2%	    ALL	    6d1	  4		  OK	  2d4
+2%	    ALL	    6d1	  -4	  OK	  2d4
+2%	    ALL	    -6d1  4		  OK	  -2d4
+2%	    ALL	    -6d1  -4	  OK	  -2d4
+2%	    ALL	    1i1m2 1m1 OK	  -1d2m2
+A%	    ALL	    -1i1m2 1m1 OK	  1d2m2
+A%	    ALL	    1i1m2 -1m1 OK	  -1d2m2
+A%	    ALL	    -1i1m2 -1m1 OK	  1d2m2
+2%	    ALL	    1i1	  1i5   OK	    -1u4
+2%	    ALL	    1i1	  -1i5  OK	    -1u4
+2%	    ALL	    -1i1  1i5   OK	    1u4
+2%	    ALL	    -1i1  -1i5  OK	    1u4
+2%	    ALL	    1i2		1i5	OK	    -1u3
+A%	    ALL	    -1i2	1i5	OK	    1u3
+A%	    ALL	    1i2		-1i5	OK	    -1u3
+A%	    ALL	    -1i2	-1i5	OK	    1u3
+2%	    ALL	    1i3	  	1i5   OK	    -1u2
+A%	    ALL	    -1i3	1i5   OK	    1u2
+A%	    ALL	    1i3	  	-1i5   OK	    -1u2
+A%	    ALL	    -1i3	-1i5   OK	    1u2
+2%	    ALL	    1i4	  	1i5   OK	    -1u1
+A%	    ALL	    -1i4	1i5   OK	    1u1
+A%	    ALL	    1i4		-1i5   OK	    -1u1
+A%	    ALL	    -1i4	-1i5   OK	    1u1
+2%	    ALL	    3d1	  3		  OK	  -3u1
+2%	    ALL	    3d1	  -3	  OK	  -3u1
+2%	    ALL	    -3d1  3		  OK	  3u1
+2%	    ALL	    -3d1  -3	  OK	  3u1
+2%	    ALL	    2d1	  	2		  OK	  -1u1
+A%	    ALL	    -2d1	2		  OK	  1u1
+A%	    ALL	    2d1		-2		  OK	  -1u1
+A%	    ALL	    -2d1	-2		  OK	  1u1
+2%	    ALL	    1d4	  1d2   OK	    -1u1
+A%	    ALL	    -1d4	  1d2   OK	    1u1
+A%	    ALL	    1d4	  -1d2   OK	    -1u1
+A%	    ALL	    -1d4	  -1d2   OK	    1u1
+2%	    ALL	    Hm1d4  Hm1d2  OK	  -Hm1u1
+A%	    ALL	    -Hm1d4  Hm1d2  OK	  Hm1u1
+A%	    ALL	    Hm1d4  -Hm1d2  OK	  -Hm1u1
+A%	    ALL	    -Hm1d4  -Hm1d2  OK	  Hm1u1
+2%	    ALL	    Hm1		 Hd1  OK	  -Hm1d2
+A%	    ALL	    -Hm1		 Hd1  OK	  Hm1d2
+A%	    ALL	    Hm1		 -Hd1  OK	  -Hm1d2
+A%	    ALL	    -Hm1		 -Hd1  OK	  Hm1d2
+2%	    ALL	    Hd1	 Hm1	  OK	  -Hm1u1
+A%	    ALL	    -Hd1	 Hm1	  OK	  Hm1u1
+A%	    ALL	    Hd1	 -Hm1	  OK	  -Hm1u1
+A%	    ALL	    -Hd1	 -Hm1	  OK	  Hm1u1
+2%	    ALL	    Hm1i3  Hm1i5  OK	  -Hm1u2
+A%	    ALL	    -Hm1i3  Hm1i5  OK	  Hm1u2
+A%	    ALL	    Hm1i3  -Hm1i5  OK	  -Hm1u2
+A%	    ALL	    -Hm1i3  -Hm1i5  OK	  Hm1u2
+2%	    ALL	    Hm1i4  Hm1i5  OK	  -Hm1u1
+A%	    ALL	    -Hm1i4  Hm1i5  OK	  Hm1u1
+A%	    ALL	    Hm1i4  -Hm1i5  OK	  -Hm1u1
+A%	    ALL	    -Hm1i4  -Hm1i5  OK	  Hm1u1
+2%	    ALL	    Hm1d1  Hm1	    OK	    -Hm2u1
+2%	    ALL	    Hm1d1  -Hm1	    OK	    -Hm2u1
+2%	    ALL	    -Hm1d1 Hm1	    OK	    Hm2u1
+2%	    ALL	    -Hm1d1 -Hm1	    OK	    Hm2u1
+2%	    ALL	    0i3	  0i4   OK		 -0i1
+2%	    ALL	    0i3	  -0i4  OK		 -0i1
+2%	    ALL	    -0i3  0i4   OK		 0i1
+2%	    ALL	    -0i3  -0i4  OK		 0i1
+2%	    ALL	    Td4	 Td2  OK	   -Tu2
+2%	    ALL	    Td4	 -Td2  OK	    -Tu2
+2%	    ALL	    -Td4  Td2  OK	    Tu2
+2%	    ALL	    -Td4  -Td2  OK		 Tu2
+2%	    ALL	    T	   Tp1d1  OK	   -Td1
+A%	    ALL	    -T	   Tp1d1  OK	   Td1
+A%	    ALL	    T	   -Tp1d1  OK	   -Td1
+A%	    ALL	    -T	   -Tp1d1  OK	   Td1
+2%	    ALL	    Ti3	 	Ti5  OK	   -Tu2
+A%	    ALL	    -Ti3	Ti5  OK	   Tu2
+A%	    ALL	    Ti3	 	-Ti5  OK	   -Tu2
+A%	    ALL	    -Ti3	 -Ti5  OK	   Tu2
+2%	    ALL	    Ti4	 	Ti5  OK	   -Tu1
+A%	    ALL	    -Ti4	 Ti5  OK	   Tu1
+A%	    ALL	    Ti4	 	-Ti5  OK	   -Tu1
+A%	    ALL	    -Ti4	 -Ti5  OK	   Tu1
+2%	    ALL	    Tp1d1  Tp1		OK		 -Tu1
+A%	    ALL	    -Tp1d1  Tp1		OK		 Tu1
+A%	    ALL	    Tp1d1  -Tp1		OK		 -Tu1
+A%	    ALL	    -Tp1d1  -Tp1	OK		 Tu1
+
+!! 3/2 Y <= X <= 2Y  => 3/2 < X/Y <= 2 => Z = X - 2Y
+2%	    ALL	    3	    2	    OK	    -1
+2%	    ALL	    3	    -2	    OK	    -1
+2%	    ALL	    -3	    2	    OK	    1
+2%	    ALL	    -3	    -2	    OK	    1
+2%	    ALL	    6	    4	    OK	    -2
+A%	    ALL	    -6	    4	    OK	    2
+A%	    ALL	    6	    -4	    OK	    -2
+A%	    ALL	    -6	    -4	    OK	    2
+2%	    ALL	    7	    4	    OK	    -1
+A%	    ALL	    -7	    4	    OK	    1
+A%	    ALL	    7	    -4	    OK	    -1
+A%	    ALL	    -7	    -4	    OK	    1
+2%	    ALL	    3m3	  	1m1   	OK	    -1m3
+A%	    ALL	    -3m3	1m1   	OK	    1m3
+A%	    ALL	    3m3	  	-1m1   	OK	    -1m3
+A%	    ALL	    -3m3	-1m1   	OK	    1m3
+
+! Vectors based on  (x + 1) | (x^n + 1) for n odd -
+! for significands with even numbers of bits.
+2%      e ALL	  Hm1i1	 Hm1u3  OK	    0
+2%      e ALL	  Hm1i2	 Hm1u3  OK	    Hm1u1
+2%      e ALL	  Hm1i3	 Hm1u3  OK	    -Hm1u1
+2%      e ALL	  Hm1i1	 3		 OK		 0
+2%      e ALL	  Hm1i1	 0i3   OK	   0
+2%      e ALL	  Hm1	   Hm1u3  OK	  -Hm1u1
+2%      e ALL	  Hm1d2	 Hm1u3  OK	    Hm1u1
+2%      e ALL	  Ti1  Tu3  OK	    0
+2%      e ALL	  T		 Tu3  OK	   -0i1
+2%      e ALL	  Td1  Tu3  OK		 0i1
+2%      e ALL	  Ti1  0i3  OK	    0
+2%      e ALL	  Ti2  Tu3  OK		 Tu1
+2%      e ALL	  Ti3  Tu3  OK		 -Tu1
+2%      e ALL	  Hm1i1	 -Hm1u3	 OK		 0
+2%      e ALL	  Hm1i2	 -Hm1u3	 OK		 Hm1u1
+2%      e ALL	  Hm1i3	 -Hm1u3	 OK		 -Hm1u1
+2%      e ALL	  Hm1i1	 -3		  OK	  0
+2%      e ALL	  Hm1i1	 -0i3   OK	    0
+2%      e ALL	  Hm1	   -Hm1u3  OK	   -Hm1u1
+2%      e ALL	  Hm1d2	 -Hm1u3	 OK		 Hm1u1
+2%      e ALL	  Ti1  -0i3	  OK	  0
+2%      e ALL	  T		 -Tu3  OK	    -Tu1
+2%      e ALL	  Td1  -Tu3	 OK		  Tu1
+2%      e ALL	  Ti1  -Tu3 OK	    0
+2%      e ALL	  Ti2  -Tu3	 OK		  Tu1
+2%      e ALL	  Ti3  -Tu3	 OK		  -Tu1
+2%      e ALL	  -Hm1i1  Hm1u3	 OK		 -0
+2%      e ALL	  -Hm1i2  Hm1u3	 OK		 -Hm1u1
+2%      e ALL	  -Hm1i3  Hm1u3	 OK		 Hm1u1
+2%      e ALL	  -Hm1i1  3		  OK	  -0
+2%      e ALL	  -Hm1i1  0i3   OK	    -0
+2%      e ALL	  -Hm1	    Hm1u3  OK	   Hm1u1
+2%      e ALL	  -Hm1d2  Hm1u3	 OK		 -Hm1u1
+2%      e ALL	  -Ti1  0i3	  OK	  -0
+2%      e ALL	  -T	  Tu3  OK	    Tu1
+2%      e ALL	  -Td1  Tu3	 OK		  -Tu1
+2%      e ALL	  -Ti1  Tu3	 OK		 -0
+2%      e ALL	  -Ti2  Tu3	 OK		  -Tu1
+2%      e ALL	  -Ti3  Tu3	 OK		  Tu1
+2%      e ALL	  -Hm1i1  -Hm1u3  OK	  -0
+2%      e ALL	  -Hm1i2  -Hm1u3  OK	  -Hm1u1
+2%      e ALL	  -Hm1i3  -Hm1u3  OK	  Hm1u1
+2%      e ALL	  -Hm1i1  -3	   OK	   -0
+2%      e ALL	  -Hm1i1  -0i3	 OK		 -0
+2%      e ALL	  -Hm1	    -Hm1u3  OK	    Hm1u1
+2%      e ALL	  -Hm1d2  -Hm1u3  OK	  -Hm1u1
+2%      e ALL	  -Ti1  -0i3   OK	   -0
+2%      e ALL	  -T	  -Tu3  OK		 Tu1
+2%      e ALL	  -Td1  -Tu3  OK	   -Tu1
+2%      e ALL	  -Ti1  -Tu3 OK		 -0
+2%      e ALL	  -Ti2  -Tu3  OK	   -Tu1
+2%      e ALL	  -Ti3  -Tu3  OK	   Tu1
+! Vectors based on  (x + 1) | (x^n + 1) for n odd;
+! for significands with odd numbers of bits.
+2%      o ALL	  Hm1d2	 Hm1u3  OK	    0
+2%      o ALL	  Hm1i3	 Hm1u3  OK	    Hm1u1
+2%      o ALL	  Hm1i4	 Hm1u3  OK	    -Hm1u1
+2%      o ALL	  Hm1i2	 3		 OK		 0
+2%      o ALL	  Hm1i2	 0i3   OK	   0
+2%      o ALL	  Hm1d4	 Hm1u3  OK	    -Hm1u1
+2%      o ALL	  Hm1	   Hm1u3  OK	  Hm1u1
+2%      o ALL	  Td1  Tu3  OK	    0
+2%      o ALL	  Ti1  Tu3  OK		 -0i1
+2%      o ALL	  T		 Tu3  OK	   0i1
+2%      o ALL	  Ti2  0i3  OK	    0
+2%      o ALL	  Ti3  Tu3  OK		 Tu1
+2%      o ALL	  Ti4  Tu3  OK		 -Tu1
+2%      o ALL	  Hm1d2	 -Hm1u3	 OK		 0
+2%      o ALL	  Hm1i3	 -Hm1u3	 OK		 Hm1u1
+2%      o ALL	  Hm1i4	 -Hm1u3	 OK		 -Hm1u1
+2%      o ALL	  Hm1i2	 -3		  OK	  0
+2%      o ALL	  Hm1i2	 -0i3   OK	    0
+2%      o ALL	  Hm1d4	 -Hm1u3	 OK		 -Hm1u1
+2%      o ALL	  Hm1	   -Hm1u3  OK	   Hm1u1
+2%      o ALL	  Td1  -0i3	  OK	  0
+2%      o ALL	  Ti1  -Tu3	 OK		  -Tu1
+2%      o ALL	  T		 -Tu3  OK	    Tu1
+2%      o ALL	  Ti2  -Tu3 OK	    0
+2%      o ALL	  Ti3  -Tu3	 OK		  Tu1
+2%      o ALL	  Ti4  -Tu3	 OK		  -Tu1
+2%      o ALL	  -Hm1d2  Hm1u3	 OK		 -0
+2%      o ALL	  -Hm1i3  Hm1u3	 OK		 -Hm1u1
+2%      o ALL	  -Hm1i4  Hm1u3	 OK		 Hm1u1
+2%      o ALL	  -Hm1i2  3		  OK	  -0
+2%      o ALL	  -Hm1i2  0i3   OK	    -0
+2%      o ALL	  -Hm1d4  Hm1u3	 OK		 Hm1u1
+2%      o ALL	  -Hm1	    Hm1u3  OK	   -Hm1u1
+2%      o ALL	  -Td1  0i3	  OK	  -0
+2%      o ALL	  -Ti1  Tu3	 OK		  Tu1
+2%      o ALL	  -T	  Tu3  OK	    -Tu1
+2%      o ALL	  -Ti2  Tu3	 OK		 -0
+2%      o ALL	  -Ti3  Tu3	 OK		  -Tu1
+2%      o ALL	  -Ti4  Tu3	 OK		  Tu1
+2%      o ALL	  -Hm1d2  -Hm1u3  OK	  -0
+2%      o ALL	  -Hm1i3  -Hm1u3  OK	  -Hm1u1
+2%      o ALL	  -Hm1i4  -Hm1u3  OK	  Hm1u1
+2%      o ALL	  -Hm1i2  -3	   OK	   -0
+2%      o ALL	  -Hm1i2  -0i3	 OK		 -0
+2%      o ALL	  -Hm1d4  -Hm1u3  OK	  Hm1u1
+2%      o ALL	  -Hm1	    -Hm1u3  OK	    -Hm1u1
+2%      o ALL	  -Ti2  -0i3   OK	   -0
+2%      o ALL	  -Ti1  -Tu3  OK	   Tu1
+2%      o ALL	  -T	  -Tu3  OK		 -Tu1
+2%      o ALL	  -Ti2  -Tu3 OK		 -0
+2%      o ALL	  -Ti3  -Tu3  OK	   -Tu1
+2%      o ALL	  -Ti4  -Tu3  OK	   Tu1
+
+
+

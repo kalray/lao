@@ -1,0 +1,89 @@
+# Legacy makefile kept used in the autotools days...
+# Used only to handle traces with .input.c files
+
+PREFIX:= @CMAKE_INSTALL_PREFIX@
+CMAKE_BINARY_DIR:= @CMAKE_BINARY_DIR@
+FAMDIR_LAO:= @FAMDIR_LAO@
+TARGET:= @TARGET@
+CC:= @CMAKE_C_COMPILER@
+CFLAGS:= @CFLAGS@
+LDFLAGS:= @LDFLAGS@
+CPLEX_STATIC:= @CPLEX_STATIC@
+GLPK_STATIC:= @GLPK_STATIC@
+YAML_STATIC:= @YAML_STATIC@
+LIBYAML_PREFIX:= @LIBYAML_PREFIX@
+
+# Rules to run tests from LAO_INPUT into LAO_TRACE.
+LAO_INPUT?=			@LAO_INPUT@
+LAO_TRACE?=			@LAO_TRACE@
+inputcdir=			$(LAO_INPUT)/$(TARGET)
+inputcfiles=			$(notdir $(wildcard $(inputcdir)/*.input.c))
+inputfiles=			$(inputcfiles:.input.c=.input)
+laomodules=			PRO/O64 PRO/SCD PRO/XFA ECL/JIT ECL/CGO ECL/PFA ECL/LIR TSL/AIR TSL/MDT CDT/CAL CDT/CCL CDT/BSL
+staticlibs=			$(foreach laomodule, $(laomodules), $(laomodule)/lib$(notdir $(laomodule)).a)
+staticincs=			$(foreach laomodule, $(laomodules), -I$(dir $(laomodule)) -I$(laomodule))
+inputflags=			-O0 -I$(FAMDIR_LAO)/$(TARGET) $(staticincs) -I$(LIBYAML_PREFIX)/include
+inputlibs=			$(staticlibs) -ldl -lm -L$(PREFIX)/lib $(CPLEX_STATIC) $(GLPK_STATIC) $(YAML_STATIC)
+ENVFILES?=			$(wildcard $(LAO_TRACE)/*.env)
+ENVNAMES=				$(basename $(notdir $(ENVFILES)))
+tracedir=				$(LAO_TRACE)/$(TARGET)
+tracefiles=			$(foreach envstem,$(ENVNAMES),$(addprefix $(envstem)/,$(inputfiles:.input=.trace)))
+testfiles=			$(tracefiles:.trace=.test)
+
+vpath %.input.c	$(inputcdir)
+
+.PHONY: echo inputs traces tests clear noinputs
+
+.PRECIOUS: %.input.o
+
+%.input: %.input.o
+	@echo Building $@
+	$(CC) $^ $(inputlibs) $(LDFLAGS) -o $@
+
+%.input.o: %.input.c
+	@echo Building $@
+	$(CC) $(CFLAGS) $(inputflags) -c $^
+
+echo:
+	@echo "staticlibs=$(staticlibs)"
+	@echo "staticincs=$(staticincs)"
+	@echo "ENVFILES=$(ENVFILES)"
+	@echo "ENVNAMES=$(ENVNAMES)"
+	@echo "tracefiles=$(tracefiles)"
+	@echo "testfiles=$(testfiles)"
+	@echo "Test environments are:"
+	@for envfile in $(ENVFILES) ; do \
+	  echo "$$(basename $$envfile):" `cat $$envfile`; \
+	done;
+
+define generate_trace
+$(1)/%.trace: %.input
+	mkdir -p $(tracedir)/$(1)
+	@echo Building $(tracedir)/$(1)/$$*.trace with $(1).env from ./$$*.input
+	env `cat $(LAO_TRACE)/$(1).env` ./$$*.input > $(tracedir)/$(1)/$$*.trace
+endef
+$(foreach envstem,$(ENVNAMES),$(eval $(call generate_trace,$(envstem))))
+
+define generate_test
+$(1)/%.test: %.input
+	mkdir -p TRACE/$(1)
+	@echo Testing TRACE/$(1)/$$*.trace with $(1).env from ./$$*.input
+	@echo env `cat $(LAO_TRACE)/$(1).env` ./$$*.input ">" TRACE/$(1)/$$*.trace
+	@env `cat $(LAO_TRACE)/$(1).env` ./$$*.input > TRACE/$(1)/$$*.trace
+	diff TRACE/$(1)/$$*.trace $(tracedir)/$(1)/$(dir $@)
+endef
+$(foreach envstem,$(ENVNAMES),$(eval $(call generate_test,$(envstem))))
+
+inputs: $(inputfiles)
+
+traces: $(tracefiles)
+
+tests: $(testfiles)
+
+clear: noinputs
+	rm -rf TRACES/ *.input.o
+
+noinputs:
+	rm -f $(inputfiles)
+
+

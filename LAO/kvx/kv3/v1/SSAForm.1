@@ -1,0 +1,11 @@
+
+SSA Form lost-copy
+digraph "Swap Problem" {
+  node [shape=record];  BB1 [label="{BB1|--|--||--|--}"];
+  BB1 -> BB2 [label="0"];
+  BB2 [label="{BB2|--|--|V1202(g1302)\ =\ PHI(V1201(g1301),\ V1203(g1303))\nV1203(g1303)\ =\ PHI(V1200(g1300),\ V1202(g1302))\n|--|--}"];
+  BB2 -> BB3 [label="0"];
+  BB2 -> BB2 [label="1"];
+  BB3 [label="{BB3|--|--||--|--}"];
+  BB3 -> BB0 [label="-1"];
+}

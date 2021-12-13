@@ -1,0 +1,252 @@
+---
+program:
+  - section:
+      name: .text
+      flags: [Alloc, Exec]
+      align: 4
+
+  - function: Minir_1
+    section: .text
+    entry: B6
+    exits: [B6]
+    blocks:
+      - block: B6
+        operations:
+          - {op: _ADJUST, defs: [$r12], uses: [$r12, 0]}
+          - {op: _ADD, defs: [V190], uses: [$r0, 0]}
+          - {op: _ADD, defs: [V191], uses: [$r1, 0]}
+          - {op: _APPLY, defs: [V194], uses: [0]}
+          - {op: _RETURN}
+
+  - function: Minir_blocks
+    section: .text
+    entry: B1
+    exits: [B5]
+    blocks:
+      - block: B1
+        labels: []
+        operations:
+          - {op: _APPLY, defs: [V100], uses: [10]}
+
+      - block: B2
+        labels: [.L2]
+        operations:
+          - {op: _IFTRUE, uses: [V100, .L4]}
+  
+      - block: B3
+        operations:
+          - {op: _JUMP, uses: [.L5]}
+ 
+      - block: B4
+        labels: [.L4]
+        operations:
+          - {op: _ADD, defs: [V100], uses: [V100, -1]}
+          - {op: _JUMP, uses: [.L2]}
+
+      - block: B5
+        labels: [.L5]
+        operations:
+          - {op: _RETURN}
+...
+---
+file: Control_flow_test
+
+program:
+  - function: control-flow
+    section:
+      name: .text
+      flags: [Alloc, Exec]
+      align: 4
+    entry: B1
+    exits: [B3]
+    blocks:
+      - block: B1
+        successors: [{block: B2}, {block: B3}]
+      - block: B2
+        successors: [{block: B3}, {block: B3}]  # test same basic block in succs twice
+      - block: B3
+
+  - function: blocks-random-order
+    section: .text
+    entry: B1
+    blocks:
+      - block: B5
+      - block: B2
+        successors: [{block: B2}, {block: B5}]
+      - block: B4
+      - block: B1
+        successors: [{block: B2}, {block: B4}]
+...
+---
+file: SSA-program
+
+program:
+  - function: SSA-diamond
+    section:
+      name: .text
+      flags: [Alloc, Exec]
+      align: 4
+    entry: B1
+    exits: [B4]
+    blocks:
+      - block: B1
+        successors: [{block: B2}, {block: B3}]
+        operations:
+          - {op: _APPLY, defs: [V100], uses: [1]}
+          - {op: _IFTRUE, uses: [V100, .L3]}
+
+      - block: B2
+        successors: [{block: B4}]
+        operations:
+          - {op: _APPLY, defs: [V101], uses: [18]}
+          - {op: _GOTO, uses: [.L4]}
+
+      - block: B3
+        labels: [.L3]
+        successors: [{block: B4}]
+        operations:
+          - {op: _APPLY, defs: [V102], uses: [42]}
+
+      - block: B4
+        labels: [.L4]
+        predecessors: [B2, B3]
+        operations:
+          - {op: _PHI, defs: [V103], uses: [V101, V102]}
+          - {op: _ADD, defs: [V104], uses: [V103, 3]}
+          - {op: _RETURN}
+...
+---
+file: Pcopy-prog
+
+program:
+  - function: SSA-pcopy
+    section:
+      name: .text
+      flags: [Alloc, Exec]
+      align: 4
+    blocks:
+      - block: B1
+        operations:
+          - {op: _PCOPY, defs: [V100, V101], uses: [V101, V100]}
+...
+---
+file: Misc
+
+program:
+  - function: symbols
+    section:
+      name: .text
+      flags: [Alloc, Exec]
+      align: 4
+    blocks:
+      - block: B1
+        operations:
+          - {op: _ADD, defs: [V101], uses: [V100, [temp, '@signed37', +12]]}
+          - {op: _APPLY, defs: [V103], uses: [242949672, 1234]} # 64-bits operand
+          - {op: _APPLY, defs: [V104], uses: [5]}
+          - {op: _CALL, uses: [[callee]]}
+
+      - block: B2
+        operations:
+          - {op: _RETURN}
+
+  - function: callee
+    section: .text
+    blocks:
+      - block: B1
+        operations:
+          - {op: _APPLY, defs: [V106], uses: [15]}
+          - {op: _RETURN}
+...
+
+# --- # Testing ability to disambiguate operators with same mnemonic, only for k1
+# program:
+#   - function: check-params
+#     blocks:
+#       - block: B1
+#         operations:
+#           # Error: will produce "Missing operator!"
+#           # - {defs: [V100]}
+#           # Error: arguments must appear after op.
+#           # - {defs: [$r2], uses: [$r1], op: set}
+#           - {op: set, defs: [V101], uses: [V102]}
+#           - {op: addd, defs: [V103, V104], uses: [V105, V106, 123]} # 64-bits add with only one 10-bits immediate
+# # following is a normal error
+# #         - {op: addd, defs: [V103, V104], uses: [V105, V106, 12356]} # 64-bits add with only one > 10-bits immediate => does not exist!
+#           - {op: addd, defs: [V103, V104], uses: [V105, V106, 242949672, 10234]} # 64-bits operand
+#           - {op: addd, defs: [V103, V104], uses: [V105, V106, 242949672, 13]}   # 64-bits operand, second fits on 5 bits (signed)
+#           - {op: addd, defs: [V103, V104], uses: [V105, V106, V101, V102]}   # 64-bits operand, second in registers
+#           - {op: addd, defs: [V108], uses: [V105, V106, -498]}   # remote write
+#           - {op: ret, uses: [V100]}
+
+--- # Testing data sections
+file: Data-sections
+
+program:
+  - section:
+      name: .data
+      flags: [Alloc, Write]
+      align: 4
+
+  - section:
+      name: .bss
+      flags: [Alloc, Write]
+      align: 4
+
+  - object: str
+    section: .data
+    align: 4
+    size: 49
+    init:
+      - ascii: "Ala ma kota a kot ma ale i bawili sie wspaniale\n\0"
+
+  - object: tmp
+    section: .data
+    align: 4
+    size: 140
+    init:
+      - ascii: "Ala ma kota a kot ma ale i bawili sie wspaniale\n\0\0\0\0\0Hidden Text!\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+      - u32: 4294967294                ## 0xfffffffe
+      - s32: -2                        ## 0xfffffffe
+      - hword: 0xffff
+      - space: 2
+      - f32: 0x1.19999ap0    ## 1.1 represented by 1.10000002384185791015625
+      - quad: 0x1e240
+      - word: [tmp]            ## string pointer, pointing to first field of this structure
+      - space: 4
+      - f64: 0x1.199999999999ap0     ## 1.1 represented by 1.10000000000000008881784197001
+
+  - object: main.j
+    section: .bss
+    linkage: global
+    align: 2
+    size: 4
+    init:
+      - word: 0x0
+...
+--- # Testing two edges with same orig and dest
+file: Conflict-edge
+
+program:
+  - function: two-edges
+    section:
+      name: .text
+      align: 4
+      flags: [Alloc, Exec]
+    entry: B1
+    exits: [B2]
+    blocks:
+      - block: B1
+        operations:
+          - {op: _APPLY, defs: [V100], uses: [1]}
+          - {op: _APPLY, defs: [V101], uses: [2]}
+          - {op: _IFTRUE, uses: [2, .L2]}
+
+      - block: B2
+        labels: [.L2]
+        predecessors: [B1]
+        operations:
+          - {op: _PHI, defs: [V102], uses: [V100, V101]}
+          - {op: _ADD, defs: [V103], uses: [V102, 2]}
+          - {op: _RETURN}
+...

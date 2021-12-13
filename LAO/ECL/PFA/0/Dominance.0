@@ -1,0 +1,179 @@
+functions:
+  - label: dominance-forward
+    #  Example taken from "Computing Dominators and Dominance Frontiers" by
+    #  Preston Briggs and Tim Harvey, Technical Report, June 1994.
+    test: Briggs-Harvey Forward
+    entries: [B1]
+    bbs:
+      - label: B1
+        succs: [B2, B8, B11]
+      - label: B2
+        succs: [B3, B6]
+      - label: B3
+        succs: [B4]
+      - label: B4
+        succs: [B5]
+      - label: B5
+        succs: [B1, B4]
+      - label: B6
+        succs: [B4, B7]
+      - label: B7
+        succs: [B4]
+      - label: B8
+        succs: [B9, B11, B12]
+      - label: B9
+        succs: [B10]
+      - label: B10
+        succs: [B5, B9]
+      - label: B11
+        succs: [B12]
+      - label: B12
+        succs: [B13]
+      - label: B13
+        succs: [B10]
+
+  - label: dominance-forward2
+    # Figure 2 from "A Simple, Fast Dominance Algorithn" by Keith Cooper,
+    # Timothy Harvey and Ken Kennedy, Softw. Oract. Exper. 2001.
+    test: Cooper-Harvey-Kennedy Figure 2
+    entries: [B5]
+    bbs:
+      - label: B1
+        succs: [B2]
+      - label: B2
+        succs: [B1]
+      - label: B3
+        succs: [B2]
+      - label: B4
+        succs: [B1]
+      - label: B5
+        succs: [B4, B3]
+
+  - label: dominance-forward3
+    # Figure 4 from "A Simple, Fast Dominance Algorithn" by Keith Cooper,
+    # Timothy Harvey and Ken Kennedy, Softw. Oract. Exper. 2001.
+    test: Cooper-Harvey-Kennedy Figure 4
+    entries: [B6]
+    bbs:
+      - label: B1
+        succs: [B2]
+      - label: B2
+        succs: [B1, B3]
+      - label: B3
+        succs: [B2]
+      - label: B4
+        succs: [B3, B2]
+      - label: B5
+        succs: [B1]
+      - label: B6
+        succs: [B5, B4]
+
+  - label: dominance-backward
+    # Example taken from "Computing Dominators and Dominators Frontiers" by
+    # Preston Briggs and Tim Harvey, Technical Report, June 1994.
+    test: Briggs-Harvey Backward
+    exits: [B6]
+    bbs:
+      - label: B1
+        succs: [B2, B6]
+      - label: B2
+        succs: [B4, B3]
+      - label: B3
+        succs: [B5]
+      - label: B4
+        succs: [B5]
+      - label: B5
+        succs: [B6]
+      - label: B6
+
+  - label: dominance-backward-inf-loop
+    # Example with an infinite loop (no exit)
+    test: Briggs-Harvey Backward infinite loop
+    entries: [B1]
+    bbs:
+      - label: B1
+        succs: [B2]
+      - label: B2
+        succs: [B4, B3]
+      - label: B3
+        succs: [B5]
+      - label: B4
+        succs: [B5]
+      - label: B5
+        succs: [B6]
+      - label: B6
+        succs: [B2]
+
+  - label: dominance-backward-inf-loop2
+    # Example with an exit and an infinite loop
+    test: WTF? check old tests
+    entries: [B1]
+    exits: [B7]
+    bbs:
+      - label: B1
+        succs: [B2,B7]
+      - label: B2
+        succs: [B4, B3]
+      - label: B3
+        succs: [B5]
+      - label: B4
+        succs: [B5]
+      - label: B5
+        succs: [B6]
+      - label: B6
+        succs: [B2]
+      - label: B7
+
+  - label: dominance-forward4
+    # Example taken from "A Practical and Fast Iterative Algorithm for PHI-
+    # Function Computation Using DJ Graphs", D. DAS, U. Ramakrishna, TOPLAS 27, 3.
+    test: Das-Ramakrishna Forward
+    ## should be entries: [B1, B2]
+    entries: [B1, B2]
+    bbs:
+      - label: B1
+      - label: B2
+        succs: [B3]
+      - label: B3
+        succs: [B4, B5, B8, B23]
+      - label: B4
+        succs: [B5]
+      - label: B5
+        succs: [B6, B7]
+      - label: B6
+        succs: [B7]
+      - label: B7
+        succs: [B5, B8]
+      - label: B8
+        succs: [B9, B10, B14]
+      - label: B9
+        succs: [B10]
+      - label: B10
+        succs: [B11]
+      - label: B11
+        succs: [B12]
+      - label: B12
+        succs: [B13]
+      - label: B13
+   #    succs: [B1]
+   # edge B1 -> B13 in the paper but may be a mistake
+      - label: B14
+        succs: [B15, B16]
+      - label: B15
+        succs: [B16]
+      - label: B16
+        succs: [B17, B22]
+      - label: B17
+        succs: [B18, B21]
+      - label: B18
+        succs: [B19, B20]
+      - label: B19
+        succs: [B20]
+      - label: B20
+        succs: [B18, B21]
+      - label: B21
+        succs: [B22]
+      - label: B22
+        succs: [B10]
+      - label: B23
+        succs: [B5, B8]

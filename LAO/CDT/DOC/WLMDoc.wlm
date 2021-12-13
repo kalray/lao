@@ -1,0 +1,191 @@
+!!!!	Wiki-Like Markup (WLM)
+
+--	Beno&icirc;t Dupont de Dinechin
+
+Abstract:	Discussion of the Wiki-Like Markup used in source code comments
+or in stand-alone documents.
+
+ !!!	General
+
+In source code documentation, code is extracted from block comments and
+typesetted using some markup interpretation. This is for instance the model of
+the <doxygen http://www.stack.nl/~dimitri/doxygen/> system. However, the
+<doxygen http://www.stack.nl/~dimitri/doxygen/> syntax is invasive compared to
+the more modern Wiki syntaxes. Unfortunately, there is no standard Wiki syntax
+so I decided to introduce one for use in code documentation.
+
+The Wiki-Like Markup (WLM) considers source text as a sequence of
+paragraphs. A paragraph is closed by two |\<EOL\>| characters in
+sequence like in LaTeX, so the next block of text is part of a new
+paragraph. In addition, any line that contains a |\<TAB\>| character is
+considered as the first line of a new paragraph.
+
+One peculiar feature of the WLM syntax is its use of |\<TAB\>| for all block-level
+markup: verbatim, lists, headings, tables. Using |\<TAB\>| characters may sound
+like a bad idea, but its use has the advantage of lowering the number of markup
+escapes. And |\<TAB\>| is already used for markup in Makefiles.
+
+
+ !!!	Verbatim Mode
+
+Any line that starts with |\<TAB\>| is displayed verbatim. Other |\<TAB\>|
+characters on this line are normalized to spaces assuming 8 space per |\<TAB\>|.
+
+
+ !!!	Style Markup
+
+Style markup is inline and applies to sequence of words. The first markup
+character must be followed by non-space and the last markup character must be
+preceded by non-space. The following styles are supported:
+
+ *	|kbd style| is written as |\|kbd style\|| and corresponds to HTML |\<kbd\>|
+ *	!bold style! is written as |\!bold style\!| and corresponds to HTML |\<bold\>|
+ *	=code style= is written as |\=code style\=| and corresponds to HTML |\<code\>|
+ *	@var style@ is written as |\@var style\@| and corresponds to HTML |\<var\>|
+ *	:dfn style: is written as |\:dfn style\:| and corresponds to HTML |\<dfn\>|
+ *	*em style* is written as |\*em style\*| and corresponds to HTML |\<em\>|
+ *	^sup style^ is written as |\^sup style\^| and corresponds to HTML |\<sup\>|
+ *	~sub style~ is written as |\~sub style\~| and corresponds to HTML |\<sub\>|
+ *	%http://www.st.com//stonline/img.v5/logo.gif ST logo% is written as
+        |\%stlogo.gif ST logo\%|
+ *	$LaTeX math$ is written as |\$LaTeX math\$| (to be done)
+
+Style markup of different kinds may nest, for instance !bold^sup^! is written as
+|\!bold\^sup\^\!|.
+
+
+ !!!	Links and Anchors
+
+A link is introduced by |\<| followed by the optional link text followed by the
+@href@ argument and terminated by |\>|. For instance:
+
+	Allow clickable links like <https://ecc.codex.cro.st.com> and
+	unclickable links like https://ecc.codex.cro.st.com. Also allow named
+	links like <Machine Description System https://mds.codex.cro.st.com>
+
+>	
+	Allow clickable links like <https://ecc.codex.cro.st.com> and
+	unclickable links like https://ecc.codex.cro.st.com. Also allow named
+	links like <Machine Description System https://mds.codex.cro.st.com>
+<	
+
+An anchor (#link target link_target#) is inserted as |\#@inline text name@\#|,
+where @inline text@ is the target and @name@ is the identifier as used in the
+\<a name="@name@"/\> HTML markup.
+
+
+ !!!	Markup Escapes
+
+The special meaning of characters |\<\&\|\!\=\@\:\*\^\~\%\#\[\]\$| just before
+a non-space character can be escaped by prepending a backslash |\\|, and a
+double backslash escapes to a single backslash. A backslash followed by white
+space |\\ | is removed from the output.
+
+The HTML entities keep their meaning in WLM, for instance typing |\&icirc;| will
+display &icirc;. While is is not recommended to escape into HTML tags, this is
+possible by using sequence like: |\<\\ strong\>escape into HTML strong\<\\
+\/strong\>| yields <\ strong>escape into HTML strong<\ /strong>.  Here, the |\\
+| sequence is used to prevent the activation of the '\<' markup rule, as such
+markup must be followed by non-white.
+
+
+ !!!	Headings
+
+Headings =\<h1\>= to =\<h3\>= in HTML are introduced by |\!\!\!\!\<TAB\>| to
+|\!\!\<TAB\>| sequences. Text that follows is the heading text. Text if any that
+appears before the first |\!| character is used as the ID of the heading for
+indexing.  ID is produced by removing non-word characters from this text. For
+instance:
+
+	Overview !!<TAB>Design Overview
+	....
+	As discussed in the [design overview #Overview]...
+
+This will create a the following HTML:
+
+	<h3><a name='Overview'>Design Overview</a></h3>
+
+Headings =\<h4\>= to =\<h6\>= in HTML are introduced respectively by the
+|\-\-\-\-\<TAB\>| to |\-\-\<TAB\>| sequences. Text if any that appears before
+the first |\-| character is used as the ID of the heading for indexing. This
+text also appears in the heading title, followed by a dash character, followed
+by the text after the |\<TAB\>|. For instance:
+
+	AlphaBeta ---<TAB>Implement the Alpha-Beta Algorithm
+	....
+	By the property of the <Alpha Beta Algorithm #AlphaBeta>,
+	....
+
+This will create a the following HTML:
+
+	<h5><a name='AlphaBeta'>Alpha Beta &mdash; Algorithm</a></h5>
+	
+	<p>....
+	By the property of the <a href="#AlphaBeta">Alpha Beta Algorithm</a>,
+	....</p>
+
+
+ !!!	Lists
+
+A definition list is introduced by the sequence |\:\<TAB\>|. Text before the
+sequence is the definition term and text after is the definition data.  For
+instance:
+
+	Active Schedule:<TAB>A schedule in which no operation can be completed
+	earlier by any change in the processing sequence of any machine without
+	delaying other operations.
+
+>	
+        Active Schedule:	A schedule in which no operation can be completed
+        earlier by any change in the processing sequence of any machine without
+        delaying other operations.
+<	
+
+Itemized lists items are introduced by the sequence |\*\<TAB\>| or |\+\<TAB\>|.
+Numbered lists items are introduced by the sequence |\#\<TAB\>| or |\-\<TAB\>|.
+Nesting of these list is automatically taken care of, based on how many leading
+space characters are before the sequence:
+
+	  *<TAB>How much does it cost?
+	   +<TAB>First
+	    *<TAB>Beware!
+	    +<TAB>Not Now!
+	   +<TAB>Second
+	  *<TAB>How often?
+
+  *	How much does it cost?
+   +	First
+    *	Beware!
+    +	Not Now!
+   +	Second
+  *	How often?
+
+
+ !!!	Quotes
+
+The lines of a quote block begin with |>\<TAB\>| and end with a |<\<TAB\>|. For
+instance:
+
+	><TAB>Quote block with list
+	*<TAB> First list item
+	*<TAB> Second list item
+	<<TAB>
+
+Results in the following:
+
+>	
+	Quote block with list
+*	First list item
+*	Second list item
+<	
+
+ !!!	Tables
+
+To Do, based on |\|\<TAB\>| and |[\<TAB\>| sequences.
+
+	|!<TAB>Table |!<TAB>Heading |!<TAB>Example |-<TAB>
+	|!<TAB>Row Head |\<TAB>Cell 1 |\<TAB>Cell 2 |&<TAB>
+
+|!	Table &!	Heading &!	Example |-	
+|!	Row Head &	Cell 1 &	Cell 2 |	
+

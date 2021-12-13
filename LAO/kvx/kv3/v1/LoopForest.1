@@ -1,0 +1,222 @@
+
+Testing DGraph_makeNestedSCC
+
+Testing Procedure_makeNestedSCC
+
+Testing LoopForest_makeNestedSCC
+
+Testing LoopForest_makeNestedSCC with Fig. 5
+
+Testing LoopForest_makeNestedSCC with Ramalingam
+
+Testing LoopForest_makeNestedSCC, last test
+
+Irreducible:
+NSCC LoopForest:
+ a{ 1 b( 2 3 ) 4 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_2 	b
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a b }
+  Block_3 	{ a b }
+  Block_4 	{ a }
+SCC LoopForest:
+ a{ 1 b( 2 3 ) 4 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_2 	b
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a b }
+  Block_3 	{ a b }
+  Block_4 	{ a }
+
+Bourdoncle figure 3.5:
+NSCC LoopForest:
+ a{ 1 d[ 5 e[ 6 f[ 7 9 ] ] ] c[ 8 ] 2 b[ 4 ] 3 0 }
+LoopForest HEADS:
+  Root_0 	a
+  Loop_4 	b
+  Loop_8 	c
+  Loop_5 	d
+  Loop_6 	e
+  Loop_7 	f
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a }
+  Block_3 	{ a }
+  Block_4 	{ a b }
+  Block_5 	{ a d }
+  Block_6 	{ a d e }
+  Block_7 	{ a d e f }
+  Block_8 	{ a c }
+  Block_9 	{ a d e f }
+SCC LoopForest:
+ a{ 1 d( 5 6 7 9 ) c( 8 ) 2 b( 4 ) 3 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_4 	b
+  SCC_8 	c
+  SCC_5 	d
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a }
+  Block_3 	{ a }
+  Block_4 	{ a b }
+  Block_5 	{ a d }
+  Block_6 	{ a d }
+  Block_7 	{ a d }
+  Block_8 	{ a c }
+  Block_9 	{ a d }
+
+Bourdoncle figure 2:
+NSCC LoopForest:
+ a{ b[ 1 4 2 3 ] 0 }
+LoopForest HEADS:
+  Root_0 	a
+  Loop_1 	b
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a b }
+  Block_2 	{ a b }
+  Block_3 	{ a b }
+  Block_4 	{ a b }
+SCC LoopForest:
+ a{ b( 1 2 3 4 ) 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_1 	b
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a b }
+  Block_2 	{ a b }
+  Block_3 	{ a b }
+  Block_4 	{ a b }
+
+Bourdoncle figure 5:
+NSCC LoopForest:
+ a{ 10 9 8 7 c[ 1 4 11 14 ] 12 13 2 3 b( 6 15 16 5 ) 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_6 	b
+  Loop_1 	c
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a c }
+  Block_2 	{ a }
+  Block_3 	{ a }
+  Block_4 	{ a c }
+  Block_5 	{ a b }
+  Block_6 	{ a b }
+  Block_7 	{ a }
+  Block_8 	{ a }
+  Block_9 	{ a }
+  Block_10 	{ a }
+  Block_11 	{ a c }
+  Block_12 	{ a }
+  Block_13 	{ a }
+  Block_14 	{ a c }
+  Block_15 	{ a b }
+  Block_16 	{ a b }
+SCC LoopForest:
+ a{ 10 9 8 7 c( 1 4 11 14 ) 12 13 2 3 b( 6 15 16 5 ) 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_6 	b
+  SCC_1 	c
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a c }
+  Block_2 	{ a }
+  Block_3 	{ a }
+  Block_4 	{ a c }
+  Block_5 	{ a b }
+  Block_6 	{ a b }
+  Block_7 	{ a }
+  Block_8 	{ a }
+  Block_9 	{ a }
+  Block_10 	{ a }
+  Block_11 	{ a c }
+  Block_12 	{ a }
+  Block_13 	{ a }
+  Block_14 	{ a c }
+  Block_15 	{ a b }
+  Block_16 	{ a b }
+
+Ramalingam figure 1:
+NSCC LoopForest:
+ a{ 1 b( 2 c( 4 d( 5 3 ) ) ) 6 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_2 	b
+  SCC_4 	c
+  SCC_5 	d
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a b }
+  Block_3 	{ a b c d }
+  Block_4 	{ a b c }
+  Block_5 	{ a b c d }
+  Block_6 	{ a }
+SCC LoopForest:
+ a{ 1 b( 2 4 5 3 ) 6 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_2 	b
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a b }
+  Block_3 	{ a b }
+  Block_4 	{ a b }
+  Block_5 	{ a b }
+  Block_6 	{ a }
+
+Quicksort:
+NSCC LoopForest:
+ a{ 1 2 d[ 6 e[ 7 f[ 8 10 ] ] ] c[ 9 ] 3 b[ 5 ] 4 0 }
+LoopForest HEADS:
+  Root_0 	a
+  Loop_5 	b
+  Loop_9 	c
+  Loop_6 	d
+  Loop_7 	e
+  Loop_8 	f
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a }
+  Block_3 	{ a }
+  Block_4 	{ a }
+  Block_5 	{ a b }
+  Block_6 	{ a d }
+  Block_7 	{ a d e }
+  Block_8 	{ a d e f }
+  Block_9 	{ a c }
+  Block_10 	{ a d e f }
+SCC LoopForest:
+ a{ 1 2 d( 6 7 8 10 ) c( 9 ) 3 b( 5 ) 4 0 }
+LoopForest HEADS:
+  Root_0 	a
+  SCC_5 	b
+  SCC_9 	c
+  SCC_6 	d
+LoopForest NODES:
+  Block_0 	{ a }
+  Block_1 	{ a }
+  Block_2 	{ a }
+  Block_3 	{ a }
+  Block_4 	{ a }
+  Block_5 	{ a b }
+  Block_6 	{ a d }
+  Block_7 	{ a d }
+  Block_8 	{ a d }
+  Block_9 	{ a c }
+  Block_10 	{ a d }

@@ -1,0 +1,138 @@
+LAO INSTALLATION HOWTO
+
+Requirements:
+-------------
+
+Mandatory:
+* cmake
+* Perl
+
+Optional
+* Bison            => to regenerate CDT/LIB/Declare.pm
+* Glpk / Cplex     => to solve linear programs
+* Yaml             => to input Minir files to LAO
+
+
+Building:
+---------
+
+Preferred method of building is "out-of-source". This is the method described here.
+LAO build system is based on cmake.
+
+  # Create build directory & setup for a target
+  mkdir build
+  cd build
+  cmake ../LAO
+
+  # At this point, cmake will complain that several options are not set. These
+  # can either be defined by adding '-D<option>=<value' on the cmake line, or by
+  # using the cmake GUI, ccmake:
+  ccmake .
+
+  # Options are the following
+  -DTARGET=<arch>    # required, e.g., "kv3"
+  -DFAMILY=<arch family> # required, e.g., "kvx"
+
+  -DGLPK=<path>       # path to glpk install directory, or
+  -DGLPK_ENABLED=off  # to turn glpk off
+
+  -DYAML=<path>       # path to yaml install directory, or
+  -DYAML_ENABLED=off  # to turn yaml off
+
+
+  # cmake should then generates makefiles in the build directory. Build LAO using
+  make all
+
+  # or, on a multiple core machine
+  make -j<num cores> all
+
+Note: all subsequents calls to 'make' can be sped up by using -j<num cores>
+this applies to make targets 'all', 'check', etc.
+
+
+Checking:
+---------
+
+  # Self test .tst files can be built and tested using
+  make check
+
+  # in the build directory, or in any sub-directory
+  make -C CDT check
+  make -C ECL/LIR check
+
+  # If all .tst have been built, it is possible to use directly
+  make test
+  # or equivalently
+  ctest
+
+  # The later invocation can be used in verbose mode in any directory to
+  # investigate why a self test failed.
+  ctest -V
+  cd ECl/LIR && ctest -V
+
+
+LAO Tests
+---------
+
+The old/legacy way of testing LAO is through the use of .input.c file produced by
+Open64. These files are compiled to .input files.
+
+For this to work, two directories LAO_INPUT and LAO_TRACE should
+exist. Directory LAO_INPUT contains .input.c files that must be compiled
+against the LAO libraries:
+
+LAO_INPUT
+└── st200
+    ├── autcor.1.input.c
+    ├── autcor.2.input.c
+    ├── bassmgt.input.c
+    ├── bfilter.input.c
+    ├── bitonic.1.input.c
+    ...
+    └── xxx.input.c
+
+Directory LAO_TRACE contains environment variables settings & reference traces, e.g.
+
+LAO_TRACE
+├── default.env
+└── st200
+    └── default
+        ├── autcor.1.trace
+        ├── autcor.2.trace
+        ├── bassmgt.trace
+        ├── bfilter.trace
+        ├── bitonic.1.trace
+        ...
+        └── xxx.trace
+
+Note: the paths to these directories can be changed using ccmake:
+
+  cmake .. -DLAO_TRACE=<path> -DLAO_INPUT=<path>
+
+Environment variables passed to .input files for building .trace files are
+defined in .env file. For example, default.env may contain:
+
+  CGO_TRACE=1
+  FORCE_ALLOCATION=0
+  FORCE_COALESCING=Boissinot,Congruence,Virtualize
+  FORCE_CONVERSION=Folding,Cleaning,SemiPruned
+  FORCE_SCHEDULING=0
+  LIR_TRACE=1
+  PFA_TRACE=1
+  SCD_TRACE=1
+
+The .input.c files must be compiled with LAO headers. Those headers must first
+be 'installed' in the build directory.
+
+  # Install LAO headers files
+  make install
+
+  # Then, reference traces can be produced & compared against previous reference
+  make traces
+  ...
+  make tests
+
+  # To clean traces
+  make noinputs    # clean .input in
+  make clear       # same + remove also .input* files
+

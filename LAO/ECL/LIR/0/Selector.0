@@ -1,0 +1,45 @@
+---
+program:
+  - section:
+      name: .text
+      flags: [Alloc, Exec]
+      type: progbits
+      align: 4
+
+  - function: replace-generics
+    section: .text
+    entry: B1
+    exits: [B4]
+    blocks:
+      - block: B1
+        labels: []
+        successors: [{block: B2}, {block: B3}]
+        operations:
+          - {op: _APPLY, defs: [V100], uses: ['0']}
+          - {op: _APPLY, defs: [V101], uses: ['1']}
+          - {op: _LAND, defs: [V102], uses: [V100, V101]}
+          - {op: _ADD, defs: [V102], uses: [V100, V101]}
+          - {op: _ADD, defs: [V102], uses: [2143543132, V102]}
+          - {op: _LAND, defs: [V102], uses: [42, V102]}
+          - {op: _IFTRUE, uses: [V101, .L3]}
+
+      - block: B2
+        labels: []
+        successors: [{block: B4}]
+        operations:
+          - {op: _ADD, defs: [V103], uses: [V100, V102]}
+          - {op: _GOTO, uses: [.L4]}
+
+      - block: B3
+        labels: [.L3]
+        successors: [{block: B4}]
+        operations:
+          - {op: _ADD, defs: [V103], uses: [V100, V102]}
+
+      - block: B4
+        labels: [.L4]
+        operations:
+          - {op: _ADD, defs: [V104], uses: [V101, V103]}
+          - {op: _COPY, defs: [$r0], uses: [V104]}
+          - {op: _RETURN}
+...  

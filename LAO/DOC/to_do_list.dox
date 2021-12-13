@@ -1,0 +1,122 @@
+/*! @page to_do_list To-Do List
+
+@section to_do_list_fix To-Do Fix
+
+@li problem with several assigned or dedicated to the same register: only one of them is
+in the Liveness sets. Beware in SSA algorithms witn non-Virtual Temporary(ies)!
+@li use RegisterList for Clobber.
+@li Use TemporaryTable instead of HTable for building Lifetime(s)
+@li The inner loop of dct.1 is LAMBDA=16,DELTAS=2 was LAMBDA=14,DELTAS=0.
+@li Sreedhar inserts COPY in inner loop of autcorr.240.input.c
+@li Functional problems when Compensation is not 0.
+@li Preserved registers as live instead of arguments.
+@li Preserved live-out of RETURN: should be indirect instead of implicit
+@li Make CodeRegion_liveSets and kill them.
+@li Use fractional probabilities and long long frequencies.
+
+@section to_do_list_xcc To-Do in XCC
+
+@li Manage inline in a compiler-independent way.
+@li Assume graph nodes are Indexable.
+
+@section to_do_list_ccl To-Do in CCL
+
+@li Generalize STable with the sequence methods.
+@li Check all the iterators safety for mutation and break.
+@li Implement a UGraph type.
+@li Implement a BGraph type.
+@li Write the CCL user guide.
+
+@section to_do_list_cal To-Do in CAL
+
+@li Improve the Network simplex pricing.
+@li Implement a Lattice module.
+@li Move SLC and CDC in Transitive module.
+
+@section to_do_list_next To-Do Next
+
+@li Reduce time-complexity of using Relaxation.
+@li Enable modulo expansion of super-local temporary(s).
+@li Replace global modulo expansion by explicit MOVEs.
+@li Compensation of modulo expansion by fall-through MOVEs.
+@li Super-block scheduling should keep existing block alignment.
+@li Dependences nodes as WNs.
+
+@section to_do_list_all To-Do in ALL
+
+@li Ensure no push2 in IStack_FOREACH bodies.
+
+@section to_do_list_csd To-Do in CSD
+
+@li Load the dependence information from Open64
+@li Compute the dependence latencies in the CSD.
+
+@section to_do_list_lir To-Do in LIR
+
+@li Mapping for Operation_identity and Temporary_identity.
+@li Allow for groups of parallel Operations, with all the uses first, then all
+    the defs. Will impact Lifetime, Liveness, and register allocation.
+
+@section to_do_list_pfa To-Do in PFA
+
+@li Trace-block control region.
+@li BasicBlock alignment using linear assignment.
+@li Framework for forward / backward analysis.
+@li Apply analysis framework to range propagation.
+@li CFLOW and map edge frequencies to block frequencies
+@li Do not recompute fallArc but rely on CFArc flag.
+
+@section to_do_list_opt To_do in CGO
+
+@li NBURG peephole optimizations.
+@li Identities like A-(A&B) -> A&~B (see LLVM)
+@li Framework for Operation Semantics.
+@li IF-conversion into PSI-SSA.
+@li Peephole optimizations.
+@li Global Value Numbering.
+@li Pattern optimizations.
+@li See other from www.cs.rice.edu/~keith/512/Lectures/
+@li Use mutual preferred for NOP insertion in Scoreboarder.
+@li Memory hogging problem in Scoreboarder.
+
+@section to_do_list_gra To-Do in GRA
+
+@li Inter-procedural aware register allocation like in st200cc.
+@li Implement a global register allocator based on graph coloring.
+@li Implement a global register allocator based on basic blocks.
+@li Implement a global register allocator based on scheduling regions.
+@li Implement the techniques of KoltePLDI93 (LOAD-STORE ranges).
+
+@section to_do_list_scd To-Do in SCD
+
+@li Only enable compensation of STORE(s) like Trace Scheduling.
+@li Fix cases where pipelining is disabled in BlockRegion_prepareForScheduling.
+@li Meld scheduling (consider scheduling region boundaries).
+@li List-schedule backwards in pre-pass, with Blaezewick relaxation.
+@li In case of FLP, the candidate arcs have beta != 0.
+@li Evaluate multiple critical paths.
+@li Perform LRA while scheduling.
+@li Enable post-pass speculation.
+@li Alternate loop schedules based on run-time disambiguation.
+@li Check the radial33 Relaxation with ALUX LAMBDA=3 DELTAS=1.
+@li RelaxationStep iterates the IssueUnit(s) instead of Relaxation.
+@li Unwinding modulo scheduling relaxation.
+@li Unwinding modulo scheduling algorithm.
+@li Enable store speculation on some local variables.
+@li Compute 'safe speculation' properties: LOADs, else?
+@li Memory disambiguation using ModK residues (see GCC).
+
+@section to_do_list_swp To-Do in SWP
+
+@li Modulo RCISP using B&B.
+@li Modulo RCISP using Lagrangian relaxation of Mohring.
+@li Modulo RCISP using Lagrangian decomposition of BD3.
+@li Scheduling relaxations based on TUM resource decomposition.
+@li Cases where free RCISP is PTS: dependence trees?
+
+@section to_do_list_lai To-Do in LAI
+
+@li Implement a XML file interface using CCL/XMLCan.
+@li Interface with a .NET CIL code generator.
+
+*/

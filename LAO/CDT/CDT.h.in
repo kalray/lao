@@ -1,0 +1,121 @@
+/**
+ * @file
+ * @defgroup CDT Compiler Development Tools
+ *
+ * @brief Basic utilities for the LAO compiler.
+ *
+ */
+
+#ifndef _INCLUDED_CDT
+#define _INCLUDED_CDT
+
+#include <assert.h>
+#include <ctype.h>
+#include <limits.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+#include <stdbool.h>
+#include <stdint.h>
+
+#ifndef __cplusplus
+# if HAVE_STDBOOL_H
+#  include <stdbool.h>
+# else
+
+/* C99 states this must be defined if true, false and bool macros are defined */
+#ifndef __bool_true_false_are_defined
+enum { false, true };
+# define bool	unsigned char
+# define false	false
+# define true	true
+#define __bool_true_false_are_defined 1
+#endif //__bool_true_false_are_defined
+
+# endif//__cplusplus
+#endif
+
+#cmakedefine RE2C_ENABLED
+#cmakedefine GLPK_ENABLED
+#cmakedefine CPLEX_ENABLED
+
+#cmakedefine _DEBUG
+#cmakedefine Memory_DEBUG
+
+#cmakedefine _NTRACE
+#cmakedefine _NDTOR
+
+#define _MEMORY_STATS @MEMORY_STATS@
+#define _ALIGN_MAX    @ALIGN_MAX@
+
+/*
+ * ASSERT -- Always fail if expression is false.
+ */
+#define ASSERT(expression) \
+  do { \
+    if (!(expression)) { \
+      fprintf(stderr, "%s:%d: assertion failed\t" #expression "\n", __FILE__,  __LINE__); \
+      *(long *)(0x1) = 0; \
+    } \
+  } while (0) \
+/* ASSERT */
+
+/*
+ * Set _OPTIMIZE according to __OPTIMIZE__ (defined by gcc and icc) and NDEBUG.
+ */
+#ifdef __OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 3
+#  else//!NDEBUG
+#    define _OPTIMIZE 2
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#else//!__OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 1
+#  else//!NDEBUG
+#    define _OPTIMIZE 0
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#endif//__OPTIMIZE__
+
+/*
+ * GETENV -- Replacement for getenv().
+ */
+#ifndef GETENV
+# define GETENV(string) getenv(string)
+#endif//GETENV
+
+/*
+ * Fall-back definitions for the _MIN / _MAX macros.
+ */
+#ifndef _MIN
+# define _MIN(x,y) ((x) < (y)? (x): (y))
+#endif
+#ifndef _MAX
+# define _MAX(x,y) ((x) > (y)? (x): (y))
+#endif
+#ifndef _ABS
+# define _ABS(x) ((x) >= -(x)? (x): -(x))
+#endif
+
+#ifndef _ALIGN_MAX
+#error "_ALIGN_MAX undefined (Maximun alignment required by the basic C types)."
+#endif//_ALIGN_MAX
+/** Align the supplied @c size to the next _ALIGN_MAX multiple. */
+#define _ALIGN_NEXT(size) \
+  (((size_t)(size) + _ALIGN_MAX - 1) & (size_t)-_ALIGN_MAX)
+/** Align the supplied @c size to the previous _ALIGN_MAX multiple. */
+#define _ALIGN_PREV(size) \
+  ((size_t)(size) & (size_t)-_ALIGN_MAX)
+/** True if the supplied @c size is _ALIGN_MAX aligned, else false. */
+#define _ALIGNED(size) \
+  (((size_t)(size) & (size_t)-_ALIGN_MAX) == (size_t)(size))
+
+#endif//_INCLUDED_CDT
+

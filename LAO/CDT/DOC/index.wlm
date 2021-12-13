@@ -1,0 +1,19 @@
+!!!!	The Compiler Development Tools
+
+Author:	Beno&icirc;t Dupont de Dinechin
+
+The Compiler Development Tools (CDT) is a GNU-style package that provides tools and C
+libraries that aim to assist systems programming and in particular compiler development.
+The CDT package offers the following libraries:
+
+ *	<Basic Support Libraries (BSL) BSL.html>
+ *	<C Container Libraries (CCL) CCL.html>
+ *	<Combinatoric Algorithm Libraries (CAL) CAL.html>
+
+The CDT uses specific software development convention and tools:
+
+ *	<C Coding Style CCodingStyle.html>
+ *	<User Guide of CDT UserGuide.html>
+ *	<The eXtra C Comments (XCC) format XCCGen.html>
+ *	<The Wiki-Like Markup (WLM) documentation WLMDoc.html>
+

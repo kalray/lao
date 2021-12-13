@@ -1,0 +1,49 @@
+<!-- Lowered Intermediate Representation DTD -->
+<!-- Copyright (c) 2008 STMicroelectronics -->
+<!-- Licensed under the GNU Public License V2.1 or later -->
+<!-- Benoit Dupont de Dinechin (benoit.dinechin@gmail.com) -->
+
+<!--
+  Parameter Entities correponding to C99 standard types.
+-->
+<!ENTITY % bool 'NMTOKEN' >
+<!ENTITY % char 'NMTOKEN' >
+<!ENTITY % int8_t 'NMTOKEN' >
+<!ENTITY % uint8_t 'NMTOKEN' >
+<!ENTITY % int16_t 'NMTOKEN' >
+<!ENTITY % uint16_t 'NMTOKEN' >
+<!ENTITY % int32_t 'NMTOKEN' >
+<!ENTITY % uint32_t 'NMTOKEN' >
+<!ENTITY % int64_t 'NMTOKEN' >
+<!ENTITY % uint64_t 'NMTOKEN' >
+<!ENTITY % intptr_t 'NMTOKEN' >
+<!ENTITY % uintptr_t 'NMTOKEN' >
+<!ENTITY % size_t 'NMTOKEN' >
+
+<!--
+  Parameter Entities correponding to MDS defined types.
+-->
+
+<!--
+  Temporary element.
+-->
+<!ELEMENT Temporary EMPTY >
+<!ATTLIST
+  Variable %Variable; #IMPLIED
+  Type  ( Dedicated
+        | Assigned
+        | Virtual
+        | Absolute
+        | Symbol
+        | Label
+        | Modifier
+        | RegMask
+        | Volatile
+        | Control
+        | Memory
+        ) #REQUIRED
+  Flags %Temporary.Flags; #IMPLIED
+  Register %Register; #IMPLIED
+  Width %int8_t; #IMPLIED
+>
+

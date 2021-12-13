@@ -1,0 +1,23 @@
+functions:
+  - label: live-check
+    test: "Testing LiveCheck_ComputeR, quicksort"
+    bbs:
+      - label: L1
+        succs: [L2]
+      - label: L2
+        succs: [L3, L5, L6]
+      - label: L3
+        succs: [L4, L5]
+      - label: L4
+      - label: L5
+        succs: [L5]
+      - label: L6
+        succs: [L7]
+      - label: L7
+        succs: [L8]
+      - label: L8
+        succs: [L7, L9, L10]
+      - label: L9
+        succs: [L9]
+      - label: L10
+        succs: [L6, L8]

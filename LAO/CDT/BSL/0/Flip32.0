@@ -1,0 +1,127 @@
+Testing int32_to_float32, rounding nearest_even.
+372 tests total.
+No errors found in int32_to_float32, rounding nearest_even.
+Testing int32_to_float32, rounding up.
+372 tests total.
+No errors found in int32_to_float32, rounding up.
+Testing int32_to_float32, rounding down.
+372 tests total.
+No errors found in int32_to_float32, rounding down.
+Testing int32_to_float32, rounding to_zero.
+372 tests total.
+No errors found in int32_to_float32, rounding to_zero.
+Testing float64_to_float32, rounding nearest_even, tininess before rounding.
+768 tests total.
+No errors found in float64_to_float32, rounding nearest_even, tininess before rounding.
+Testing float64_to_float32, rounding up, tininess before rounding.
+768 tests total.
+No errors found in float64_to_float32, rounding up, tininess before rounding.
+Testing float64_to_float32, rounding down, tininess before rounding.
+768 tests total.
+No errors found in float64_to_float32, rounding down, tininess before rounding.
+Testing float64_to_float32, rounding to_zero, tininess before rounding.
+768 tests total.
+No errors found in float64_to_float32, rounding to_zero, tininess before rounding.
+Testing float32_to_int32, rounding nearest_even.
+600 tests total.
+No errors found in float32_to_int32, rounding nearest_even.
+Testing float32_to_int32, rounding up.
+600 tests total.
+No errors found in float32_to_int32, rounding up.
+Testing float32_to_int32, rounding down.
+600 tests total.
+No errors found in float32_to_int32, rounding down.
+Testing float32_to_int32, rounding to_zero.
+600 tests total.
+No errors found in float32_to_int32, rounding to_zero.
+Testing float32_to_float64.
+600 tests total.
+No errors found in float32_to_float64.
+Testing float32_add, rounding nearest_even.
+46464 tests total.
+No errors found in float32_add, rounding nearest_even.
+Testing float32_add, rounding up.
+46464 tests total.
+No errors found in float32_add, rounding up.
+Testing float32_add, rounding down.
+46464 tests total.
+No errors found in float32_add, rounding down.
+Testing float32_add, rounding to_zero.
+46464 tests total.
+No errors found in float32_add, rounding to_zero.
+Testing float32_sub, rounding nearest_even.
+46464 tests total.
+No errors found in float32_sub, rounding nearest_even.
+Testing float32_sub, rounding up.
+46464 tests total.
+No errors found in float32_sub, rounding up.
+Testing float32_sub, rounding down.
+46464 tests total.
+No errors found in float32_sub, rounding down.
+Testing float32_sub, rounding to_zero.
+46464 tests total.
+No errors found in float32_sub, rounding to_zero.
+Testing float32_mul, rounding nearest_even, tininess before rounding.
+46464 tests total.
+No errors found in float32_mul, rounding nearest_even, tininess before rounding.
+Testing float32_mul, rounding up, tininess before rounding.
+46464 tests total.
+No errors found in float32_mul, rounding up, tininess before rounding.
+Testing float32_mul, rounding down, tininess before rounding.
+46464 tests total.
+No errors found in float32_mul, rounding down, tininess before rounding.
+Testing float32_mul, rounding to_zero, tininess before rounding.
+46464 tests total.
+No errors found in float32_mul, rounding to_zero, tininess before rounding.
+Testing float32_min, rounding nearest_even, tininess before rounding.
+46464 tests total.
+No errors found in float32_min, rounding nearest_even, tininess before rounding.
+Testing float32_min, rounding up, tininess before rounding.
+46464 tests total.
+No errors found in float32_min, rounding up, tininess before rounding.
+Testing float32_min, rounding down, tininess before rounding.
+46464 tests total.
+No errors found in float32_min, rounding down, tininess before rounding.
+Testing float32_min, rounding to_zero, tininess before rounding.
+46464 tests total.
+No errors found in float32_min, rounding to_zero, tininess before rounding.
+Testing float32_max, rounding nearest_even, tininess before rounding.
+46464 tests total.
+No errors found in float32_max, rounding nearest_even, tininess before rounding.
+Testing float32_max, rounding up, tininess before rounding.
+46464 tests total.
+No errors found in float32_max, rounding up, tininess before rounding.
+Testing float32_max, rounding down, tininess before rounding.
+46464 tests total.
+No errors found in float32_max, rounding down, tininess before rounding.
+Testing float32_max, rounding to_zero, tininess before rounding.
+46464 tests total.
+No errors found in float32_max, rounding to_zero, tininess before rounding.
+Taking input from IeeeCC754/testsets/add.
+
+
+Counting 611 lines.
+Taking input from IeeeCC754/testsets/multiply.
+
+
+Counting 1067 lines.
+Taking input from IeeeCC754/testsets/rint32.
+
+
+Counting 98 lines.
+Taking input from IeeeCC754/testsets/ruint32.
+
+
+Counting 61 lines.
+Taking input from IeeeCC754/testsets/cint32.
+
+
+Counting 16 lines.
+Taking input from IeeeCC754/testsets/cuint32.
+
+
+Counting 14 lines.
+Taking input from IeeeCC754/testsets/roundto.
+
+
+Counting 110 lines.

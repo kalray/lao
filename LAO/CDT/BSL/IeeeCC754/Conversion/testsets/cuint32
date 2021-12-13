@@ -1,0 +1,69 @@
+!!
+!! This file contains precision and range independent vectors to test
+!! the conversion from a 32-bit unsigned integer to a floating-point
+!! number (cu). The first character in each test vector refers to the
+!! origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: cuint32 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!! Copy from unsigned integer format (32 bits)
+3cu   ALL             0x00000001            0               OK              1
+3cu   ALL             0x00000000            0               OK              0
+3cu   ALL             0x00000002            0               OK              2
+3cu   ALL             0x00000003            0               OK              3
+3cu   ALL             0x00000010            0               OK              16
+3cu   ALL             0x00000100            0               OK              256
+3cu   ALL             0x00010001            0               OK              65537
+3cu   ALL             0x0000ffff            0               OK              65535
+3cu   ALL             0x00ffffff            0               OK              1p24d(23)1
+3cu   ALL             0x80000000            0               OK	            1p31
+! Inexact cases for IEEE single
+3cu s   <0=            0x01000001            0               x               1p24
+3cu s   >              0x01000001            0               x               1p24i1
+3cu s   <0             0x02000003            0               x               1p25
+3cu s   >=             0x02000003            0               x               1p25i1

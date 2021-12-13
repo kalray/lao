@@ -1,0 +1,26 @@
+SSA: false
+functions:
+  - label: value-numbering
+    test: "Figure 5 in Briggs's paper"
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+        ops:
+          - {op: ADD, defs: [V112], uses: [V106, V107]}
+          - {op: ADD, defs: [V113], uses: [V108, V109]}
+          - {op: ADD, defs: [V114], uses: [V110, V111]}
+      - label: L2
+        succs: [L4]
+        ops:
+          - {op: ADD, defs: [V103], uses: [V108, V109]}
+          - {op: ADD, defs: [V104], uses: [V108, V109]}
+      - label: L3
+        succs: [L4]
+        ops:
+          - {op: ADD, defs: [V112], uses: [V106, V107]}
+          - {op: ADD, defs: [V103], uses: [V110, V111]}
+          - {op: ADD, defs: [V104], uses: [V110, V111]}
+      - label: L4
+        ops:
+          - {op: ADD, defs: [V105], uses: [V112, V104]}
+          - {op: ADD, defs: [V112], uses: [V106, V107]}

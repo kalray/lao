@@ -1,0 +1,97 @@
+Immediate__UNDEF	0
+Immediate_kv3_pcrel27	1
+Immediate_kv3_pcrel17	2
+Immediate_kv3_sysnumber	3
+Immediate_kv3_unsigned6	4
+Immediate_kv3_signed6	5
+Immediate_kv3_signed10	6
+Immediate_kv3_signed12	7
+Immediate_kv3_signed16	8
+Immediate_kv3_signed27	9
+Immediate_kv3_wrapped32	10
+Immediate_kv3_signed37	11
+Immediate_kv3_signed43	12
+Immediate_kv3_signed54	13
+Immediate_kv3_wrapped64	14
+Immediate_kv3_brknumber	15
+Immediate_minValue(_UNDEF)	9223372036854775807
+Immediate_minValue(kv3_pcrel27)	-268435456
+Immediate_minValue(kv3_pcrel17)	-262144
+Immediate_minValue(kv3_sysnumber)	0
+Immediate_minValue(kv3_unsigned6)	0
+Immediate_minValue(kv3_signed6)	-32
+Immediate_minValue(kv3_signed10)	-512
+Immediate_minValue(kv3_signed12)	-2048
+Immediate_minValue(kv3_signed16)	-32768
+Immediate_minValue(kv3_signed27)	-67108864
+Immediate_minValue(kv3_wrapped32)	-2147483648
+Immediate_minValue(kv3_signed37)	-68719476736
+Immediate_minValue(kv3_signed43)	-4398046511104
+Immediate_minValue(kv3_signed54)	-9007199254740992
+Immediate_minValue(kv3_wrapped64)	-9223372036854775808
+Immediate_minValue(kv3_brknumber)	0
+Immediate_maxValue(_UNDEF)	-9223372036854775808
+Immediate_maxValue(kv3_pcrel27)	268435452
+Immediate_maxValue(kv3_pcrel17)	262140
+Immediate_maxValue(kv3_sysnumber)	4095
+Immediate_maxValue(kv3_unsigned6)	63
+Immediate_maxValue(kv3_signed6)	31
+Immediate_maxValue(kv3_signed10)	511
+Immediate_maxValue(kv3_signed12)	2047
+Immediate_maxValue(kv3_signed16)	32767
+Immediate_maxValue(kv3_signed27)	67108863
+Immediate_maxValue(kv3_wrapped32)	4294967295
+Immediate_maxValue(kv3_signed37)	68719476735
+Immediate_maxValue(kv3_signed43)	4398046511103
+Immediate_maxValue(kv3_signed54)	9007199254740991
+Immediate_maxValue(kv3_wrapped64)	-1
+Immediate_maxValue(kv3_brknumber)	3
+
+Extend(_UNDEF)	_UNDEF
+Extend(kv3_pcrel27)	Signed
+Extend(kv3_pcrel17)	Signed
+Extend(kv3_sysnumber)	Unsigned
+Extend(kv3_unsigned6)	Unsigned
+Extend(kv3_signed6)	Signed
+Extend(kv3_signed10)	Signed
+Extend(kv3_signed12)	Signed
+Extend(kv3_signed16)	Signed
+Extend(kv3_signed27)	Signed
+Extend(kv3_wrapped32)	Wrap
+Extend(kv3_signed37)	Signed
+Extend(kv3_signed43)	Signed
+Extend(kv3_signed54)	Signed
+Extend(kv3_wrapped64)	Wrap
+Extend(kv3_brknumber)	Unsigned
+
+Immediate_relocations(_UNDEF)
+Immediate_relocations(kv3_pcrel27)	kv3_pcrel27
+Immediate_relocations(kv3_pcrel17)	kv3_pcrel17
+Immediate_relocations(kv3_sysnumber)	_UNDEF
+Immediate_relocations(kv3_unsigned6)	_UNDEF
+Immediate_relocations(kv3_signed6)	_UNDEF
+Immediate_relocations(kv3_signed10)	_UNDEF
+Immediate_relocations(kv3_signed12)	_UNDEF
+Immediate_relocations(kv3_signed16)	kv3_pcrel_signed16	kv3_signed16
+Immediate_relocations(kv3_signed27)	_UNDEF
+Immediate_relocations(kv3_wrapped32)	kv3_signed32
+Immediate_relocations(kv3_signed37)	kv3_pcrel_signed37	kv3_signed37	kv3_gotoff_signed37	kv3_got_signed37	kv3_gotaddr_signed37	kv3_dtpoff_signed37	kv3_tlsgd_signed37	kv3_tlsld_signed37	kv3_tlsie_signed37	kv3_tlsle_signed37
+Immediate_relocations(kv3_signed43)	kv3_pcrel_signed43	kv3_gotoff_signed43	kv3_got_signed43	kv3_signed43	kv3_gotaddr_signed43	kv3_dtpoff_signed43	kv3_tlsgd_signed43	kv3_tlsld_signed43	kv3_tlsie_signed43	kv3_tlsle_signed43
+Immediate_relocations(kv3_signed54)	_UNDEF
+Immediate_relocations(kv3_wrapped64)	kv3_pcrel_signed64	kv3_signed64	kv3_gotaddr_signed64
+Immediate_relocations(kv3_brknumber)	_UNDEF
+
+CannotEncode(kv3_sysnumber,-1)	minValue=0	maxValue=4095
+CannotEncode(kv3_sysnumber,4096)	minValue=0	maxValue=4095
+CannotEncode(kv3_unsigned6,-1)	minValue=0	maxValue=63
+CannotEncode(kv3_unsigned6,64)	minValue=0	maxValue=63
+CannotEncode(kv3_signed6,-33)	minValue=-32	maxValue=31
+CannotEncode(kv3_signed6,32)	minValue=-32	maxValue=31
+CannotEncode(kv3_signed10,-513)	minValue=-512	maxValue=511
+CannotEncode(kv3_signed10,512)	minValue=-512	maxValue=511
+CannotEncode(kv3_signed12,-2049)	minValue=-2048	maxValue=2047
+CannotEncode(kv3_signed12,2048)	minValue=-2048	maxValue=2047
+CannotEncode(kv3_signed16,-32769)	minValue=-32768	maxValue=32767
+CannotEncode(kv3_signed16,32768)	minValue=-32768	maxValue=32767
+CannotEncode(kv3_brknumber,-1)	minValue=0	maxValue=3
+CannotEncode(kv3_brknumber,4)	minValue=0	maxValue=3

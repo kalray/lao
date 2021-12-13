@@ -1,0 +1,22 @@
+functions:
+  - label: Bourdoncle-p39
+    test: Block Frequency computation: irreducible loop
+    entries: [Block_1]
+    bbs:
+      - label: Block_1
+        ops:
+          - {op: IFTRUE, uses[$r1, 'L3'], target: Block_3, freq: .57,
+            fallthru: .next }
+
+      - label: Block_2
+        ops:
+          - {op: IFTRUE, uses[$r2, 'L4'], target: Block_4, freq: .28,
+            fallthru: .next }
+ 
+      - label: Block_3
+        ops:
+          - {op: IFTRUE, uses[$r3, 'L2'], target: Block_2, freq: .82,
+            fallthru: .next }
+
+      - label: Block_4
+        ops: []

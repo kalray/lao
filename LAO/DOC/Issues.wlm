@@ -1,0 +1,68 @@
+!!!!	JIT Issues
+
+Abstract:	This document maintains the list of ECL issues that need to be
+addressed.
+
+!!!	JIT1 Compilation Passes
+
+  *	CodeRegion SSA construction with value numbering and copy folding.
+
+  *	CodeRegion SSA propagation of instruction scheduling and register allocation
+  attributes. These include the safe speculation control regions and the rematerializable
+  live ranges.
+
+  *	CodeRegion SSA destruction with COPY coalescing and variable pinning.
+
+  *	CodeRegion control-flow simplifications, code layout, code duplication.
+
+  *	CodeRegion prepass superblock scheduling and software pipelining.
+
+  *	CodeRegion register allocation and collection of the stack frame block
+  contributions.
+
+  *	Procedure stack frame layout and expansion of Simulated Operator(s).
+
+  *	CodeRegion postpass instruction scheduling.
+
+!!!	LIR Unresolved Issues
+
+  Scope of SSA destruction:	
+  Should the SSA destruction enforce target architecture constraints between source
+  and destination of Operation(s) like base register auto-modification and two-address
+  instruction set?
+
+  Expansion of Generic Operator(s):	
+  The Generic Operator(s) need to be expanded before prepass scheduling, as
+  scheduling requires Scheduling classes for non-pseudo Operator(s). The Simulated
+  Operator(s) have a Scheduling class so they are acceptable for prepass scheduling.
+
+  Expansion of Simulated Operator(s):	
+  The Simulated Operator(s) need to be expanded before postpass scheduling and some
+  of them can only be expanded after register allocation.
+
+  Generation of Literal Pools:	
+  The literal pools are implemented as BasicBlock annotations. This contrats with the
+  NativeBlock that contain either Instruction(s) or Literal(s) (why?).
+
+!!!	JIT Code Generation
+
+!!	Instruction Selection
+
+!!	Basic Program Flow Analyzes
+
+!!	Static Single Assignment Form
+
+!!	Loop and Region Optimizations
+
+!!	Sparse Program Flow Analyzes
+
+!!	IF-Conversion and Predication
+
+!!	Control-Flow Maintenance
+
+!!	Register Allocation and Frame Layout
+
+!!	Superblock Scheduling and Pipelining
+
+!!	Instruction Encoding and Bundling
+

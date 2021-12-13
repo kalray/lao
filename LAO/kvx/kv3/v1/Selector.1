@@ -1,0 +1,79 @@
+------- Region 0 (replace-generics) -----
+   1:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	3:Block_2( 0%)	4:Block_3( 0%)	
+		  0:APPLY  	 _1158 = 0
+		  1:APPLY  	 _1160 = 1
+		  2:LAND  	 _1162 = _1158, _1160
+		  3:ADD  	 _1162 = _1158, _1160
+		  4:ADD  	 _1162 = 2143543132, _1162
+		  5:LAND  	 _1162 = 42, _1162
+		  6:IFTRUE  	 _1160, .L3
+
+   3:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	2:Block_4( 0%)	
+		  7:ADD  	 _1166 = _1158, _1162
+		  8:GOTO  	 .L4
+
+   4:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	2:Block_4( 0%)	
+	.L3:
+		  9:ADD  	 _1166 = _1158, _1162
+
+   2:Block_4
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_3(-1)	3:Block_2(-1)	
+	successors:	0:Block_0( 0%)	
+	.L4:
+		 10:ADD  	 _1168 = _1160, _1166
+		 11:COPY  	 $r0 = _1168
+		 12:RETURN  	
+
+------- contributed=0 -----
+------- Region 0 (replace-generics) -----
+   1:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	3:Block_2( 0%)	4:Block_3( 0%)	
+		 20:make  	 g1158 = 0
+		 19:make  	 g1160 = 1
+		 18:landw  	 g1162 = g1158, g1160
+		 17:addd  	 g1162 = g1158, g1160
+		 16:addd  	 g1162 = g1162, 2143543132
+		 14:make  	 g1170 = 42
+		 15:landw  	 g1162 = g1170, g1162
+		 13:cb  	 g1160, .L3
+
+   3:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	2:Block_4( 0%)	
+		 22:addd  	 g1166 = g1158, g1162
+		 21:goto  	 .L4
+
+   4:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	2:Block_4( 0%)	
+	.L3:
+		 23:addd  	 g1166 = g1158, g1162
+
+   2:Block_4
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_3(-1)	3:Block_2(-1)	
+	successors:	0:Block_0( 0%)	
+	.L4:
+		 26:addd  	 g1168 = g1160, g1166
+		 25:copyd  	 $r0 = g1168
+		 24:ret  	 $ra	ExitCode
+
+------- contributed=0 -----

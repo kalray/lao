@@ -1,0 +1,46 @@
+---
+program:
+- section:
+    name: .data
+    flags: [Write, Alloc]
+    align: 4
+
+- section:
+    name: .bss
+    flags: [Write, Alloc]
+    align: 4
+
+- object: str
+  linkage: global
+  align: 4
+  size: 49
+  section: .data
+  init:
+  - ascii: "Ala ma kota a kot ma ale i bawili sie wspaniale\n\0"
+
+- object: tmp
+  linkage: global
+  align: 4
+  size: 136
+  section: .data
+  init:
+  - ascii: "Ala ma kota a kot ma ale i bawili sie wspaniale\n\0\0\0\0\0Hidden Text!\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+  - word: 0xfffffffe
+  - hword: 0xffff
+  - space: 2
+  - f32: 0x1.19999ap0    ## 1.1 represented by 1.10000002384185791015625
+  - f32: 0x2ap0          ## the integer 42
+  - quad: 0x1e240
+  - word: [tmp]            ## string pointer, pointing to first field of this structure
+  - space: 4
+  - f64: 0x1.199999999999ap0     ## 1.1 represented by 1.10000000000000008881784197001
+  - f64: 0x17048860f9180p0   ## the integer 123456789123456
+
+- object: main.j
+  linkage: global
+  align: 2
+  size: 4
+  section: .bss
+  init:
+  - word: 0x0
+...

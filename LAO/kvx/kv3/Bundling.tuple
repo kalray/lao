@@ -1,0 +1,35 @@
+/*
+ * kv3/Bundling.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Bundling
+#define Bundling(ID)
+#else /*Bundling*/
+Bundling(kv3_ALL)
+Bundling(kv3_BCU)
+Bundling(kv3_TCA)
+Bundling(kv3_FULL)
+Bundling(kv3_FULL_X)
+Bundling(kv3_FULL_Y)
+Bundling(kv3_LITE)
+Bundling(kv3_LITE_X)
+Bundling(kv3_LITE_Y)
+Bundling(kv3_MAU)
+Bundling(kv3_MAU_X)
+Bundling(kv3_MAU_Y)
+Bundling(kv3_LSU)
+Bundling(kv3_LSU_X)
+Bundling(kv3_LSU_Y)
+Bundling(kv3_TINY)
+Bundling(kv3_TINY_X)
+Bundling(kv3_TINY_Y)
+Bundling(kv3_NOP)
+#endif/*Bundling*/
+#undef Bundling
+
+#ifndef Bundling_LOG2_MAX
+#define Bundling_LOG2_MAX 5
+#endif/*Bundling_LOG2_MAX*/
+

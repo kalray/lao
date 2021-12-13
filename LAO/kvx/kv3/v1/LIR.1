@@ -1,0 +1,106 @@
+FORCE_ACTIVATION= comma separated list of:
+ [
+ Encode = 1
+ PostPass = 2
+ RegAlloc = 4
+ PrePass = 8
+ SSAForm = 16
+ ]
+  Force the activation of LAO phases.
+  The default is given by the context of invocation.
+
+FORCE_CONVERSION= comma separated list of:
+ [
+ Folding = 1
+ Cleaning = 2
+ SemiPruned = 4
+ SigmaGoTo = 8
+ Dedicated = 16
+ ]
+  Force flags for the SSA construction.
+  The default value is: Folding,Cleaning,SemiPruned
+
+FORCE_COALESCING= comma separated list of:
+ [
+ Sreedhar = 1
+ Boissinot = 2
+ Decoalesce = 4
+ EarlyPrune = 8
+ Virtualize = 16
+ Congruence = 32
+ SeqCopies = 64
+ Florent = 128
+ ]
+  Force flags for the SSA variable coalescing.
+  The default value is: Sreedhar,Virtualize,Congruence
+
+FORCE_REWRITING= comma separated list of:
+ [
+ Range = 1
+ BWLU = 128
+ ]
+  Force flags for the instruction rewriting.
+  The default value is: BWLU
+
+FORCE_ALLOCATION= comma separated list of:
+ [
+ ELinearScan = 1
+ DomTreeScan = 2
+ GraphColoring = 4
+ FromSSAForm = 16
+ ]
+  Force flags for the register allocation.
+  The default value is: 0
+
+FORCE_SPILLING= comma separated list of:
+ [
+ SebastianPhD = 1
+ SebastianCC09 = 2
+ FlorentILP = 4
+ ]
+  Force flags for the register spilling.
+  The default value is: 0
+
+FORCE_COLORING= comma separated list of:
+ [
+ ELinearScan = 1
+ DomTreeScan = 2
+ GeorgeAppel = 4
+ ]
+  Force flags for the register coloring.
+  The default value is: 0
+
+FORCE_RCMSSOLVING= comma separated list of:
+ [
+ Dinechin = 1
+ LNSScan1 = 2
+ LNSScan2 = 4
+ EicDavAb = 8
+ AggrDeps = 16
+ Rational = 32
+ PostPass = 64
+ Acyclic = 128
+ ]
+  Force flags for the linear programming formulation of modulo scheduling.
+  The default value is: 0
+
+FORCE_RCMSPROBLEM= comma separated list of:
+ [
+ Regular = 1
+ Overlap = 2
+ Lifetime = 4
+ Renaming = 8
+ Margins = 16
+ ]
+  Force flags for the resource-constrained modulo scheduling plugin.
+  The default value is: 0
+
+FORCE_PROFILING= comma separated list of:
+ [
+ Static = 1
+ Edge = 2
+ Path = 4
+ ]
+  Force flags for the profiling information type.
+  The default value is: 0
+

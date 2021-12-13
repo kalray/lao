@@ -1,0 +1,42 @@
+!!!!	ECL Must Know
+
+Abstract:	This document maintains some information one musk know about the
+ECL.
+
+!!!	LIR
+
+  *	The Procedure can be in two states: either before CodeRegion partitioning, or
+after. Before, one can merely construct the Procedure but not transform it.
+
+  *	A CodeRegion can be in two states: either outside SSA form, or under SSA
+form.
+
+  *	Before register allocation, no register Temporary(ies) (such that
+Temporary_isRegister() is true) should be assigned (Temporary_isAssigned() is
+true).
+
+  *	In case Temporary_hasRegister() is true, all Temporary(ies) with the same
+Temporary_REGISTER are actually aliases of each other. This aliasing is dealt by
+considering the canonical representant which is Program_dedicated() indexed by
+this Register.
+
+!!!	PFA
+
+  *	The LoopForest construction builds the nested strongly connected
+components of Bourdoncle, which is able to recver structured loops inside
+unstructured strongly connected components.
+
+!!!	Use of Indexed
+
+The Indexed base class is for Type(s) whose instances need to have a dense indexing. For
+such object, one can have TypeTable and TypeSparse. This is better than TypeSet
+based on PtrSet.
+
+!!!	Use of Memory
+
+The Memory allocator is tunable for three use cases:
+
+  *	Direct forward to malloc/free
+  *	Pooling with reference counts
+  *	Pooling without reference counts.
+

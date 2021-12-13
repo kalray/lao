@@ -1,0 +1,1243 @@
+!!
+!! This file contains precision and range independent test vectors for
+!! the operation square root (sqrt) . The first character in each
+!! test vector refers to the origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! H:  precision independent encoding of UCB/<H>ough test vector
+!!      @Unpublished{
+!!             author = {David G. Hough and others},
+!!             title  = {{UCBTEST}, a suite of programs for testing certain
+!!                difficult cases of {IEEE} 754 floating-point arithmetic},
+!!             year   = {1988},
+!!             note   = {Restricted public domain software from
+!!                http://netlib.bell-labs.com/netlib/fp/index.html}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {I}: basic operations,
+!!                       square root and remainder},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {92-118},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://win-www.uia.ac.be/u/cant/ieeecc754.html
+!!
+!! Contact: 
+!!	Brigitte.Verdonk@ua.ac.be
+!!      Department of Mathematics and Computer Science
+!!      University of Antwerp (UIA)
+!!      Universiteitsplein 1
+!!      B2610 Antwerp, BELGIUM 
+!!      
+!! Last updated:
+!!		$Date: 2005-01-26 17:59:10 +0100 (Wed, 26 Jan 2005) $
+!!
+!! special representations
+!! zero
+2S	 ALL    +0	 0  OK	 +0
+2S	 ALL    -0	 0  OK	 -0
+!! infinity 
+2S	 ALL    +H	 0  OK	 +H
+2S	 ALL    -H	 0  i   Q
+!! NaN versus NaN
+! 2S	    ALL	    Q	    0	    OK	    Q
+! 2S	    ALL	    S	    0	    i	    Q
+
+!! exceptions
+!! invalid
+2S	 ALL    -1	 0  i   Q
+2S	 ALL    -2i2   0  i	  Q
+2S	 ALL    -3i4   0  i	  Q
+2S	 ALL    -4d5   0  i	  Q
+2S	 ALL    -1u1   0  i	  Q
+2S	 ALL    -1u2   0  i	  Q
+2S	 ALL    -1u3   0  i	  Q
+2S	 ALL    -Hm1i2	 0  i   Q
+2S	 ALL    -Hm2i2	 0  i   Q
+2S	 ALL    -Hm1d1	 0  i   Q
+2S	 ALL    -Hm2d4	 0  i   Q
+2S	 ALL    -Ep1i1	 0  i   Q
+2S	 ALL    -Ep1d3	 0  i   Q
+2S	 ALL    -Ep1   0  i	  Q
+2S	 ALL    -Ed4   0  i	  Q
+2S	 ALL    -Ed3   0  i	  Q
+2S	 ALL    -Ed2   0  i	  Q
+2S	 ALL    -Ed1   0  i	  Q
+2S	 ALL    -Ed7   0  i	  Q
+2S	 ALL    -Ed9   0  i	  Q
+2S	 ALL    -0i1   0  i	  Q
+2S	 ALL    -0i9   0  i	  Q
+2S	 ALL    -0i7   0  i	  Q
+2S	 ALL    -0i5   0  i	  Q
+2S	 ALL    -0i2   0  i	  Q
+!! underflow or overflow cannot occur
+!! inexact, see rounding properties below
+
+!! exact rounding
+!! f(x)=f(a)+f'(a)(x-a)+f''(a)(x-a)^2 + ... with a = 1, and (x-a) = N ULPS
+!! => sqrt(x) = 1 + N/2 ULPS - tiny
+! Case: 2^EVEN * (1 + Nulp+) -->
+! 2^(EVEN/2) * (1 + (1/2)Nulp+ - (1/8)(Nulp+)^2 + tiny)
+! 1 + 1ulp --> 1 + 0.5ulp - tiny.
+2S	 =0<    1i1	  0	 x	 1
+2S	 >	  1i1   0  x   1i1
+! 1 + 2ulp --> 1 + 1ulp - tiny.
+2S	 =>	   1i2	 0  x   1i1
+2S	 0<	   1i2	 0  x   1
+! 1 + 3ulp --> 1 + 1.5ulp - tiny.
+2S	 =0<    1i3	  0	 x	 1i1
+2S	 >	  1i3   0  x   1i2
+! 1 + 4ulp --> 1 + 2ulp - tiny.
+2S	 =>	   1i4	 0  x   1i2
+2S	 0<	   1i4	 0  x   1i1
+! (1 + 5ulp) --> 1 + 2.5ulp - ...
+2S	 =0<    1i5	  0	 x	 1i2
+2S	 >	  1i5   0  x   1i3
+! (1 + 6ulp) --> 1 + 3ulp - ...
+2S	 =>	   1i6	 0  x   1i3
+2S	 0<	   1i6	 0  x   1i2
+! (1+7ulp) --> 1 + 3.5ulp - ... 
+2S	 =0<    1i7	  0	 x	 1i3
+2S	 >	  1i7   0  x   1i4
+!! idem for (x-a) = - N ULPS
+! sqrt(1 - Nulp-) -->
+! 1 - (1/2)Nulp- - (1/8)(Nulp-)^2 - tiny
+! 1 - 1ulp-	 --> 1 - 0.5ulp- - tiny.
+2S	 =0<    1d1	  0	 x	 1d1
+2S	 >	  1d1   0  x   1
+! 1 - 2ulp-	 --> 1 - 1ulp- - tiny.
+2S	 =>	   1d2	 0  x   1d1
+2S	 0<	   1d2	 0  x   1d2
+! 1 - 3ulp-	 --> 1 - 1.5ulp- - tiny.
+2S	 =0<    1d3	  0	 x	 1d2
+2S	 >	  1d3   0  x   1d1
+! 1 - 4ulp-	 --> 1 - 2ulp- - tiny.
+2S	 =>	   1d4	 0  x   1d2
+2S	 0<	   1d4	 0  x   1d3
+! 1 - 5ulp-	 --> 1 - 2.5ulp- - tiny.
+2S	 =0<    1d5	  0	 x	 1d3
+2S	 >	  1d5   0  x   1d2
+! 1 - 6ulp-	 --> 1 - 3ulp- - tiny.
+2S	 =>	   1d6	 0  x   1d3
+2S	 0<	   1d6	 0  x   1d4
+! 1 - 7ulp-	 --> 1 - 3.5ulp- - tiny.
+2S	 =0<    1d7	  0	 x	 1d4
+2S	 >	  1d7   0  x   1d3
+! 1 - 8ulp-	 --> 1 - 4ulp- - tiny.
+2S	 =>	   1d8	 0  x   1d4
+2S	 0<	   1d8	 0  x   1d5
+! 1 - 9ulp-	 --> 1 - 4.5ulp- - tiny.
+2S	 =0<    1d9	  0	 x	 1d5
+2S	 >	  1d9   0  x   1d4
+!! round bit <> 0
+!! this combination is not possible, because it would imply that the original
+!! operand is not representable
+
+!! Even powers of 2 and 3
+2S	 ALL    1   0  OK   1
+2S	 ALL    4   0  OK   2
+2S	 ALL    9   0  OK   3
+2S	 ALL    1p8	  0	 OK	  1p4
+2S	 ALL    1m8	  0	 OK	  1m4
+2S	 ALL    4p6	  0	 OK	  2p3
+2S	 ALL    4m6	  0	 OK	  2m3
+2S	 ALL    9p8	  0	 OK	  3p4
+2S	 ALL    9m8	  0	 OK	  3m4
+2S	 ALL    9p9p9   0  OK   3p9
+2S	 ALL    9m9m9   0  OK   3m9
+
+!! Almost half-way cases generated by ucbsqrtest in UCBTEST by W. Kahan
+AS	=	1i1		0	x	1
+AS	=	4i1		0	x	2
+AS	=	16i1		0	x	4
+AS	=	64i1		0	x	8
+AS	=	256i1		0	x	16
+AS	=	1024i1		0	x	32
+AS	=	4096i1		0	x	64
+AS	=	16384i1		0	x	128
+AS	=	65536i1		0	x	256
+AS	=	262144i1	0	x	512
+AS	=	1048576i1	0	x	1024
+AS	=	4194304i1	0	x	2048
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8i1	0	x	1pB9m4
+!AS	=	1pB8m4i1	0	x	1pB9m2
+!AS	=	1pB8m2i1	0	x	1pB9m1
+!AS	=	1pB8i1		0	x	1pB9
+AS	=	1pB6m8i1		0	x	1pB7m4
+AS	=	1pB6m4i1		0	x	1pB7m2
+AS	=	1pB6m2i1		0	x	1pB7m1
+AS	=	1pB6i1		0	x	1pB7
+AS	=	1pB4m8i1	0	x	1pB5m4
+AS	=	1pB4m4i1	0	x	1pB5m2
+AS	=	1pB4m2i1	0	x	1pB5m1
+AS	=	1pB4i1		0	x	1pB5
+AS	=	1pB2m8i1		0	x	1pB3m4
+AS	=	1pB2m4i1		0	x	1pB3m2
+AS	=	1pB2m2i1		0	x	1pB3m1
+AS	=	1pB2i1		0	x	1pB3
+AS	=	Hm8i1		0	x	1pB1m4
+AS	=	Hm4i1		0	x	1pB1m2
+AS	=	Hm2i1		0	x	1pB1m1
+
+AS	=	1d1		0	x	1d1
+AS	=	4d1		0	x	2d1
+AS	=	16d1		0	x	4d1
+AS	=	64d1		0	x	8d1
+AS	=	256d1		0	x	16d1
+AS	=	1024d1		0	x	32d1
+AS	=	4096d1		0	x	64d1
+AS	=	16384d1		0	x	128d1
+AS	=	65536d1		0	x	256d1
+AS	=	262144d1	0	x	512d1
+AS	=	1048576d1	0	x	1024d1
+AS	=	4194304d1	0	x	2048d1
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8d1		0	x	1pB9m4d1
+!AS	=	1pB8m4d1		0	x	1pB9m2d1
+!AS	=	1pB8m2d1		0	x	1pB9m1d1
+!AS	=	1pB8d1		0	x	1pB9d1
+AS	=	1pB6m8d1		0	x	1pB7m4d1
+AS	=	1pB6m4d1		0	x	1pB7m2d1
+AS	=	1pB6m2d1		0	x	1pB7m1d1
+AS	=	1pB6d1		0	x	1pB7d1
+AS	=	1pB4m8d1		0	x	1pB5m4d1
+AS	=	1pB4m4d1		0	x	1pB5m2d1
+AS	=	1pB4m2d1		0	x	1pB5m1d1
+AS	=	1pB4d1		0	x	1pB5d1
+AS	=	1pB2m8d1		0	x	1pB3m4d1
+AS	=	1pB2m4d1		0	x	1pB3m2d1
+AS	=	1pB2m2d1		0	x	1pB3m1d1
+AS	=	1pB2d1		0	x	1pB3d1
+AS	=	Hm8d1		0	x	1pB1m4d1
+AS	=	Hm4d1		0	x	1pB1m2d1
+AS	=	Hm2d1		0	x	1pB1m1d1
+
+AS	=	1i3		0	x	1i1
+AS	=	4i3		0	x	2i1
+AS	=	16i3		0	x	4i1
+AS	=	64i3		0	x	8i1
+AS	=	256i3		0	x	16i1
+AS	=	1024i3		0	x	32i1
+AS	=	4096i3		0	x	64i1
+AS	=	16384i3		0	x	128i1
+AS	=	65536i3		0	x	256i1
+AS	=	262144i3	0	x	512i1
+AS	=	1048576i3	0	x	1024i1
+AS	=	4194304i3	0	x	2048i1
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8i3		0	x	1pB9m4i1
+!AS	=	1pB8m4i3		0	x	1pB9m2i1
+!AS	=	1pB8m2i3		0	x	1pB9m1i1
+!AS	=	1pB8i3		0	x	1pB9i1
+AS	=	1pB6m8i3		0	x	1pB7m4i1
+AS	=	1pB6m4i3		0	x	1pB7m2i1
+AS	=	1pB6m2i3		0	x	1pB7m1i1
+AS	=	1pB6i3		0	x	1pB7i1
+AS	=	1pB4m8i3		0	x	1pB5m4i1
+AS	=	1pB4m4i3		0	x	1pB5m2i1
+AS	=	1pB4m2i3		0	x	1pB5m1i1
+AS	=	1pB4i3		0	x	1pB5i1
+AS	=	1pB2m8i3		0	x	1pB3m4i1
+AS	=	1pB2m4i3		0	x	1pB3m2i1
+AS	=	1pB2m2i3		0	x	1pB3m1i1
+AS	=	1pB2i3		0	x	1pB3i1
+AS	=	Hm8i3		0	x	1pB1m4i1
+AS	=	Hm4i3		0	x	1pB1m2i1
+AS	=	Hm2i3		0	x	1pB1m1i1
+
+AS	=	1d3		0	x	1d2
+AS	=	4d3		0	x	2d2
+AS	=	16d3		0	x	4d2
+AS	=	64d3		0	x	8d2
+AS	=	256d3		0	x	16d2
+AS	=	1024d3		0	x	32d2
+AS	=	4096d3		0	x	64d2
+AS	=	16384d3		0	x	128d2
+AS	=	65536d3		0	x	256d2
+AS	=	262144d3	0	x	512d2
+AS	=	1048576d3	0	x	1024d2
+AS	=	4194304d3	0	x	2048d2
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8d3		0	x	1pB9m4d2
+!AS	=	1pB8m4d3		0	x	1pB9m2d2
+!AS	=	1pB8m2d3		0	x	1pB9m1d2
+!AS	=	1pB8d3		0	x	1pB9d2
+AS	=	1pB6m8d3		0	x	1pB7m4d2
+AS	=	1pB6m4d3		0	x	1pB7m2d2
+AS	=	1pB6m2d3		0	x	1pB7m1d2
+AS	=	1pB6d3		0	x	1pB7d2
+AS	=	1pB4m8d3		0	x	1pB5m4d2
+AS	=	1pB4m4d3		0	x	1pB5m2d2
+AS	=	1pB4m2d3		0	x	1pB5m1d2
+AS	=	1pB4d3		0	x	1pB5d2
+AS	=	1pB2m8d3		0	x	1pB3m4d2
+AS	=	1pB2m4d3		0	x	1pB3m2d2
+AS	=	1pB2m2d3		0	x	1pB3m1d2
+AS	=	1pB2d3		0	x	1pB3d2
+AS	=	Hm8d3		0	x	1pB1m4d2
+AS	=	Hm4d3		0	x	1pB1m2d2
+AS	=	Hm2d3		0	x	1pB1m1d2
+
+AS	=	1i5		0	x	1i2
+AS	=	4i5		0	x	2i2
+AS	=	16i5		0	x	4i2
+AS	=	64i5		0	x	8i2
+AS	=	256i5		0	x	16i2
+AS	=	1024i5		0	x	32i2
+AS	=	4096i5		0	x	64i2
+AS	=	16384i5		0	x	128i2
+AS	=	65536i5		0	x	256i2
+AS	=	262144i5	0	x	512i2
+AS	=	1048576i5	0	x	1024i2
+AS	=	4194304i5	0	x	2048i2
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8i5		0	x	1pB9m4i2
+!AS	=	1pB8m4i5		0	x	1pB9m2i2
+!AS	=	1pB8m2i5		0	x	1pB9m1i2
+!AS	=	1pB8i5		0	x	1pB9i2
+AS	=	1pB6m8i5		0	x	1pB7m4i2
+AS	=	1pB6m4i5		0	x	1pB7m2i2
+AS	=	1pB6m2i5		0	x	1pB7m1i2
+AS	=	1pB6i5		0	x	1pB7i2
+AS	=	1pB4m8i5		0	x	1pB5m4i2
+AS	=	1pB4m4i5		0	x	1pB5m2i2
+AS	=	1pB4m2i5		0	x	1pB5m1i2
+AS	=	1pB4i5		0	x	1pB5i2
+AS	=	1pB2m8i5		0	x	1pB3m4i2
+AS	=	1pB2m4i5		0	x	1pB3m2i2
+AS	=	1pB2m2i5		0	x	1pB3m1i2
+AS	=	1pB2i5		0	x	1pB3i2
+AS	=	Hm8i5		0	x	1pB1m4i2
+AS	=	Hm4i5		0	x	1pB1m2i2
+AS	=	Hm2i5		0	x	1pB1m1i2
+
+AS	=	1d5		0	x	1d3
+AS	=	4d5		0	x	2d3
+AS	=	16d5		0	x	4d3
+AS	=	64d5		0	x	8d3
+AS	=	256d5		0	x	16d3
+AS	=	1024d5		0	x	32d3
+AS	=	4096d5		0	x	64d3
+AS	=	16384d5		0	x	128d3
+AS	=	65536d5		0	x	256d3
+AS	=	262144d5	0	x	512d3
+AS	=	1048576d5	0	x	1024d3
+AS	=	4194304d5	0	x	2048d3
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8d5		0	x	1pB9m4d3
+!AS	=	1pB8m4d5		0	x	1pB9m2d3
+!AS	=	1pB8m2d5		0	x	1pB9m1d3
+!AS	=	1pB8d5		0	x	1pB9d3
+AS	=	1pB6m8d5		0	x	1pB7m4d3
+AS	=	1pB6m4d5		0	x	1pB7m2d3
+AS	=	1pB6m2d5		0	x	1pB7m1d3
+AS	=	1pB6d5		0	x	1pB7d3
+AS	=	1pB4m8d5		0	x	1pB5m4d3
+AS	=	1pB4m4d5		0	x	1pB5m2d3
+AS	=	1pB4m2d5		0	x	1pB5m1d3
+AS	=	1pB4d5		0	x	1pB5d3
+AS	=	1pB2m8d5		0	x	1pB3m4d3
+AS	=	1pB2m4d5		0	x	1pB3m2d3
+AS	=	1pB2m2d5		0	x	1pB3m1d3
+AS	=	1pB2d5		0	x	1pB3d3
+AS	=	Hm8d5		0	x	1pB1m4d3
+AS	=	Hm4d5		0	x	1pB1m2d3
+AS	=	Hm2d5		0	x	1pB1m1d3
+
+AS	=	1i7		0	x	1i3
+AS	=	4i7		0	x	2i3
+AS	=	16i7		0	x	4i3
+AS	=	64i7		0	x	8i3
+AS	=	256i7		0	x	16i3
+AS	=	1024i7		0	x	32i3
+AS	=	4096i7		0	x	64i3
+AS	=	16384i7		0	x	128i3
+AS	=	65536i7		0	x	256i3
+AS	=	262144i7	0	x	512i3
+AS	=	1048576i7	0	x	1024i3
+AS	=	4194304i7	0	x	2048i3
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8i7		0	x	1pB9m4i3
+!AS	=	1pB8m4i7		0	x	1pB9m2i3
+!AS	=	1pB8m2i7		0	x	1pB9m1i3
+!AS	=	1pB8i7		0	x	1pB9i3
+AS	=	1pB6m8i7		0	x	1pB7m4i3
+AS	=	1pB6m4i7		0	x	1pB7m2i3
+AS	=	1pB6m2i7		0	x	1pB7m1i3
+AS	=	1pB6i7		0	x	1pB7i3
+AS	=	1pB4m8i7		0	x	1pB5m4i3
+AS	=	1pB4m4i7		0	x	1pB5m2i3
+AS	=	1pB4m2i7		0	x	1pB5m1i3
+AS	=	1pB4i7		0	x	1pB5i3
+AS	=	1pB2m8i7		0	x	1pB3m4i3
+AS	=	1pB2m4i7		0	x	1pB3m2i3
+AS	=	1pB2m2i7		0	x	1pB3m1i3
+AS	=	1pB2i7		0	x	1pB3i3
+AS	=	Hm8i7		0	x	1pB1m4i3
+AS	=	Hm4i7		0	x	1pB1m2i3
+AS	=	Hm2i7		0	x	1pB1m1i3
+
+AS	=	1d7		0	x	1d4
+AS	=	4d7		0	x	2d4
+AS	=	16d7		0	x	4d4
+AS	=	64d7		0	x	8d4
+AS	=	256d7		0	x	16d4
+AS	=	1024d7		0	x	32d4
+AS	=	4096d7		0	x	64d4
+AS	=	16384d7		0	x	128d4
+AS	=	65536d7		0	x	256d4
+AS	=	262144d7	0	x	512d4
+AS	=	1048576d7	0	x	1024d4
+AS	=	4194304d7	0	x	2048d4
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8d7		0	x	1pB9m4d4
+!AS	=	1pB8m4d7		0	x	1pB9m2d4
+!AS	=	1pB8m2d7		0	x	1pB9m1d4
+!AS	=	1pB8d7		0	x	1pB9d4
+AS	=	1pB6m8d7		0	x	1pB7m4d4
+AS	=	1pB6m4d7		0	x	1pB7m2d4
+AS	=	1pB6m2d7		0	x	1pB7m1d4
+AS	=	1pB6d7		0	x	1pB7d4
+AS	=	1pB4m8d7		0	x	1pB5m4d4
+AS	=	1pB4m4d7		0	x	1pB5m2d4
+AS	=	1pB4m2d7		0	x	1pB5m1d4
+AS	=	1pB4d7		0	x	1pB5d4
+AS	=	1pB2m8d7		0	x	1pB3m4d4
+AS	=	1pB2m4d7		0	x	1pB3m2d4
+AS	=	1pB2m2d7		0	x	1pB3m1d4
+AS	=	1pB2d7		0	x	1pB3d4
+AS	=	Hm8d7		0	x	1pB1m4d4
+AS	=	Hm4d7		0	x	1pB1m2d4
+AS	=	Hm2d7		0	x	1pB1m1d4
+
+AS	=	1i9		0	x	1i4
+AS	=	4i9		0	x	2i4
+AS	=	16i9		0	x	4i4
+AS	=	64i9		0	x	8i4
+AS	=	256i9		0	x	16i4
+AS	=	1024i9		0	x	32i4
+AS	=	4096i9		0	x	64i4
+AS	=	16384i9		0	x	128i4
+AS	=	65536i9		0	x	256i4
+AS	=	262144i9	0	x	512i4
+AS	=	1048576i9	0	x	1024i4
+AS	=	4194304i9	0	x	2048i4
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8i9		0	x	1pB9m4i4
+!AS	=	1pB8m4i9		0	x	1pB9m2i4
+!AS	=	1pB8m2i9		0	x	1pB9m1i4
+!AS	=	1pB8i9		0	x	1pB9i4
+AS	=	1pB6m8i9		0	x	1pB7m4i4
+AS	=	1pB6m4i9		0	x	1pB7m2i4
+AS	=	1pB6m2i9		0	x	1pB7m1i4
+AS	=	1pB6i9		0	x	1pB7i4
+AS	=	1pB4m8i9		0	x	1pB5m4i4
+AS	=	1pB4m4i9		0	x	1pB5m2i4
+AS	=	1pB4m2i9		0	x	1pB5m1i4
+AS	=	1pB4i9		0	x	1pB5i4
+AS	=	1pB2m8i9		0	x	1pB3m4i4
+AS	=	1pB2m4i9		0	x	1pB3m2i4
+AS	=	1pB2m2i9		0	x	1pB3m1i4
+AS	=	1pB2i9		0	x	1pB3i4
+AS	=	Hm8i9		0	x	1pB1m4i4
+AS	=	Hm4i9		0	x	1pB1m2i4
+AS	=	Hm2i9		0	x	1pB1m1i4
+
+AS	=	1d9		0	x	1d5
+AS	=	4d9		0	x	2d5
+AS	=	16d9		0	x	4d5
+AS	=	64d9		0	x	8d5
+AS	=	256d9		0	x	16d5
+AS	=	1024d9		0	x	32d5
+AS	=	4096d9		0	x	64d5
+AS	=	16384d9		0	x	128d5
+AS	=	65536d9		0	x	256d5
+AS	=	262144d9	0	x	512d5
+AS	=	1048576d9	0	x	1024d5
+AS	=	4194304d9	0	x	2048d5
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=	1pB8m8d9		0	x	1pB9m4d5
+!AS	=	1pB8m4d9		0	x	1pB9m2d5
+!AS	=	1pB8m2d9		0	x	1pB9m1d5
+!AS	=	1pB8d9		0	x	1pB9d5
+AS	=	1pB6m8d9		0	x	1pB7m4d5
+AS	=	1pB6m4d9		0	x	1pB7m2d5
+AS	=	1pB6m2d9		0	x	1pB7m1d5
+AS	=	1pB6d9		0	x	1pB7d5
+AS	=	1pB4m8d9		0	x	1pB5m4d5
+AS	=	1pB4m4d9		0	x	1pB5m2d5
+AS	=	1pB4m2d9		0	x	1pB5m1d5
+AS	=	1pB4d9		0	x	1pB5d5
+AS	=	1pB2m8d9		0	x	1pB3m4d5
+AS	=	1pB2m4d9		0	x	1pB3m2d5
+AS	=	1pB2m2d9		0	x	1pB3m1d5
+AS	=	1pB2d9		0	x	1pB3d5
+AS	=	Hm8d9		0	x	1pB1m4d5
+AS	=	Hm4d9		0	x	1pB1m2d5
+AS	=	Hm2d9		0	x	1pB1m1d5
+!! Directed roundings can be accomodated in a similar way
+!! Near exact cases
+AS	=>	4i2		0	x	2i1
+AS	=>	16i2		0	x	4i1
+AS	=>	64i2		0	x	8i1
+AS	=>	256i2		0	x	16i1
+AS	=>	1024i2		0	x	32i1
+AS	=>	4096i2		0	x	64i1
+AS	=>	16384i2		0	x	128i1
+AS	=>	65536i2		0	x	256i1
+AS	=>	262144i2	0	x	512i1
+AS	=>	1048576i2	0	x	1024i1
+AS	=>	4194304i2	0	x	2048i1
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8i2		0	x	1pB9m4i1
+!AS	=>	1pB8m4i2		0	x	1pB9m2i1
+!AS	=>	1pB8m2i2		0	x	1pB9m1i1
+!AS	=>	1pB8i2		0	x	1pB9i1
+AS	=>	1pB6m8i2		0	x	1pB7m4i1
+AS	=>	1pB6m4i2		0	x	1pB7m2i1
+AS	=>	1pB6m2i2		0	x	1pB7m1i1
+AS	=>	1pB6i2		0	x	1pB7i1
+AS	=>	1pB4m8i2		0	x	1pB5m4i1
+AS	=>	1pB4m4i2		0	x	1pB5m2i1
+AS	=>	1pB4m2i2		0	x	1pB5m1i1
+AS	=>	1pB4i2		0	x	1pB5i1
+AS	=>	1pB2m8i2		0	x	1pB3m4i1
+AS	=>	1pB2m4i2		0	x	1pB3m2i1
+AS	=>	1pB2m2i2		0	x	1pB3m1i1
+AS	=>	1pB2i2		0	x	1pB3i1
+AS	=>	Hm8i2		0	x	1pB1m4i1
+AS	=>	Hm4i2		0	x	1pB1m2i1
+AS	=>	Hm2i2		0	x	1pB1m1i1
+AS	0<	4i2		0	x	2
+AS	0<	16i2		0	x	4
+AS	0<	64i2		0	x	8
+AS	0<	256i2		0	x	16
+AS	0<	1024i2		0	x	32
+AS	0<	4096i2		0	x	64
+AS	0<	16384i2		0	x	128
+AS	0<	65536i2		0	x	256
+AS	0<	262144i2	0	x	512
+AS	0<	1048576i2	0	x	1024
+AS	0<	4194304i2	0	x	2048
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8i2		0	x	1pB9m4
+!AS	0<	1pB8m4i2		0	x	1pB9m2
+!AS	0<	1pB8m2i2		0	x	1pB9m1
+!AS	0<	1pB8i2		0	x	1pB9
+AS	0<	1pB6m8i2		0	x	1pB7m4
+AS	0<	1pB6m4i2		0	x	1pB7m2
+AS	0<	1pB6m2i2		0	x	1pB7m1
+AS	0<	1pB6i2		0	x	1pB7
+AS	0<	1pB4m8i2		0	x	1pB5m4
+AS	0<	1pB4m4i2		0	x	1pB5m2
+AS	0<	1pB4m2i2		0	x	1pB5m1
+AS	0<	1pB4i2		0	x	1pB5
+AS	0<	1pB2m8i2		0	x	1pB3m4
+AS	0<	1pB2m4i2		0	x	1pB3m2
+AS	0<	1pB2m2i2		0	x	1pB3m1
+AS	0<	1pB2i2		0	x	1pB3
+AS	0<	Hm8i2		0	x	1pB1m4
+AS	0<	Hm4i2		0	x	1pB1m2
+AS	0<	Hm2i2		0	x	1pB1m1
+
+AS	=>	4i4		0	x	2i2
+AS	=>	16i4		0	x	4i2
+AS	=>	64i4		0	x	8i2
+AS	=>	256i4		0	x	16i2
+AS	=>	1024i4		0	x	32i2
+AS	=>	4096i4		0	x	64i2
+AS	=>	16384i4		0	x	128i2
+AS	=>	65536i4		0	x	256i2
+AS	=>	262144i4	0	x	512i2
+AS	=>	1048576i4	0	x	1024i2
+AS	=>	4194304i4	0	x	2048i2
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8i4		0	x	1pB9m4i2
+!AS	=>	1pB8m4i4		0	x	1pB9m2i2
+!AS	=>	1pB8m2i4		0	x	1pB9m1i2
+!AS	=>	1pB8i4		0	x	1pB9i2
+AS	=>	1pB6m8i4		0	x	1pB7m4i2
+AS	=>	1pB6m4i4		0	x	1pB7m2i2
+AS	=>	1pB6m2i4		0	x	1pB7m1i2
+AS	=>	1pB6i4		0	x	1pB7i2
+AS	=>	1pB4m8i4		0	x	1pB5m4i2
+AS	=>	1pB4m4i4		0	x	1pB5m2i2
+AS	=>	1pB4m2i4		0	x	1pB5m1i2
+AS	=>	1pB4i4		0	x	1pB5i2
+AS	=>	1pB2m8i4		0	x	1pB3m4i2
+AS	=>	1pB2m4i4		0	x	1pB3m2i2
+AS	=>	1pB2m2i4		0	x	1pB3m1i2
+AS	=>	1pB2i4		0	x	1pB3i2
+AS	=>	Hm8i4		0	x	1pB1m4i2
+AS	=>	Hm4i4		0	x	1pB1m2i2
+AS	=>	Hm2i4		0	x	1pB1m1i2
+AS	0<	4i4		0	x	2i1
+AS	0<	16i4		0	x	4i1
+AS	0<	64i4		0	x	8i1
+AS	0<	256i4		0	x	16i1
+AS	0<	1024i4		0	x	32i1
+AS	0<	4096i4		0	x	64i1
+AS	0<	16384i4		0	x	128i1
+AS	0<	65536i4		0	x	256i1
+AS	0<	262144i4	0	x	512i1
+AS	0<	1048576i4	0	x	1024i1
+AS	0<	4194304i4	0	x	2048i1
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8i4		0	x	1pB9m4i1
+!AS	0<	1pB8m4i4		0	x	1pB9m2i1
+!AS	0<	1pB8m2i4		0	x	1pB9m1i1
+!AS	0<	1pB8i4		0	x	1pB9i1
+AS	0<	1pB6m8i4		0	x	1pB7m4i1
+AS	0<	1pB6m4i4		0	x	1pB7m2i1
+AS	0<	1pB6m2i4		0	x	1pB7m1i1
+AS	0<	1pB6i4		0	x	1pB7i1
+AS	0<	1pB4m8i4		0	x	1pB5m4i1
+AS	0<	1pB4m4i4		0	x	1pB5m2i1
+AS	0<	1pB4m2i4		0	x	1pB5m1i1
+AS	0<	1pB4i4		0	x	1pB5i1
+AS	0<	1pB2m8i4		0	x	1pB3m4i1
+AS	0<	1pB2m4i4		0	x	1pB3m2i1
+AS	0<	1pB2m2i4		0	x	1pB3m1i1
+AS	0<	1pB2i4		0	x	1pB3i1
+AS	0<	Hm8i4		0	x	1pB1m4i1
+AS	0<	Hm4i4		0	x	1pB1m2i1
+AS	0<	Hm2i4		0	x	1pB1m1i1
+
+AS	=>	4i6		0	x	2i3
+AS	=>	16i6		0	x	4i3
+AS	=>	64i6		0	x	8i3
+AS	=>	256i6		0	x	16i3
+AS	=>	1024i6		0	x	32i3
+AS	=>	4096i6		0	x	64i3
+AS	=>	16384i6		0	x	128i3
+AS	=>	65536i6		0	x	256i3
+AS	=>	262144i6	0	x	512i3
+AS	=>	1048576i6	0	x	1024i3
+AS	=>	4194304i6	0	x	2048i3
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8i6		0	x	1pB9m4i3
+!AS	=>	1pB8m4i6		0	x	1pB9m2i3
+!AS	=>	1pB8m2i6		0	x	1pB9m1i3
+!AS	=>	1pB8i6		0	x	1pB9i3
+AS	=>	1pB6m8i6		0	x	1pB7m4i3
+AS	=>	1pB6m4i6		0	x	1pB7m2i3
+AS	=>	1pB6m2i6		0	x	1pB7m1i3
+AS	=>	1pB6i6		0	x	1pB7i3
+AS	=>	1pB4m8i6		0	x	1pB5m4i3
+AS	=>	1pB4m4i6		0	x	1pB5m2i3
+AS	=>	1pB4m2i6		0	x	1pB5m1i3
+AS	=>	1pB4i6		0	x	1pB5i3
+AS	=>	1pB2m8i6		0	x	1pB3m4i3
+AS	=>	1pB2m4i6		0	x	1pB3m2i3
+AS	=>	1pB2m2i6		0	x	1pB3m1i3
+AS	=>	1pB2i6		0	x	1pB3i3
+AS	=>	Hm8i6		0	x	1pB1m4i3
+AS	=>	Hm4i6		0	x	1pB1m2i3
+AS	=>	Hm2i6		0	x	1pB1m1i3
+AS	0<	4i6		0	x	2i2
+AS	0<	16i6		0	x	4i2
+AS	0<	64i6		0	x	8i2
+AS	0<	256i6		0	x	16i2
+AS	0<	1024i6		0	x	32i2
+AS	0<	4096i6		0	x	64i2
+AS	0<	16384i6		0	x	128i2
+AS	0<	65536i6		0	x	256i2
+AS	0<	262144i6	0	x	512i2
+AS	0<	1048576i6	0	x	1024i2
+AS	0<	4194304i6	0	x	2048i2
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8i6		0	x	1pB9m4i2
+!AS	0<	1pB8m4i6		0	x	1pB9m2i2
+!AS	0<	1pB8m2i6		0	x	1pB9m1i2
+!AS	0<	1pB8i6		0	x	1pB9i2
+AS	0<	1pB6m8i6		0	x	1pB7m4i2
+AS	0<	1pB6m4i6		0	x	1pB7m2i2
+AS	0<	1pB6m2i6		0	x	1pB7m1i2
+AS	0<	1pB6i6		0	x	1pB7i2
+AS	0<	1pB4m8i6		0	x	1pB5m4i2
+AS	0<	1pB4m4i6		0	x	1pB5m2i2
+AS	0<	1pB4m2i6		0	x	1pB5m1i2
+AS	0<	1pB4i6		0	x	1pB5i2
+AS	0<	1pB2m8i6		0	x	1pB3m4i2
+AS	0<	1pB2m4i6		0	x	1pB3m2i2
+AS	0<	1pB2m2i6		0	x	1pB3m1i2
+AS	0<	1pB2i6		0	x	1pB3i2
+AS	0<	Hm8i6		0	x	1pB1m4i2
+AS	0<	Hm4i6		0	x	1pB1m2i2
+AS	0<	Hm2i6		0	x	1pB1m1i2
+
+AS	=>	1i8		0	x	1i4
+AS	=>	4i8		0	x	2i4
+AS	=>	16i8		0	x	4i4
+AS	=>	64i8		0	x	8i4
+AS	=>	256i8		0	x	16i4
+AS	=>	1024i8		0	x	32i4
+AS	=>	4096i8		0	x	64i4
+AS	=>	16384i8		0	x	128i4
+AS	=>	65536i8		0	x	256i4
+AS	=>	262144i8	0	x	512i4
+AS	=>	1048576i8	0	x	1024i4
+AS	=>	4194304i8	0	x	2048i4
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8i8		0	x	1pB9m4i4
+!AS	=>	1pB8m4i8		0	x	1pB9m2i4
+!AS	=>	1pB8m2i8		0	x	1pB9m1i4
+!AS	=>	1pB8i8		0	x	1pB9i4
+AS	=>	1pB6m8i8		0	x	1pB7m4i4
+AS	=>	1pB6m4i8		0	x	1pB7m2i4
+AS	=>	1pB6m2i8		0	x	1pB7m1i4
+AS	=>	1pB6i8		0	x	1pB7i4
+AS	=>	1pB4m8i8		0	x	1pB5m4i4
+AS	=>	1pB4m4i8		0	x	1pB5m2i4
+AS	=>	1pB4m2i8		0	x	1pB5m1i4
+AS	=>	1pB4i8		0	x	1pB5i4
+AS	=>	1pB2m8i8		0	x	1pB3m4i4
+AS	=>	1pB2m4i8		0	x	1pB3m2i4
+AS	=>	1pB2m2i8		0	x	1pB3m1i4
+AS	=>	1pB2i8		0	x	1pB3i4
+AS	=>	Hm8i8		0	x	1pB1m4i4
+AS	=>	Hm4i8		0	x	1pB1m2i4
+AS	=>	Hm2i8		0	x	1pB1m1i4
+AS	0<	1i8		0	x	1i3
+AS	0<	4i8		0	x	2i3
+AS	0<	16i8		0	x	4i3
+AS	0<	64i8		0	x	8i3
+AS	0<	256i8		0	x	16i3
+AS	0<	1024i8		0	x	32i3
+AS	0<	4096i8		0	x	64i3
+AS	0<	16384i8		0	x	128i3
+AS	0<	65536i8		0	x	256i3
+AS	0<	262144i8	0	x	512i3
+AS	0<	1048576i8	0	x	1024i3
+AS	0<	4194304i8	0	x	2048i3
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8i8		0	x	1pB9m4i3
+!AS	0<	1pB8m4i8		0	x	1pB9m2i3
+!AS	0<	1pB8m2i8		0	x	1pB9m1i3
+!AS	0<	1pB8i8		0	x	1pB9i3
+AS	0<	1pB6m8i8		0	x	1pB7m4i3
+AS	0<	1pB6m4i8		0	x	1pB7m2i3
+AS	0<	1pB6m2i8		0	x	1pB7m1i3
+AS	0<	1pB6i8		0	x	1pB7i3
+AS	0<	1pB4m8i8		0	x	1pB5m4i3
+AS	0<	1pB4m4i8		0	x	1pB5m2i3
+AS	0<	1pB4m2i8		0	x	1pB5m1i3
+AS	0<	1pB4i8		0	x	1pB5i3
+AS	0<	1pB2m8i8		0	x	1pB3m4i3
+AS	0<	1pB2m4i8		0	x	1pB3m2i3
+AS	0<	1pB2m2i8		0	x	1pB3m1i3
+AS	0<	1pB2i8		0	x	1pB3i3
+AS	0<	Hm8i8		0	x	1pB1m4i3
+AS	0<	Hm4i8		0	x	1pB1m2i3
+AS	0<	Hm2i8		0	x	1pB1m1i3
+
+AS	=>	4d8		0	x	2d4
+AS	=>	16d8		0	x	4d4
+AS	=>	64d8		0	x	8d4
+AS	=>	256d8		0	x	16d4
+AS	=>	1024d8		0	x	32d4
+AS	=>	4096d8		0	x	64d4
+AS	=>	16384d8		0	x	128d4
+AS	=>	65536d8		0	x	256d4
+AS	=>	262144d8	0	x	512d4
+AS	=>	1048576d8	0	x	1024d4
+AS	=>	4194304d8	0	x	2048d4
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8d8		0	x	1pB9m4d4
+!AS	=>	1pB8m4d8		0	x	1pB9m2d4
+!AS	=>	1pB8m2d8		0	x	1pB9m1d4
+!AS	=>	1pB8d8		0	x	1pB9d4
+AS	=>	1pB6m8d8		0	x	1pB7m4d4
+AS	=>	1pB6m4d8		0	x	1pB7m2d4
+AS	=>	1pB6m2d8		0	x	1pB7m1d4
+AS	=>	1pB6d8		0	x	1pB7d4
+AS	=>	1pB4m8d8		0	x	1pB5m4d4
+AS	=>	1pB4m4d8		0	x	1pB5m2d4
+AS	=>	1pB4m2d8		0	x	1pB5m1d4
+AS	=>	1pB4d8		0	x	1pB5d4
+AS	=>	1pB2m8d8		0	x	1pB3m4d4
+AS	=>	1pB2m4d8		0	x	1pB3m2d4
+AS	=>	1pB2m2d8		0	x	1pB3m1d4
+AS	=>	1pB2d8		0	x	1pB3d4
+AS	=>	Hm8d8		0	x	1pB1m4d4
+AS	=>	Hm4d8		0	x	1pB1m2d4
+AS	=>	Hm2d8		0	x	1pB1m1d4
+
+AS	0<	4d8		0	x	2d5
+AS	0<	16d8		0	x	4d5
+AS	0<	64d8		0	x	8d5
+AS	0<	256d8		0	x	16d5
+AS	0<	1024d8		0	x	32d5
+AS	0<	4096d8		0	x	64d5
+AS	0<	16384d8		0	x	128d5
+AS	0<	65536d8		0	x	256d5
+AS	0<	262144d8	0	x	512d5
+AS	0<	1048576d8	0	x	1024d5
+AS	0<	4194304d8	0	x	2048d5
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8d8		0	x	1pB9m4d5
+!AS	0<	1pB8m4d8		0	x	1pB9m2d5
+!AS	0<	1pB8m2d8		0	x	1pB9m1d5
+!AS	0<	1pB8d8		0	x	1pB9d5
+AS	0<	1pB6m8d8		0	x	1pB7m4d5
+AS	0<	1pB6m4d8		0	x	1pB7m2d5
+AS	0<	1pB6m2d8		0	x	1pB7m1d5
+AS	0<	1pB6d8		0	x	1pB7d5
+AS	0<	1pB4m8d8		0	x	1pB5m4d5
+AS	0<	1pB4m4d8		0	x	1pB5m2d5
+AS	0<	1pB4m2d8		0	x	1pB5m1d5
+AS	0<	1pB4d8		0	x	1pB5d5
+AS	0<	1pB2m8d8		0	x	1pB3m4d5
+AS	0<	1pB2m4d8		0	x	1pB3m2d5
+AS	0<	1pB2m2d8		0	x	1pB3m1d5
+AS	0<	1pB2d8		0	x	1pB3d5
+AS	0<	Hm8d8		0	x	1pB1m4d5
+AS	0<	Hm4d8		0	x	1pB1m2d5
+AS	0<	Hm2d8		0	x	1pB1m1d5
+
+AS	=>	4d6		0	x	2d3
+AS	=>	16d6		0	x	4d3
+AS	=>	64d6		0	x	8d3
+AS	=>	256d6		0	x	16d3
+AS	=>	1024d6		0	x	32d3
+AS	=>	4096d6		0	x	64d3
+AS	=>	16384d6		0	x	128d3
+AS	=>	65536d6		0	x	256d3
+AS	=>	262144d6	0	x	512d3
+AS	=>	1048576d6	0	x	1024d3
+AS	=>	4194304d6	0	x	2048d3
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8d6		0	x	1pB9m4d3
+!AS	=>	1pB8m4d6		0	x	1pB9m2d3
+!AS	=>	1pB8m2d6		0	x	1pB9m1d3
+!AS	=>	1pB8d6		0	x	1pB9d3
+AS	=>	1pB6m8d6		0	x	1pB7m4d3
+AS	=>	1pB6m4d6		0	x	1pB7m2d3
+AS	=>	1pB6m2d6		0	x	1pB7m1d3
+AS	=>	1pB6d6		0	x	1pB7d3
+AS	=>	1pB4m8d6		0	x	1pB5m4d3
+AS	=>	1pB4m4d6		0	x	1pB5m2d3
+AS	=>	1pB4m2d6		0	x	1pB5m1d3
+AS	=>	1pB4d6		0	x	1pB5d3
+AS	=>	1pB2m8d6		0	x	1pB3m4d3
+AS	=>	1pB2m4d6		0	x	1pB3m2d3
+AS	=>	1pB2m2d6		0	x	1pB3m1d3
+AS	=>	1pB2d6		0	x	1pB3d3
+AS	=>	Hm8d6		0	x	1pB1m4d3
+AS	=>	Hm4d6		0	x	1pB1m2d3
+AS	=>	Hm2d6		0	x	1pB1m1d3
+
+AS	0<	4d6		0	x	2d4
+AS	0<	16d6		0	x	4d4
+AS	0<	64d6		0	x	8d4
+AS	0<	256d6		0	x	16d4
+AS	0<	1024d6		0	x	32d4
+AS	0<	4096d6		0	x	64d4
+AS	0<	16384d6		0	x	128d4
+AS	0<	65536d6		0	x	256d4
+AS	0<	262144d6	0	x	512d4
+AS	0<	1048576d6	0	x	1024d4
+AS	0<	4194304d6	0	x	2048d4
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8d6		0	x	1pB9m4d4
+!AS	0<	1pB8m4d6		0	x	1pB9m2d4
+!AS	0<	1pB8m2d6		0	x	1pB9m1d4
+!AS	0<	1pB8d6		0	x	1pB9d4
+AS	0<	1pB6m8d6		0	x	1pB7m4d4
+AS	0<	1pB6m4d6		0	x	1pB7m2d4
+AS	0<	1pB6m2d6		0	x	1pB7m1d4
+AS	0<	1pB6d6		0	x	1pB7d4
+AS	0<	1pB4m8d6		0	x	1pB5m4d4
+AS	0<	1pB4m4d6		0	x	1pB5m2d4
+AS	0<	1pB4m2d6		0	x	1pB5m1d4
+AS	0<	1pB4d6		0	x	1pB5d4
+AS	0<	1pB2m8d6		0	x	1pB3m4d4
+AS	0<	1pB2m4d6		0	x	1pB3m2d4
+AS	0<	1pB2m2d6		0	x	1pB3m1d4
+AS	0<	1pB2d6		0	x	1pB3d4
+AS	0<	Hm8d6		0	x	1pB1m4d4
+AS	0<	Hm4d6		0	x	1pB1m2d4
+AS	0<	Hm2d6		0	x	1pB1m1d4
+
+AS	=>	4d4		0	x	2d2
+AS	=>	16d4		0	x	4d2
+AS	=>	64d4		0	x	8d2
+AS	=>	256d4		0	x	16d2
+AS	=>	1024d4		0	x	32d2
+AS	=>	4096d4		0	x	64d2
+AS	=>	16384d4		0	x	128d2
+AS	=>	65536d4		0	x	256d2
+AS	=>	262144d4	0	x	512d2
+AS	=>	1048576d4	0	x	1024d2
+AS	=>	4194304d4	0	x	2048d2
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8d4		0	x	1pB9m4d2
+!AS	=>	1pB8m4d4		0	x	1pB9m2d2
+!AS	=>	1pB8m2d4		0	x	1pB9m1d2
+!AS	=>	1pB8d4		0	x	1pB9d2
+AS	=>	1pB6m8d4		0	x	1pB7m4d2
+AS	=>	1pB6m4d4		0	x	1pB7m2d2
+AS	=>	1pB6m2d4		0	x	1pB7m1d2
+AS	=>	1pB6d4		0	x	1pB7d2
+AS	=>	1pB4m8d4		0	x	1pB5m4d2
+AS	=>	1pB4m4d4		0	x	1pB5m2d2
+AS	=>	1pB4m2d4		0	x	1pB5m1d2
+AS	=>	1pB4d4		0	x	1pB5d2
+AS	=>	1pB2m8d4		0	x	1pB3m4d2
+AS	=>	1pB2m4d4		0	x	1pB3m2d2
+AS	=>	1pB2m2d4		0	x	1pB3m1d2
+AS	=>	1pB2d4		0	x	1pB3d2
+AS	=>	Hm8d4		0	x	1pB1m4d2
+AS	=>	Hm4d4		0	x	1pB1m2d2
+AS	=>	Hm2d4		0	x	1pB1m1d2
+
+AS	0<	4d4		0	x	2d3
+AS	0<	16d4		0	x	4d3
+AS	0<	64d4		0	x	8d3
+AS	0<	256d4		0	x	16d3
+AS	0<	1024d4		0	x	32d3
+AS	0<	4096d4		0	x	64d3
+AS	0<	16384d4		0	x	128d3
+AS	0<	65536d4		0	x	256d3
+AS	0<	262144d4	0	x	512d3
+AS	0<	1048576d4	0	x	1024d3
+AS	0<	4194304d4	0	x	2048d3
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8d4		0	x	1pB9m4d3
+!AS	0<	1pB8m4d4		0	x	1pB9m2d3
+!AS	0<	1pB8m2d4		0	x	1pB9m1d3
+!AS	0<	1pB8d4		0	x	1pB9d3
+AS	0<	1pB6m8d4		0	x	1pB7m4d3
+AS	0<	1pB6m4d4		0	x	1pB7m2d3
+AS	0<	1pB6m2d4		0	x	1pB7m1d3
+AS	0<	1pB6d4		0	x	1pB7d3
+AS	0<	1pB4m8d4		0	x	1pB5m4d3
+AS	0<	1pB4m4d4		0	x	1pB5m2d3
+AS	0<	1pB4m2d4		0	x	1pB5m1d3
+AS	0<	1pB4d4		0	x	1pB5d3
+AS	0<	1pB2m8d4		0	x	1pB3m4d3
+AS	0<	1pB2m4d4		0	x	1pB3m2d3
+AS	0<	1pB2m2d4		0	x	1pB3m1d3
+AS	0<	1pB2d4		0	x	1pB3d3
+AS	0<	Hm8d4		0	x	1pB1m4d3
+AS	0<	Hm4d4		0	x	1pB1m2d3
+AS	0<	Hm2d4		0	x	1pB1m1d3
+
+AS	=>	4d2		0	x	2d1
+AS	=>	16d2		0	x	4d1
+AS	=>	64d2		0	x	8d1
+AS	=>	256d2		0	x	16d1
+AS	=>	1024d2		0	x	32d1
+AS	=>	4096d2		0	x	64d1
+AS	=>	16384d2		0	x	128d1
+AS	=>	65536d2		0	x	256d1
+AS	=>	262144d2	0	x	512d1
+AS	=>	1048576d2	0	x	1024d1
+AS	=>	4194304d2	0	x	2048d1
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	=>	1pB8m8d2		0	x	1pB9m4d1
+!AS	=>	1pB8m4d2		0	x	1pB9m2d1
+!AS	=>	1pB8m2d2		0	x	1pB9m1d1
+!AS	=>	1pB8d2		0	x	1pB9d1
+AS	=>	1pB6m8d2		0	x	1pB7m4d1
+AS	=>	1pB6m4d2		0	x	1pB7m2d1
+AS	=>	1pB6m2d2		0	x	1pB7m1d1
+AS	=>	1pB6d2		0	x	1pB7d1
+AS	=>	1pB4m8d2		0	x	1pB5m4d1
+AS	=>	1pB4m4d2		0	x	1pB5m2d1
+AS	=>	1pB4m2d2		0	x	1pB5m1d1
+AS	=>	1pB4d2		0	x	1pB5d1
+AS	=>	1pB2m8d2		0	x	1pB3m4d1
+AS	=>	1pB2m4d2		0	x	1pB3m2d1
+AS	=>	1pB2m2d2		0	x	1pB3m1d1
+AS	=>	1pB2d2		0	x	1pB3d1
+AS	=>	Hm8d2		0	x	1pB1m4d1
+AS	=>	Hm4d2		0	x	1pB1m2d1
+AS	=>	Hm2d2		0	x	1pB1m1d1
+
+AS	0<	4d2		0	x	2d2
+AS	0<	16d2		0	x	4d2
+AS	0<	64d2		0	x	8d2
+AS	0<	256d2		0	x	16d2
+AS	0<	1024d2		0	x	32d2
+AS	0<	4096d2		0	x	64d2
+AS	0<	16384d2		0	x	128d2
+AS	0<	65536d2		0	x	256d2
+AS	0<	262144d2	0	x	512d2
+AS	0<	1048576d2	0	x	1024d2
+AS	0<	4194304d2	0	x	2048d2
+! scaling exponent up by B8 (= (Bias+1)/2^8) not applicable in single precision 
+!AS	0<	1pB8m8d2		0	x	1pB9m4d2
+!AS	0<	1pB8m4d2		0	x	1pB9m2d2
+!AS	0<	1pB8m2d2		0	x	1pB9m1d2
+!AS	0<	1pB8d2		0	x	1pB9d2
+AS	0<	1pB6m8d2		0	x	1pB7m4d2
+AS	0<	1pB6m4d2		0	x	1pB7m2d2
+AS	0<	1pB6m2d2		0	x	1pB7m1d2
+AS	0<	1pB6d2		0	x	1pB7d2
+AS	0<	1pB4m8d2		0	x	1pB5m4d2
+AS	0<	1pB4m4d2		0	x	1pB5m2d2
+AS	0<	1pB4m2d2		0	x	1pB5m1d2
+AS	0<	1pB4d2		0	x	1pB5d2
+AS	0<	1pB2m8d2		0	x	1pB3m4d2
+AS	0<	1pB2m4d2		0	x	1pB3m2d2
+AS	0<	1pB2m2d2		0	x	1pB3m1d2
+AS	0<	1pB2d2		0	x	1pB3d2
+AS	0<	Hm8d2		0	x	1pB1m4d2
+AS	0<	Hm4d2		0	x	1pB1m2d2
+AS	0<	Hm2d2		0	x	1pB1m1d2
+
+!! Some extra near exact cases
+AS	=>	9i3		0	x	3i2
+AS	0<	9i3		0	x	3i1
+AS	=>	9d3		0	x	3d2
+AS	0<	9d3		0	x	3d3
+AS	=>	25i5		0	x	5i2
+AS	0<	25i5		0	x	5i1
+AS	=>	25d5		0	x	5d2
+AS	0<	25d5		0	x	5d3
+AS	=>	36i6		0	x	6i4
+AS	0<	36i6		0	x	6i3
+AS	=>	36d6		0	x	6d4
+AS	0<	36d6		0	x	6d5
+AS	=>	49i7		0	x	7i4
+AS	0<	49i7		0	x	7i3
+AS	=>	49d7		0	x	7d4
+AS	0<	49d7		0	x	7d5
+AS	=>	100i9i1		0	x	10i4
+AS	0<	100i9i1		0	x	10i3
+AS	=>	100d9d1		0	x	10d4
+AS	0<	100d9d1		0	x	10d5
+AS	=>	100i5		0	x	10i2
+AS	0<	100i5		0	x	10i1
+AS	=>	100d5		0	x	10d2
+AS	0<	100d5		0	x	10d3
+AS	=>	121i9i2		0	x	11i4
+AS	0<	121i9i2		0	x	11i3
+AS	=>	121d9d2		0	x	11d4
+AS	0<	121d9d2		0	x	11d5
+AS	=>	144i9i3		0	x	12i8
+AS	0<	144i9i3		0	x	12i7
+AS	=>	144d9d3		0	x	12d8
+AS	0<	144d9d3		0	x	12d9
+AS	=>	225i9i6		0	x	15i8
+AS	0<	225i9i6		0	x	15i7
+AS	=>	225d9d6		0	x	15d8
+AS	0<	225d9d6		0	x	15d9
+AS	=>	400i9i9i2	0	x	20i8
+AS	0<	400i9i9i2	0	x	20i7
+AS	=>	400d9d9d2	0	x	20d8
+AS	0<	400d9d9d2	0	x	20d9
+AS	=>	625i9i9i7	0	x	25i9i7
+AS	0<	625i9i9i7	0	x	25i9i6
+AS	=>	625d9d9d7	0	x	25d9d7
+AS	0<	625d9d9d7	0	x	25d9d8
+AS	=>	2500i9i9i9i9i9i5	0	x	50i9i9i9i5
+AS	0<	2500i9i9i9i9i9i5	0	x	50i9i9i9i4
+AS	=>	2500d9d9d9d9d9d5	0	x	50d9d9d9d5
+AS	0<	2500d9d9d9d9d9d5	0	x	50d9d9d9d6
+
+AS	=>	4p8i2		0	x	2p4i1
+AS	0<	4p8i2		0	x	2p4
+AS	=>	4p8d2		0	x	2p4d1
+AS	0<	4p8d2		0	x	2p4d2
+AS	=>	9p8i3		0	x	3p4i2
+AS	0<	9p8i3		0	x	3p4i1
+AS	=>	9p8d3		0	x	3p4d2
+AS	0<	9p8d3		0	x	3p4d3
+AS	=>	16p8i4		0	x	4p4i2
+AS	0<	16p8i4		0	x	4p4i1
+AS	=>	16p8d4		0	x	4p4d2
+AS	0<	16p8d4		0	x	4p4d3
+AS	=>	25p8i5		0	x	5p4i2
+AS	0<	25p8i5		0	x	5p4i1
+AS	=>	25p8d5		0	x	5p4d2
+AS	0<	25p8d5		0	x	5p4d3
+AS	=>	36p8i6		0	x	6p4i4
+AS	0<	36p8i6		0	x	6p4i3
+AS	=>	36p8d6		0	x	6p4d4
+AS	0<	36p8d6		0	x	6p4d5
+AS	=>	49p8i7		0	x	7p4i4
+AS	0<	49p8i7		0	x	7p4i3
+AS	=>	49p8d7		0	x	7p4d4
+AS	0<	49p8d7		0	x	7p4d5
+AS	=>	64p8i8		0	x	8p4i4
+AS	0<	64p8i8		0	x	8p4i3
+AS	=>	64p8d8		0	x	8p4d4
+AS	0<	64p8d8		0	x	8p4d5
+AS	=>	100p8i9i1		0	x	10p4i4
+AS	0<	100p8i9i1		0	x	10p4i3
+AS	=>	100p8d9d1		0	x	10p4d4
+AS	0<	100p8d9d1		0	x	10p4d5
+AS	=>	100p8i5		0	x	10p4i2
+AS	0<	100p8i5		0	x	10p4i1
+AS	=>	100p8d5		0	x	10p4d2
+AS	0<	100p8d5		0	x	10p4d3
+AS	=>	121p8i9i2		0	x	11p4i4
+AS	0<	121p8i9i2		0	x	11p4i3
+AS	=>	121p8d9d2		0	x	11p4d4
+AS	0<	121p8d9d2		0	x	11p4d5
+AS	=>	144p8i9i3		0	x	12p4i8
+AS	0<	144p8i9i3		0	x	12p4i7
+AS	=>	144p8d9d3		0	x	12p4d8
+AS	0<	144p8d9d3		0	x	12p4d9
+AS	=>	225p8i9i6		0	x	15p4i8
+AS	0<	225p8i9i6		0	x	15p4i7
+AS	=>	225p8d9d6		0	x	15p4d8
+AS	0<	225p8d9d6		0	x	15p4d9
+AS	=>	400p8i9i9i2	0	x	20p4i8
+AS	0<	400p8i9i9i2	0	x	20p4i7
+AS	=>	400p8d9d9d2	0	x	20p4d8
+AS	0<	400p8d9d9d2	0	x	20p4d9
+AS	=>	625p8i9i9i7	0	x	25p4i9i7
+AS	0<	625p8i9i9i7	0	x	25p4i9i6
+AS	=>	625p8d9d9d7	0	x	25p4d9d7
+AS	0<	625p8d9d9d7	0	x	25p4d9d8
+AS	=>	2500p8i9i9i9i9i9i5	0	x	50p4i9i9i9i5
+AS	0<	2500p8i9i9i9i9i9i5	0	x	50p4i9i9i9i4
+AS	=>	2500p8d9d9d9d9d9d5	0	x	50p4d9d9d9d5
+AS	0<	2500p8d9d9d9d9d9d5	0	x	50p4d9d9d9d6
+
+AS	=>	4m8i2		0	x	2m4i1
+AS	0<	4m8i2		0	x	2m4
+AS	=>	4m8d2		0	x	2m4d1
+AS	0<	4m8d2		0	x	2m4d2
+AS	=>	9m8i3		0	x	3m4i2
+AS	0<	9m8i3		0	x	3m4i1
+AS	=>	9m8d3		0	x	3m4d2
+AS	0<	9m8d3		0	x	3m4d3
+AS	=>	16m8i4		0	x	4m4i2
+AS	0<	16m8i4		0	x	4m4i1
+AS	=>	16m8d4		0	x	4m4d2
+AS	0<	16m8d4		0	x	4m4d3
+AS	0<	25m8d5		0	x	5m4d3
+AS	=>	36m8i6		0	x	6m4i4
+AS	0<	36m8i6		0	x	6m4i3
+AS	=>	36m8d6		0	x	6m4d4
+AS	0<	36m8d6		0	x	6m4d5
+AS	=>	49m8i7		0	x	7m4i4
+AS	0<	49m8i7		0	x	7m4i3
+AS	=>	49m8d7		0	x	7m4d4
+AS	0<	49m8d7		0	x	7m4d5
+AS	=>	64m8i8		0	x	8m4i4
+AS	0<	64m8i8		0	x	8m4i3
+AS	=>	64m8d8		0	x	8m4d4
+AS	0<	64m8d8		0	x	8m4d5
+AS	=>	100m8i9i1		0	x	10m4i4
+AS	0<	100m8i9i1		0	x	10m4i3
+AS	=>	100m8d9d1		0	x	10m4d4
+AS	0<	100m8d9d1		0	x	10m4d5
+AS	=>	100m8i5		0	x	10m4i2
+AS	0<	100m8i5		0	x	10m4i1
+AS	=>	100m8d5		0	x	10m4d2
+AS	0<	100m8d5		0	x	10m4d3
+AS	=>	121m8i9i2		0	x	11m4i4
+AS	0<	121m8i9i2		0	x	11m4i3
+AS	=>	121m8d9d2		0	x	11m4d4
+AS	0<	121m8d9d2		0	x	11m4d5
+AS	=>	144m8i9i3		0	x	12m4i8
+AS	0<	144m8i9i3		0	x	12m4i7
+AS	=>	144m8d9d3		0	x	12m4d8
+AS	0<	144m8d9d3		0	x	12m4d9
+AS	=>	225m8i9i6		0	x	15m4i8
+AS	0<	225m8i9i6		0	x	15m4i7
+AS	=>	225m8d9d6		0	x	15m4d8
+AS	0<	225m8d9d6		0	x	15m4d9
+AS	=>	400m8i9i9i2	0	x	20m4i8
+AS	0<	400m8i9i9i2	0	x	20m4i7
+AS	=>	400m8d9d9d2	0	x	20m4d8
+AS	0<	400m8d9d9d2	0	x	20m4d9
+AS	=>	625m8i9i9i7	0	x	25m4i9i7
+AS	0<	625m8i9i9i7	0	x	25m4i9i6
+AS	=>	625m8d9d9d7	0	x	25m4d9d7
+AS	0<	625m8d9d9d7	0	x	25m4d9d8
+AS	=>	2500m8i9i9i9i9i9i5	0	x	50m4i9i9i9i5
+AS	0<	2500m8i9i9i9i9i9i5	0	x	50m4i9i9i9i4
+AS	=>	2500m8d9d9d9d9d9d5	0	x	50m4d9d9d9d5
+AS	0<	2500m8d9d9d9d9d9d5	0	x	50m4d9d9d9d6
+
+AS	=>	1pB1i2		0	x	1pB2i1
+!AS	0<	1pB1i2		0	x	1pB2
+!AS	=>	1pB1d2		0	x	1pB2d1
+AS	0<	1pB1d2		0	x	1pB2d2
+AS	=>	4pB1i2		0	x	2pB2i1
+AS	0<	4pB1i2		0	x	2pB2
+AS	=>	4pB1d2		0	x	2pB2d1
+AS	0<	4pB1d2		0	x	2pB2d2
+AS	=>	9pB1i3		0	x	3pB2i2
+AS	0<	9pB1i3		0	x	3pB2i1
+AS	=>	9pB1d3		0	x	3pB2d2
+AS	0<	9pB1d3		0	x	3pB2d3
+AS	=>	16pB1i4		0	x	4pB2i2
+AS	0<	16pB1i4		0	x	4pB2i1
+AS	=>	16pB1d4		0	x	4pB2d2
+AS	0<	16pB1d4		0	x	4pB2d3
+AS	=>	25pB1i5		0	x	5pB2i2
+AS	0<	25pB1i5		0	x	5pB2i1
+AS	=>	25pB1d5		0	x	5pB2d2
+AS	0<	25pB1d5		0	x	5pB2d3
+AS	=>	36pB1i6		0	x	6pB2i4
+AS	0<	36pB1i6		0	x	6pB2i3
+AS	=>	36pB1d6		0	x	6pB2d4
+AS	0<	36pB1d6		0	x	6pB2d5
+AS	=>	49pB1i7		0	x	7pB2i4
+AS	0<	49pB1i7		0	x	7pB2i3
+AS	=>	49pB1d7		0	x	7pB2d4
+AS	0<	49pB1d7		0	x	7pB2d5
+AS	=>	64pB1i8		0	x	8pB2i4
+AS	0<	64pB1i8		0	x	8pB2i3
+AS	=>	64pB1d8		0	x	8pB2d4
+AS	0<	64pB1d8		0	x	8pB2d5
+AS	=>	100pB1i9i1		0	x	10pB2i4
+AS	0<	100pB1i9i1		0	x	10pB2i3
+AS	=>	100pB1d9d1		0	x	10pB2d4
+AS	0<	100pB1d9d1		0	x	10pB2d5
+AS	=>	100pB1i5		0	x	10pB2i2
+AS	0<	100pB1i5		0	x	10pB2i1
+AS	=>	100pB1d5		0	x	10pB2d2
+AS	0<	100pB1d5		0	x	10pB2d3
+AS	=>	121pB1i9i2		0	x	11pB2i4
+AS	0<	121pB1i9i2		0	x	11pB2i3
+AS	=>	121pB1d9d2		0	x	11pB2d4
+AS	0<	121pB1d9d2		0	x	11pB2d5
+AS	=>	144pB1i9i3		0	x	12pB2i8
+AS	0<	144pB1i9i3		0	x	12pB2i7
+AS	=>	144pB1d9d3		0	x	12pB2d8
+AS	0<	144pB1d9d3		0	x	12pB2d9
+AS	=>	225pB1i9i6		0	x	15pB2i8
+AS	0<	225pB1i9i6		0	x	15pB2i7
+AS	=>	225pB1d9d6		0	x	15pB2d8
+AS	0<	225pB1d9d6		0	x	15pB2d9
+AS	=>	400pB1i9i9i2	0	x	20pB2i8
+AS	0<	400pB1i9i9i2	0	x	20pB2i7
+AS	=>	400pB1d9d9d2	0	x	20pB2d8
+AS	0<	400pB1d9d9d2	0	x	20pB2d9
+AS	=>	625pB1i9i9i7	0	x	25pB2i9i7
+AS	0<	625pB1i9i9i7	0	x	25pB2i9i6
+AS	=>	625pB1d9d9d7	0	x	25pB2d9d7
+AS	0<	625pB1d9d9d7	0	x	25pB2d9d8
+AS	=>	2500pB1i9i9i9i9i9i5	0	x	50pB2i9i9i9i5
+AS	0<	2500pB1i9i9i9i9i9i5	0	x	50pB2i9i9i9i4
+AS	=>	2500pB1d9d9d9d9d9d5	0	x	50pB2d9d9d9d5
+AS	0<	2500pB1d9d9d9d9d9d5	0	x	50pB2d9d9d9d6

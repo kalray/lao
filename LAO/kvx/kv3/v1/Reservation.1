@@ -1,0 +1,221 @@
+Reservation__UNDEF	0
+Reservation_kv3_ALL	1
+Reservation_kv3_ALU_NOP	2
+Reservation_kv3_ALU_TINY	3
+Reservation_kv3_ALU_TINY_X	4
+Reservation_kv3_ALU_TINY_Y	5
+Reservation_kv3_ALU_LITE	6
+Reservation_kv3_ALU_LITE_X	7
+Reservation_kv3_ALU_LITE_Y	8
+Reservation_kv3_ALU_LITE_CRWL	9
+Reservation_kv3_ALU_LITE_CRWH	10
+Reservation_kv3_ALU_FULL	11
+Reservation_kv3_ALU_FULL_X	12
+Reservation_kv3_ALU_FULL_Y	13
+Reservation_kv3_BCU	14
+Reservation_kv3_BCU_CRRP_CRWL_CRWH	15
+Reservation_kv3_BCU_TINY_AUXW_CRRP	16
+Reservation_kv3_BCU_TINY_TINY_MAU_XNOP	17
+Reservation_kv3_TCA	18
+Reservation_kv3_LSU	19
+Reservation_kv3_LSU_X	20
+Reservation_kv3_LSU_Y	21
+Reservation_kv3_LSU_CRRP	22
+Reservation_kv3_LSU_CRRP_X	23
+Reservation_kv3_LSU_CRRP_Y	24
+Reservation_kv3_LSU_AUXR	25
+Reservation_kv3_LSU_AUXR_X	26
+Reservation_kv3_LSU_AUXR_Y	27
+Reservation_kv3_LSU_AUXW	28
+Reservation_kv3_LSU_AUXW_X	29
+Reservation_kv3_LSU_AUXW_Y	30
+Reservation_kv3_LSU_AUXR_AUXW	31
+Reservation_kv3_LSU_AUXR_AUXW_X	32
+Reservation_kv3_LSU_AUXR_AUXW_Y	33
+Reservation_kv3_MAU	34
+Reservation_kv3_MAU_X	35
+Reservation_kv3_MAU_Y	36
+Reservation_kv3_MAU_AUXR	37
+Reservation_kv3_MAU_AUXR_X	38
+Reservation_kv3_MAU_AUXR_Y	39
+Reservation_kv3_ALU_TINY_CRRP	40
+Reservation_kv3_ALU_TINY_CRWL_CRWH	41
+
+Requirements		kv3_ISSUE	kv3_TINY	kv3_LITE	kv3_FULL	kv3_LSU	kv3_MAU	kv3_BCU	kv3_TCA	kv3_AUXR	kv3_AUXW	kv3_CRRP	kv3_CRWL	kv3_CRWH	kv3_NOP
+Reservation(_UNDEF)		0		0		0		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALL)		8		0		0		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_NOP)		1		0		0		0		0		0		0		0		0		0		0		0		0		1
+Reservation(kv3_ALU_TINY)		1		1		0		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_TINY_X)		2		1		0		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_TINY_Y)		3		1		0		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_LITE)		1		1		1		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_LITE_X)		2		1		1		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_LITE_Y)		3		1		1		0		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_LITE_CRWL)		1		1		1		0		0		0		0		0		0		0		0		1		0		0
+Reservation(kv3_ALU_LITE_CRWH)		1		1		1		0		0		0		0		0		0		0		0		0		1		0
+Reservation(kv3_ALU_FULL)		1		1		1		1		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_FULL_X)		2		1		1		1		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_ALU_FULL_Y)		3		1		1		1		0		0		0		0		0		0		0		0		0		0
+Reservation(kv3_BCU)		1		0		0		0		0		0		1		0		0		0		0		0		0		0
+Reservation(kv3_BCU_CRRP_CRWL_CRWH)		1		0		0		0		0		0		1		0		0		0		1		1		1		0
+Reservation(kv3_BCU_TINY_AUXW_CRRP)		1		1		0		0		0		0		1		0		0		1		1		0		0		0
+Reservation(kv3_BCU_TINY_TINY_MAU_XNOP)		1		2		0		0		0		1		1		0		0		0		0		0		0		4
+Reservation(kv3_TCA)		1		0		0		0		0		0		0		1		0		0		0		0		0		0
+Reservation(kv3_LSU)		1		1		0		0		1		0		0		0		0		0		0		0		0		0
+Reservation(kv3_LSU_X)		2		1		0		0		1		0		0		0		0		0		0		0		0		0
+Reservation(kv3_LSU_Y)		3		1		0		0		1		0		0		0		0		0		0		0		0		0
+Reservation(kv3_LSU_CRRP)		1		1		0		0		1		0		0		0		0		0		1		0		0		0
+Reservation(kv3_LSU_CRRP_X)		2		1		0		0		1		0		0		0		0		0		1		0		0		0
+Reservation(kv3_LSU_CRRP_Y)		3		1		0		0		1		0		0		0		0		0		1		0		0		0
+Reservation(kv3_LSU_AUXR)		1		1		0		0		1		0		0		0		1		0		0		0		0		0
+Reservation(kv3_LSU_AUXR_X)		2		1		0		0		1		0		0		0		1		0		0		0		0		0
+Reservation(kv3_LSU_AUXR_Y)		3		1		0		0		1		0		0		0		1		0		0		0		0		0
+Reservation(kv3_LSU_AUXW)		1		1		0		0		1		0		0		0		0		1		0		0		0		0
+Reservation(kv3_LSU_AUXW_X)		2		1		0		0		1		0		0		0		0		1		0		0		0		0
+Reservation(kv3_LSU_AUXW_Y)		3		1		0		0		1		0		0		0		0		1		0		0		0		0
+Reservation(kv3_LSU_AUXR_AUXW)		1		1		0		0		1		0		0		0		1		1		0		0		0		0
+Reservation(kv3_LSU_AUXR_AUXW_X)		2		1		0		0		1		0		0		0		1		1		0		0		0		0
+Reservation(kv3_LSU_AUXR_AUXW_Y)		3		1		0		0		1		0		0		0		1		1		0		0		0		0
+Reservation(kv3_MAU)		1		1		0		0		0		1		0		0		0		0		0		0		0		0
+Reservation(kv3_MAU_X)		2		1		0		0		0		1		0		0		0		0		0		0		0		0
+Reservation(kv3_MAU_Y)		3		1		0		0		0		1		0		0		0		0		0		0		0		0
+Reservation(kv3_MAU_AUXR)		1		1		0		0		0		1		0		0		1		0		0		0		0		0
+Reservation(kv3_MAU_AUXR_X)		2		1		0		0		0		1		0		0		1		0		0		0		0		0
+Reservation(kv3_MAU_AUXR_Y)		3		1		0		0		0		1		0		0		1		0		0		0		0		0
+Reservation(kv3_ALU_TINY_CRRP)		1		1		0		0		0		0		0		0		0		0		1		0		0		0
+Reservation(kv3_ALU_TINY_CRWL_CRWH)		1		1		0		0		0		0		0		0		0		0		0		1		1		0
+
+Processor__UNDEF:
+	_UNDEF	kv3_ALL	kv3_ALU_NOP	kv3_ALU_TINY	kv3_ALU_TINY_X	kv3_ALU_TINY_Y	kv3_ALU_LITE	kv3_ALU_LITE_X	kv3_ALU_LITE_Y	kv3_ALU_LITE_CRWL	kv3_ALU_LITE_CRWH	kv3_ALU_FULL	kv3_ALU_FULL_X	kv3_ALU_FULL_Y	kv3_BCU	kv3_BCU_CRRP_CRWL_CRWH	kv3_BCU_TINY_AUXW_CRRP	kv3_BCU_TINY_TINY_MAU_XNOP	kv3_TCA	kv3_LSU	kv3_LSU_X	kv3_LSU_Y	kv3_LSU_CRRP	kv3_LSU_CRRP_X	kv3_LSU_CRRP_Y	kv3_LSU_AUXR	kv3_LSU_AUXR_X	kv3_LSU_AUXR_Y	kv3_LSU_AUXW	kv3_LSU_AUXW_X	kv3_LSU_AUXW_Y	kv3_LSU_AUXR_AUXW	kv3_LSU_AUXR_AUXW_X	kv3_LSU_AUXR_AUXW_Y	kv3_MAU	kv3_MAU_X	kv3_MAU_Y	kv3_MAU_AUXR	kv3_MAU_AUXR_X	kv3_MAU_AUXR_Y	kv3_ALU_TINY_CRRP	kv3_ALU_TINY_CRWL_CRWH
+_UNDEF	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALL	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_NOP	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_TINY	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_TINY_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_TINY_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_LITE	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_LITE_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_LITE_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_LITE_CRWL	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_LITE_CRWH	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_FULL	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_FULL_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_FULL_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_BCU	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_BCU_CRRP_CRWL_CRWH	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_BCU_TINY_AUXW_CRRP	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_BCU_TINY_TINY_MAU_XNOP	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_TCA	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_CRRP	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_CRRP_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_CRRP_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXR	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXR_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXR_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXW	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXW_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXW_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXR_AUXW	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXR_AUXW_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_LSU_AUXR_AUXW_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_MAU	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_MAU_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_MAU_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_MAU_AUXR	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_MAU_AUXR_X	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_MAU_AUXR_Y	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_TINY_CRRP	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_TINY_CRWL_CRWH	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+
+Processor_v1_cpu:
+	_UNDEF	kv3_ALL	kv3_ALU_NOP	kv3_ALU_TINY	kv3_ALU_TINY_X	kv3_ALU_TINY_Y	kv3_ALU_LITE	kv3_ALU_LITE_X	kv3_ALU_LITE_Y	kv3_ALU_LITE_CRWL	kv3_ALU_LITE_CRWH	kv3_ALU_FULL	kv3_ALU_FULL_X	kv3_ALU_FULL_Y	kv3_BCU	kv3_BCU_CRRP_CRWL_CRWH	kv3_BCU_TINY_AUXW_CRRP	kv3_BCU_TINY_TINY_MAU_XNOP	kv3_TCA	kv3_LSU	kv3_LSU_X	kv3_LSU_Y	kv3_LSU_CRRP	kv3_LSU_CRRP_X	kv3_LSU_CRRP_Y	kv3_LSU_AUXR	kv3_LSU_AUXR_X	kv3_LSU_AUXR_Y	kv3_LSU_AUXW	kv3_LSU_AUXW_X	kv3_LSU_AUXW_Y	kv3_LSU_AUXR_AUXW	kv3_LSU_AUXR_AUXW_X	kv3_LSU_AUXR_AUXW_Y	kv3_MAU	kv3_MAU_X	kv3_MAU_Y	kv3_MAU_AUXR	kv3_MAU_AUXR_X	kv3_MAU_AUXR_Y	kv3_ALU_TINY_CRRP	kv3_ALU_TINY_CRWL_CRWH
+_UNDEF	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALL	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_NOP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_TINY	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_TINY_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_TINY_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE_CRWL	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1
+kv3_ALU_LITE_CRWH	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1
+kv3_ALU_FULL	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_FULL_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_FULL_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_BCU	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_BCU_CRRP_CRWL_CRWH	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1
+kv3_BCU_TINY_AUXW_CRRP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_BCU_TINY_TINY_MAU_XNOP	 0	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_TCA	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_CRRP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_LSU_CRRP_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_LSU_CRRP_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_LSU_AUXR	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXW	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_AUXW_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_AUXW_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_AUXR_AUXW	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_AUXW_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_AUXW_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_MAU	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_AUXR	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_AUXR_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_AUXR_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_ALU_TINY_CRRP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_ALU_TINY_CRWL_CRWH	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1
+
+Processor_v2_cpu:
+	_UNDEF	kv3_ALL	kv3_ALU_NOP	kv3_ALU_TINY	kv3_ALU_TINY_X	kv3_ALU_TINY_Y	kv3_ALU_LITE	kv3_ALU_LITE_X	kv3_ALU_LITE_Y	kv3_ALU_LITE_CRWL	kv3_ALU_LITE_CRWH	kv3_ALU_FULL	kv3_ALU_FULL_X	kv3_ALU_FULL_Y	kv3_BCU	kv3_BCU_CRRP_CRWL_CRWH	kv3_BCU_TINY_AUXW_CRRP	kv3_BCU_TINY_TINY_MAU_XNOP	kv3_TCA	kv3_LSU	kv3_LSU_X	kv3_LSU_Y	kv3_LSU_CRRP	kv3_LSU_CRRP_X	kv3_LSU_CRRP_Y	kv3_LSU_AUXR	kv3_LSU_AUXR_X	kv3_LSU_AUXR_Y	kv3_LSU_AUXW	kv3_LSU_AUXW_X	kv3_LSU_AUXW_Y	kv3_LSU_AUXR_AUXW	kv3_LSU_AUXR_AUXW_X	kv3_LSU_AUXR_AUXW_Y	kv3_MAU	kv3_MAU_X	kv3_MAU_Y	kv3_MAU_AUXR	kv3_MAU_AUXR_X	kv3_MAU_AUXR_Y	kv3_ALU_TINY_CRRP	kv3_ALU_TINY_CRWL_CRWH
+_UNDEF	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALL	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1
+kv3_ALU_NOP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_TINY	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_TINY_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_TINY_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_LITE_CRWL	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1
+kv3_ALU_LITE_CRWH	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1
+kv3_ALU_FULL	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_FULL_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_ALU_FULL_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_BCU	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_BCU_CRRP_CRWL_CRWH	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1
+kv3_BCU_TINY_AUXW_CRRP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_BCU_TINY_TINY_MAU_XNOP	 0	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_TCA	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_CRRP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_LSU_CRRP_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_LSU_CRRP_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_LSU_AUXR	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXW	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_AUXW_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_AUXW_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0
+kv3_LSU_AUXR_AUXW	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_AUXW_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_LSU_AUXR_AUXW_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0	 0	 1	 1	 1	 0	 0
+kv3_MAU	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_AUXR	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_AUXR_X	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_MAU_AUXR_Y	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 1	 1	 1	 1	 1	 1	 1	 1	 1	 0	 0
+kv3_ALU_TINY_CRRP	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 0	 0	 0	 1	 1	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1	 0
+kv3_ALU_TINY_CRWL_CRWH	 0	 1	 0	 0	 0	 0	 0	 0	 0	 1	 1	 0	 0	 0	 0	 1	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 0	 1

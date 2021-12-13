@@ -1,0 +1,192 @@
+/*
+ * kv3/Relocation.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Relocation
+#define Relocation(ID, RELATIVE, ENCODE, DECODE, LINKER)
+#else /*Relocation*/
+Relocation(kv3_rel16, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_16))
+Relocation(kv3_rel32, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_32))
+Relocation(kv3_rel64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64))
+Relocation(kv3_pcrel_signed16, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S16_PCREL))
+Relocation(kv3_pcrel17, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_PCREL17))
+Relocation(kv3_pcrel27, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_PCREL27))
+Relocation(kv3_pcrel32, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_32_PCREL))
+Relocation(kv3_pcrel_signed37, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_PCREL_UP27 R_KVX_S37_PCREL_LO10))
+Relocation(kv3_pcrel_signed43, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_PCREL_EX6 R_KVX_S43_PCREL_UP27 R_KVX_S43_PCREL_LO10))
+Relocation(kv3_pcrel_signed64, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S64_PCREL_EX27 R_KVX_S64_PCREL_UP27 R_KVX_S64_PCREL_LO10))
+Relocation(kv3_pcrel64, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64_PCREL))
+Relocation(kv3_signed16, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S16))
+Relocation(kv3_signed32, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S32_UP27 R_KVX_S32_LO5))
+Relocation(kv3_signed37, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_UP27 R_KVX_S37_LO10))
+Relocation(kv3_gotoff_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_GOTOFF_UP27 R_KVX_S37_GOTOFF_LO10))
+Relocation(kv3_gotoff_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_GOTOFF_EX6 R_KVX_S43_GOTOFF_UP27 R_KVX_S43_GOTOFF_LO10))
+Relocation(kv3_gotoff_32, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_32_GOTOFF))
+Relocation(kv3_gotoff_64, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64_GOTOFF))
+Relocation(kv3_got_32, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_32_GOT))
+Relocation(kv3_got_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_GOT_UP27 R_KVX_S37_GOT_LO10))
+Relocation(kv3_got_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_GOT_EX6 R_KVX_S43_GOT_UP27 R_KVX_S43_GOT_LO10))
+Relocation(kv3_got_64, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64_GOT))
+Relocation(kv3_glob_dat, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_GLOB_DAT))
+Relocation(kv3_copy, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_COPY))
+Relocation(kv3_jump_slot, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_JMP_SLOT))
+Relocation(kv3_relative, RELATIVE(BASE),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_RELATIVE))
+Relocation(kv3_signed43, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_EX6 R_KVX_S43_UP27 R_KVX_S43_LO10))
+Relocation(kv3_signed64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S64_EX27 R_KVX_S64_UP27 R_KVX_S64_LO10))
+Relocation(kv3_gotaddr_signed37, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_GOTADDR_UP27 R_KVX_S37_GOTADDR_LO10))
+Relocation(kv3_gotaddr_signed43, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_GOTADDR_EX6 R_KVX_S43_GOTADDR_UP27 R_KVX_S43_GOTADDR_LO10))
+Relocation(kv3_gotaddr_signed64, RELATIVE(PC),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S64_GOTADDR_EX27 R_KVX_S64_GOTADDR_UP27 R_KVX_S64_GOTADDR_LO10))
+Relocation(kv3_dtpmod64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64_DTPMOD))
+Relocation(kv3_dtpoff64, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64_DTPOFF))
+Relocation(kv3_dtpoff_signed37, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_TLS_DTPOFF_UP27 R_KVX_S37_TLS_DTPOFF_LO10))
+Relocation(kv3_dtpoff_signed43, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_TLS_DTPOFF_EX6 R_KVX_S43_TLS_DTPOFF_UP27 R_KVX_S43_TLS_DTPOFF_LO10))
+Relocation(kv3_tlsgd_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_TLS_GD_UP27 R_KVX_S37_TLS_GD_LO10))
+Relocation(kv3_tlsgd_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_TLS_GD_EX6 R_KVX_S43_TLS_GD_UP27 R_KVX_S43_TLS_GD_LO10))
+Relocation(kv3_tlsld_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_TLS_LD_UP27 R_KVX_S37_TLS_LD_LO10))
+Relocation(kv3_tlsld_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_TLS_LD_EX6 R_KVX_S43_TLS_LD_UP27 R_KVX_S43_TLS_LD_LO10))
+Relocation(kv3_tpoff64, RELATIVE(TP),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_64_TPOFF))
+Relocation(kv3_tlsie_signed37, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_TLS_IE_UP27 R_KVX_S37_TLS_IE_LO10))
+Relocation(kv3_tlsie_signed43, RELATIVE(GOT),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_TLS_IE_EX6 R_KVX_S43_TLS_IE_UP27 R_KVX_S43_TLS_IE_LO10))
+Relocation(kv3_tlsle_signed37, RELATIVE(TP),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S37_TLS_LE_UP27 R_KVX_S37_TLS_LE_LO10))
+Relocation(kv3_tlsle_signed43, RELATIVE(TP),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_S43_TLS_LE_EX6 R_KVX_S43_TLS_LE_UP27 R_KVX_S43_TLS_LE_LO10))
+Relocation(kv3_rel8, RELATIVE(_UNDEF),
+           ENCODE(/**/),
+           DECODE(/**/),
+           LINKER(R_KVX_8))
+#endif/*Relocation*/
+#undef Relocation
+

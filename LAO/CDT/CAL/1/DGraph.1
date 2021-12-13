@@ -1,0 +1,104 @@
+dgraph 1:
+forward stars:
+  node a:
+    a -> b
+  node b:
+    b -> f
+    b -> e
+    b -> c
+  node c:
+    c -> g
+    c -> d
+  node d:
+    d -> h
+    d -> c
+  node e:
+    e -> f
+    e -> a
+  node f:
+    f -> g
+  node g:
+    g -> h
+    g -> f
+  node h:
+    h -> h
+backward stars:
+  node a:
+    a <- e
+  node b:
+    b <- a
+  node c:
+    c <- d
+    c <- b
+  node d:
+    d <- c
+  node e:
+    e <- b
+  node f:
+    f <- g
+    f <- e
+    f <- b
+  node g:
+    g <- f
+    g <- c
+  node h:
+    h <- h
+    h <- g
+    h <- d
+dgraph 1 SCCs:
+h 
+g f 
+d c 
+e b a 
+del e -> f
+new f -> e
+dgraph 2:
+forward stars:
+  node a:
+    a -> b
+  node b:
+    b -> f
+    b -> e
+    b -> c
+  node c:
+    c -> g
+    c -> d
+  node d:
+    d -> h
+    d -> c
+  node e:
+    e -> a
+  node f:
+    f -> e
+    f -> g
+  node g:
+    g -> h
+    g -> f
+  node h:
+    h -> h
+backward stars:
+  node a:
+    a <- e
+  node b:
+    b <- a
+  node c:
+    c <- d
+    c <- b
+  node d:
+    d <- c
+  node e:
+    e <- f
+    e <- b
+  node f:
+    f <- g
+    f <- b
+  node g:
+    g <- f
+    g <- c
+  node h:
+    h <- h
+    h <- g
+    h <- d
+dgraph 2 SCCs:
+h 
+d c g e f b a 

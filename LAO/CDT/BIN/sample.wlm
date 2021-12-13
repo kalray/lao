@@ -1,0 +1,79 @@
+!!!!	Getting Started with LAO
+
+---	Attila the Hun
+
+Abstract:	This is
+   the
+sad story of documentation.
+
+:	We would never imagine it that way!
+
+Keywords::	wiki
+
+
+!!!	Intro
+
+story of his life
+
+	int (a, b) <foo bar>;
+	int (a, b);
+
+Eck!
+
+!!!	Details
+
+FooBar --	Do Foo then Bar
+
+Require:	
+	=this= not NULL.
+
+Ensure:	Fooed and Bared.
+
+=this=:	This object.
+
+Alpha Beta ---	Start resolution
+
+---	Let's try:
+
+Clickable link [https://ecc.codex.cro.st.com] instead of unclickable
+links https://ecc.codex.cro.st.com
+
+Three questions (see [MDS https://mds.codex.cro.st.com]):
+  *	How much
+	does it cost?
+   +	First
+    *	Beware!
+    +	Not Now!
+   +	Second
+  *	How often?
+    Crazy:	I told you so
+	XXX
+    Idiot:	I agree
+	YYY
+  *	At what cost?
+
+Other lists:
+
++	Number one
+ *	Bullet
+ *	Bullet
++	Number two
+ *	Bullet
+ *	Bullet
+  *	Sub-bullet
+   +	Sub-sub-number
+   +	Sub-sub-number
++	Number three
+ *	Bullet
+ *	Bullet
+
+Try inline styles: :dfn: and =code= and #var# and *emph*
+
+They can be escaped with \ too: \:dfn\: and \+code\+ and \#var\# and \*emph\*
+
+Try non-greedy matches: :dfn: is also: sure!
+
+Here is a [Link to Alpha Beta #AlphaBeta].
+
+That's all
+

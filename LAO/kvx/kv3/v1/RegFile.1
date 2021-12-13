@@ -1,0 +1,50 @@
+RegFile__UNDEF	0
+RegFile_kv3_SFR	1
+RegFile_kv3_GPR	2
+RegFile_kv3_PGR	3
+RegFile_kv3_QGR	4
+RegFile_kv3_XCR	5
+RegFile_kv3_XBR	6
+RegFile_kv3_XVR	7
+RegFile_kv3_XWR	8
+RegFile_kv3_XMR	9
+Width(_UNDEF)	0
+Width(kv3_SFR)	64
+Width(kv3_GPR)	64
+Width(kv3_PGR)	128
+Width(kv3_QGR)	256
+Width(kv3_XCR)	64
+Width(kv3_XBR)	128
+Width(kv3_XVR)	256
+Width(kv3_XWR)	512
+Width(kv3_XMR)	1024
+GetNativeType(_UNDEF)	_UNDEF
+GetNativeType(kv3_SFR)	kv3_Int32
+GetNativeType(kv3_GPR)	kv3_Int32
+GetNativeType(kv3_PGR)	kv3_Int128
+GetNativeType(kv3_QGR)	kv3_Int128x2
+GetNativeType(kv3_XCR)	kv3_Int64
+GetNativeType(kv3_XBR)	kv3_Int128
+GetNativeType(kv3_XVR)	kv3_Int128x2
+GetNativeType(kv3_XWR)	kv3_Int128x4
+GetNativeType(kv3_XMR)	kv3_Int128x8
+LowRegister(_UNDEF)	_UNDEF	HighRegister(_UNDEF)	_UNDEF
+LowRegister(kv3_SFR)	kv3_PC	HighRegister(kv3_SFR)	kv3_VSFR255
+LowRegister(kv3_GPR)	kv3_R0	HighRegister(kv3_GPR)	kv3_R63
+LowRegister(kv3_PGR)	kv3_P0	HighRegister(kv3_PGR)	kv3_P62
+LowRegister(kv3_QGR)	kv3_Q0	HighRegister(kv3_QGR)	kv3_Q60
+LowRegister(kv3_XCR)	kv3_C0	HighRegister(kv3_XCR)	kv3_C255
+LowRegister(kv3_XBR)	kv3_B0	HighRegister(kv3_XBR)	kv3_B127
+LowRegister(kv3_XVR)	kv3_A0	HighRegister(kv3_XVR)	kv3_A63
+LowRegister(kv3_XWR)	kv3_W0	HighRegister(kv3_XWR)	kv3_W31
+LowRegister(kv3_XMR)	kv3_X0	HighRegister(kv3_XMR)	kv3_X15
+RegisterSet(_UNDEF)	_UNDEF
+RegisterSet(kv3_SFR)	PC-VSFR255
+RegisterSet(kv3_GPR)	R0-R63
+RegisterSet(kv3_PGR)	P0-P62
+RegisterSet(kv3_QGR)	Q0-Q60
+RegisterSet(kv3_XCR)	C0-C255
+RegisterSet(kv3_XBR)	B0-B127
+RegisterSet(kv3_XVR)	A0-A63
+RegisterSet(kv3_XWR)	W0-W31
+RegisterSet(kv3_XMR)	X0-X15

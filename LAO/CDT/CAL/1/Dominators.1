@@ -1,0 +1,44 @@
+Dominators Forward:
+NODE	PARENT	SEMI	IDOM
+1	0	0	0
+2	1	1	1
+3	2	2	2
+4	3	1	1
+5	4	1	1
+6	2	2	2
+7	6	6	6
+8	1	1	1
+9	8	1	1
+10	9	1	1
+11	8	1	1
+12	11	8	1
+13	12	12	12
+node_0:	IDOM=0	DOMN=1	DOML=14	DOMS={ node_1 }	DOMF={ }
+node_1:	IDOM=1	DOMN=2	DOML=14	DOMS={ node_2 node_4 node_5 node_8 node_9 node_10 node_11 node_12 }	DOMF={ node_1 }
+node_2:	IDOM=2	DOMN=3	DOML=6	DOMS={ node_3 node_6 }	DOMF={ node_4 }
+node_3:	IDOM=3	DOMN=4	DOML=4	DOMS={ }	DOMF={ node_4 }
+node_4:	IDOM=2	DOMN=7	DOML=7	DOMS={ }	DOMF={ node_5 }
+node_5:	IDOM=2	DOMN=8	DOML=8	DOMS={ }	DOMF={ node_1 node_4 }
+node_6:	IDOM=3	DOMN=5	DOML=6	DOMS={ node_7 }	DOMF={ node_4 }
+node_7:	IDOM=7	DOMN=6	DOML=6	DOMS={ }	DOMF={ node_4 }
+node_8:	IDOM=2	DOMN=9	DOML=9	DOMS={ }	DOMF={ node_9 node_11 node_12 }
+node_9:	IDOM=2	DOMN=10	DOML=10	DOMS={ }	DOMF={ node_10 }
+node_10:	IDOM=2	DOMN=11	DOML=11	DOMS={ }	DOMF={ node_5 node_9 }
+node_11:	IDOM=2	DOMN=12	DOML=12	DOMS={ }	DOMF={ node_12 }
+node_12:	IDOM=2	DOMN=13	DOML=14	DOMS={ node_13 }	DOMF={ node_10 }
+node_13:	IDOM=13	DOMN=14	DOML=14	DOMS={ }	DOMF={ node_10 }
+Dominators Backward:
+NODE	PARENT	SEMI	IDOM
+1	2	1	6
+2	4	2	5
+3	5	2	5
+4	5	2	5
+5	6	1	6
+6	0	0	0
+node_0:	IDOM=0	DOMN=1	DOML=7	DOMS={ node_6 }	DOMF={ }
+node_1:	IDOM=7	DOMN=3	DOML=3	DOMS={ }	DOMF={ }
+node_2:	IDOM=6	DOMN=5	DOML=5	DOMS={ }	DOMF={ node_1 }
+node_3:	IDOM=6	DOMN=6	DOML=6	DOMS={ }	DOMF={ node_2 }
+node_4:	IDOM=6	DOMN=7	DOML=7	DOMS={ }	DOMF={ node_2 }
+node_5:	IDOM=7	DOMN=4	DOML=7	DOMS={ node_2 node_3 node_4 }	DOMF={ node_1 }
+node_6:	IDOM=1	DOMN=2	DOML=7	DOMS={ node_1 node_5 }	DOMF={ }

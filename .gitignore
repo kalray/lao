@@ -1,0 +1,10 @@
+# ignore tests directories in LAO
+*_build
+*_build_Debug
+*_build_Release
+*_build_Debug_32
+*_build_Release_32
+
+# ignore rules
+k1-family
+st200-family

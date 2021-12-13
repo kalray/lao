@@ -1,0 +1,87 @@
+/* white-paper.css -- stylesheet for Ravenbrook white papers
+ *
+ * Copyright 2003 Ravenbrook Limited.
+ *
+ * 2003-07-09 RB Created based on style sheets embedded in recent white papers.
+ * 2003-08-15 RB Added body width restriction.
+ *
+ * $Id: //info.ravenbrook.com/project/www.ravenbrook.com/version/4.0/page/style/white-paper.css#1 $
+ */
+
+@import "default.css";
+
+body {
+  margin-left: 7em;
+  margin-right: 1em;
+  line-height: 1.1;
+}
+
+@media print {
+  /* This seems to work in Explorer 5, and should prevent it from splitting the figures */
+  /* across pages when printing the paper. */
+  div.figure {
+    page-break-inside: avoid;
+  }
+
+  /* Don't print coloured underlined links, since one can't click on printed media. */
+  a {
+    color: black;
+    background: white;
+    text-decoration: none;
+  }
+}
+
+/* Prevent wide windows from making the line lengths long and unreadable. */
+
+@media screen, projection, tv {
+  body {
+    max-width: 44em;
+  }
+}
+
+dfn {
+  font-style: italic;
+}
+
+h1, address {
+  text-align: center;
+}
+
+div.abstract {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+div.abstract h2 {
+  text-align: center;
+}
+
+div.contents ul {
+  list-style: none;
+}
+
+div.figure {
+  text-align: center;
+  margin: 2em 0em;
+}
+
+div.figure div.caption {
+  margin-top: 1em;
+}
+
+table.references tr {
+  vertical-align: top;
+}
+
+table.history tr {
+  vertical-align: top;
+}
+
+table.requirements tr {
+  vertical-align: top;
+}
+
+code.perforce-id {
+  font-size: smaller;
+}
+

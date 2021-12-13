@@ -1,0 +1,555 @@
+!!!!	LAO Introduction
+
+--	Quentin Colombet
+
+!!!	Generalite
+
+Le LAO ext constitue de 4 packages:
+
+*	LAO: regroupe, fait la glue avec les autres packages. Deux modes possibles:
+    *	Mode LAO: Utilise les 3 modules CDT, ECL et PRO.
+    *	Mode JIT: Utilise les modules CDT et ECL.
+*	CDT: Package d'utilitaire (Data Structure, Memory Management). Partie techno
+*	ECL: IR LAO + optims (JIT specifique ?). Partie techno
+*	PRO: Tout les codes pas pour JIT. I.e. optims lourdes et longue (e.g. en
+  O(n^3^)). Partie pour Open64. Decoupe en plusieurs sous module:
+    *	GRA: reg alloc
+    *	XFA: extra flow analysis
+    *	SCD: scheduling
+    *	O64: Driver de compile et interface utilisés par et pour Open64
+
+Les 3 packages CDT, ECL et PRO sont a la GNU. C'est-a-dire qu'ils utilisent les
+mecanismes d'automake et configure.
+
+
+!!!	Structure d'un package
+
+	PACK/
+	    Makefile ; makefile du package (cf section suivante pour les targets
+	             ; supportees)
+	    DOC/
+	    LIB1/
+	    LIB2/
+	        Makefile ; makefile de la lib (cf section suivante pour les targets
+	                 ; supportees)
+	        0/ ; Contient les fichiers input des harnais de (self-)tests
+	           ; (MyModule.0) (e.g. foo.0)
+	        1/ ; Contient les fichiers d'output attendu des tests (MyModule.1)
+	           ; (e.g. foo.1)
+	            MyTarget1/ ; contient les references MyTarget1 specific
+	            MyTarget2/
+	        LIB2.xcc ; Interface global de la librairie
+	                 ; * struct / include
+	                 ; * harnais de test
+	                 ; * fonction de tracing
+	        Module1 ; (Module1.xcc) (e.g. foo.xcc)
+	        Module2
+	        MyTarget1/ ; Repertoire utilise pour le targeting des modules pour
+	                   ; MyTarget1 lorsque necessaire
+	             MyModule.xcc ; Un fichier par module necessitant un targeting
+	                          ; (e.g. foo.xcc)
+	        MyTarget2/
+        
+
+Note:	Les tests ou self-tests sont ecrit directement dans le .xcc d'un module.
+Ils sont ensuite extrait par l'outil xccgen (cf XCC) qui va
+en generer un fichier. Ce fichier est ensuite compile normalement par un
+compilateur host (e.g. gcc) pour generer un executable. Cet executable est
+ensuite appele avec les parametres d'input (repertoire 0) et la sortie est
+comparee avec la sortie attendue (repertoire 1). A ce point, si difference il y
+a alors le self tests est considere comme echoue. Pour resumer:
+
+	xccgen MyModule.xcc # extrait un fichier de test: MyModule_.c
+	gcc MyModule.c -o MyModule.tst # genere le test executable (commande
+	                               # simplifiee)
+	MyModule.tst < 0/MyModule.0 > MyModule.1
+	(diff MyModule.1 1/MyModule.1 && echo PASS) || echo FAIL
+
+!!!	Makefile
+
+!!	Package
+
+Les targets supportees par le Makefile d'un package:
+
+*	all
+*	check
+*	clean
+*	install
+
+Semantique conforme a GNU.
+
+!!	LIB
+
+Les targets supportees par le Makefile d'une LIB:
+
+*	clean
+*	check
+*	refs: Met a jour les references (deplace les fichiers output genere par les
+  self tests lors du run courant vers le repertoire 1/)
+*	again: Verifie le top niveau du package pour voir si les autres libs sont a
+  jour. Utile lorsque l'on travail sur une seule lib car cela evite de
+  refaire l'ensemble du build du package. E.g. make clean again check
+
+!!	LAO
+
+---	Targets
+
+Les targets supportees par le Makefile du package LAO:
+*	extract: extrait CDT, ECL et PRO ou fait un svn update
+*	install: installation cf plus bas
+*	clean
+*	distclean
+*	MyTarget: Pour tout les targets non definit precedement, le makefile regarde
+  si un fichier .def du nom de la target passee au make existe. Si tel est le
+  cas, alors il lance un configure et make avec le contenu de ce fichier
+
+Note:	Actuellement LAO build dans les sources -> A modifier ?
+Note:	Pour faire un compilateur a bencher: make speed (voir speed.def)
+Note:	Pour faire un compilateur de developpement: make debug (voir debug.def)
+
+---	Installation (make install)
+
+Lors d'une installation, les repertoires suivants sont crees sous le repertoire
+
+	LAO:
+	export/
+	    lib/ ; Pour Open64
+	        lao.so
+	    include/ ; Pour Open64
+	        MyTarget1/
+	            lao_....h ; Ne doivent pas faire un diff avec les fichiers en
+	                      ; configuration (sous svn) de Open64
+	        MyTarget2/
+	            lao_....h
+	include/ ; include a mettre lors de l'utilisation de LAO
+	bin/
+	lib/
+	share/
+	    doc/
+
+!!!	Self-Test
+
+Les self-tests servent a verifier qu'un update de LAO ne casse pas son
+integration dans Open64
+
+!!	Structure
+
+Working Copy/
+    LAO/
+        CDT/ ; Cree par le make extract
+        ECL/ ; Idem
+        PRO/ ; Idem
+            Makefile
+    LAO_INPUT/ ; En configuration, contient les sources des self-tests
+    LAO_TRACE/ ; A creer a la main. Ce repertoire va contenir l'ensemble des
+               ; traces de sortie des self tests. Il peut aussi contenir des
+               ; informations sur les optimisations LAO (cf plus loin)
+
+!!	Makefile pour les self-tests Open64 (seulement sous PRO)
+
+Target:
+* refs
+* tests:
+    * Utilise des variables de makefile (Variables surchargeable par
+      l'environnement ou sur la ligne de commande) pour specifier:
+        * Le repertoire d'input: LAO_INPUT (par defaut ../../LAO_INPUT)
+        * Le repertoire de sortie des traces: LAO_TRACE (par defaut
+          ../../LAO_TRACE).
+    * Utilise des options passees a LAO que l'on peut surcharger soit:
+        * En les positionnant dans l'environnement
+        * En creant des fichiers se nommant: MyOption=MyValue dans le
+          repertoire specifie par la variable LAO_TRACE
+* inputs
+* traces
+
+Note: La liste des options que l'on peut surcharger pour les optimisations de
+LAO se retrouve dans les fichiers ECL/LIR/configure.xcc, ECL/LIR/optimize.xcc,
+... E.g. FORCE_SCHEDULING=MyMask, LIR_TRACE=MyFileDescriptor, ...
+
+Note: Tout les tests en input n'ont pas forcement les appels aux trois phases
+d'optimisations possible de LAO. Typiquement la phase d'allocation peut ne pas
+etre presente. Bon a savoir lorsque l'on fait des tests sur l'allocation.
+
+Note: On peut directement faire un 'make foo.trace', il faut seulement qu'un
+fichier foo.input.c existe (utile pour faire des tests avec LAO_INPUT par ex)
+
+
+!!!	Documentation
+
+La documenation est directement extraite des commentaires des sources.
+Le formalisme utilise est passe de Doxygen a asciidoc pour etre maintenant en
+WLM via xccgen.
+
+!!	Extraction
+
+L'extraction de la documentation se fait avec la commande suivante:
+xccgen foo.xcc -k wlm
+Ici, wlm specifie le format du fichier de sortie (son extension).
+
+L'extraction sort un fichier ascii avec le corps des commentaires marquee
+"extractible".
+Pour faire ce marquage, le commentaire doit commencer par /*@XCC.
+Exemple:
+
+	/*@XCC.h
+	 * MyComment
+	 * ...
+	 */
+
+Ce commentaire va produire le texte suivant dans le fichier de documentation:
+
+	MyComment
+	...
+
+Ces commentaires peuvent etre de n'importe quel forme, mais pour etre
+automatiquement pris en charge par la construction de la documentation (make
+wlmdoc), ils doivent utiliser le formalisme wlm.
+
+!!	WLM
+
+Wlm correspond a un wiki language markup. Ces fichiers ascii sont directement
+lisible mais peuvent aussi etre traduit en html via l'outil wlm2html.pl (situe
+dans CDT/BIN).
+
+Des exemples de code wlm sont lisible dans sample.wlm (aussi sous CDT/BIN) ou
+dans n'importe quel source (e.g. LIR.xcc).
+
+Dans ce formalisme, le choix a ete fait de rendre explicite la creation de
+certaines balises. Concretement cela veut dire que les sequences de caracteres
+speciales dans certains langages de wiki sont ici normales. Elles n'ont donc
+pas besoin d'etre echappees pour generer la sequence effectivement ecrite.
+Exemple:
+
+	* foo // pas une liste
+	*<TAB>foo // une liste lorsque l'on met une vrai tabulation.
+
+!!	Cas particuliers
+
+L'ensemble des fichiers wlm extrait des commentaires sont pris en charge
+automatiquement par le processus de construction de la documentation.
+Cependant, il se peut que vous ayez a documenter des choses ne se trouvant pas
+dans des sources (e.g. ECL/DOC/index.wlm offre des liens sur la documentation
+de l'ensemble des modules de la LIB).
+
+Dans ce cas, vous allez creer votre propre fichier wlm que vous allez mettre
+en configuration. Une fois ce fichier creer, il faut l'ajouter a la liste des
+documents gerer "a la main" pour la generation du html. Pour cela, il faut
+l'ajouter dans le fichier makefile.am pour qu'il soit pris en charge par la
+generation de la documentation.
+
+Attention: Lorsque l'on touche a makefile.am ou configure.ac il faut faire un
+make -f Maintainer.
+
+
+!!!	XCC
+
+!!	Principe
+
+eXtra C Comments. Extension des commentaires C, ce langage sert, en
+combinaison avec xccgen, a disptacher et generer automatiquement des portions
+de codes, ainsi qu'a extraire la documentation (cf Documentation).
+
+De maniere generale, les fichiers utilisant le langage XCC peuvent dans
+le meme fichier le declarer le prototype et l'implementation associee. Le code
+sera ensuite dispatcher dans les .h et .c correspondant. Cela
+permet d'avoir toute l'information centralise pour le developpeur qui met a
+jour simultanement la documentation, les interfaces et l'implementation.
+
+xccgen est l'outil interpretant les fichiers xcc (sorte de preprocesseur) et
+generant les .h .c necessaires. Ces fichiers sont ensuite compilable via un
+compilateur C99.
+
+Ex: foo.xcc -> foo.c foo.h foo_.h foo_.c -> foo.o foo_.o -> ....
+          (xccgen)                     (gcc)
+
+Concretement, les commandes XCC sont specifiees dans les commentaires des
+fichiers xcc (fichier C avec commentaire XCC) qui commence avec la directive
+@XCC.
+
+Cette directive est suivie par l'extension du fichier qui va recevoir le
+paragraphe suivant. Sachant que le nom de base du fichier et le meme que le
+fichier xcc.
+
+Exemple avec un fichier foo.xcc:
+
+	//@XCC.c  <-- Specifie que le paragraphe suivant doit etre emis dans foo.c
+
+Types de commentaire supportes:
+
+	//@XCC MyExtension
+	MyParagraphe
+
+	/*@XCC MyExtension
+	 * Comment
+	 * ...
+	 */
+	MyParagraphe
+
+La terminaison d'un paragraphe est definit par la sequence de caractere \n\n.
+
+Attention:	Le decoupage en paragraphe n'est pas conscient d'un eventuel
+scoping de fonction/structure.
+
+L'on peut voir xccgen comme un dispatcher de code. Il prend le fichier xcc et
+en fonction des commentaires qu'il rencontre et ajoute les contributions de
+chacun des paragraphes dans le fichier specifie. Les paragraphes qui ne sont
+pas explicitement dispatcher dans un fichier, c'est-a-dire qui ne sont pas
+precede par un commentaire de la forme "//@XCC MyExtension" ou
+"/*@XCC MyExtension", sont emit dans le fichier .c correspondant.
+
+!!	Conventions
+
+Par convention, le dispatching des sources doit etre repartie dans quatre
+fichiers en fonction de leur porter:
+
+*	.h: Interface publique a la librairie. I.e. ces interfaces seront accessible
+  par les clients de la libraries.
+*	.c: Fichier d'implementation
+*	_.h: Interface privee a la librairie. I.e. visible seulement dans les modules
+  de la librairie.
+*	_.c: Code check (self-test)
+
+!!	Interpretation
+
+---	Principe
+
+Lorsque le paragraphe est une fonction ou un prototype, il est directement emis
+dans le fichier specifie par le commentaire xcc ou a defaut le .c.
+Toutefois, lorsque le paragraphe est une structure sont contenu est interprete.
+
+Supposons que la structure ce nomme MaStruct_. Cette interpretation donne lieu:
+
+*	A la generation de plusieurs typedef:
+    *	MaStruct_: Definit le type correspondant a la structure
+    *	MaStruct: Definit le type correspondant au pointeur sur cette structure
+    *	const_MaStruct: Definit le type correspondant a la structure constante
+*	A la generation des accesseurs et modificateurs des champs de la structure
+  sous forme de macro. E.g. int FIELD:
+    *	Getteur: MaStruct_FIELD(this) ((this)->FIELD)
+    *	Setteur: MaStruct__FIELD(this) (&(this)->FIELD)
+*	A l'execution des directives de commandes XCC et a la generation du code
+  correspondant.
+
+Les directives de commandes XCC possitionnable dans une structure sont:
+
+*	@args MyArgs: Specifie que MyArgs doit etre ajoute au prototype du
+  constructeur et de la fonction de size generees par XCC pour la structure.
+*	@ctor MyContribution: Ajoute le code specifie par MyContribution au
+  constructeur de la structure. Toutes les contributions specifies avec cette
+  directive sont emises lineairement de haut en bas dans le constructeur
+  (MaStruct_Ctor(this + @args)). Notez que si une directive @args a ete
+  utilise, le code du contructeur pourra y acceder.
+*	@dtor MyContribution: Ajoute le code specifie par MyContribution au
+  destructeur de la structure. Toutes les contributions specifies avec cette
+  directive sont emises lineairement de haut en bas dans le destructeur
+  (MaStruct_Dtor(this)).
+*	@size MyContribution: Ajoute le code specifie par MyContribution a la
+  fonction en charge de donner la taille de la structure. Cette taille va etre
+  utilisee par des operations de type malloc. (MaStruct_Size(@args))
+*	@copy MyContribution: Contribution pour la fonction de copy de la structure
+  (MaStruct_Copy(this, const that)).
+*	@decl MyContribution: Contribution utilisee pour faire des forward
+  declarations. Cela est utile pour faire la declaration de fonctions utilisees
+  dans le constructeur par exemple.
+*	@access MyField MyCode: Definie le code pour un accesseur. Permet de creer
+  des champs virtuels ou de surcharger la generation des accesseurs par defaut
+  de xccgen. (genere #define MaStruct_MyField(this) MyCode).
+*	@mutate MyField MyCode: Definie le code pour un modificateur. Permet de creer
+  des champs virtuels ou de surcharger la generation des modificateurs par
+  defaut de xccgen. (genere #define MaStruct__MyField(this) MyCode).
+
+---	Exemple
+
+--	Fichier XCC
+
+Considerons le code xcc suivant dans le fichier foo.xcc:
+
+	//@XCC_.h
+	struct MaStruct_ {
+	    //@args Memory memory, CodeRegion codeRegion
+	    //@ctor	TemporaryTable globalTable = CodeRegion_globalTable(codeRegion);
+	    //@ctor	Procedure procedure = CodeRegion_procedure(codeRegion);
+	    //@ctor	Temporary_ *dedicated = Procedure_dedicated(procedure);
+	     Memory MEMORY;
+	    //@ctor	*MaStruct__MEMORY(this) = memory;
+	    CodeRegion CODEREGION;
+	    //@ctor	*MaStruct__CODEREGION(this) = codeRegion;
+	    //@access VIRTUALFIELD MaStruct_MEMORY(this)+12
+	    //@decl	void MaStruct_ctor_(MaStruct this, Temporary_ *dedicated
+	    //@decl                     bool doIt);
+	    //@ctor	MaStruct_ctor_(this, dedicated, true);
+	    //@size	sizeof(MaStruct_)
+	};
+
+--	Interpretation et generation
+
+Voyons pas a pas l'interpretation et la generation:
+
+	//@XCC_.h
+	struct MaStruct_ {
+
+Specifie que la definition de la structure ainsi que toutes ces contributions
+vont etre placees dans foo_.h.
+
+Rencontre de la definition d'une structure, emettra les types suivants apres sa
+definition:
+
+	typedef struct MaStruct_ MaStruct_, *MaStruct;
+	typedef const struct MaStruct_ *const_MaStruct;
+
+	  //@args Memory memory, CodeRegion codeRegion
+
+Specifie les arguments supplementatire pour le constructeur et la fonction size
+
+	    //@ctor	TemporaryTable globalTable = CodeRegion_globalTable(codeRegion);
+
+Premier contribution au constructeur.  Generation du prototype avec les
+arguments specifies par @args:
+
+	MaStruct
+	MaStruct_Ctor(MaStruct this, Memory memory, CodeRegion codeRegion) {
+	    // Ajout de la contribution
+	    TemporaryTable globalTable = CodeRegion_globalTable(codeRegion);
+
+---------
+
+	    //@ctor	Procedure procedure = CodeRegion_procedure(codeRegion);
+	    //@ctor	Temporary_ *dedicated = Procedure_dedicated(procedure);
+
+Nouvelles contributions au contructeur
+
+	    Procedure procedure = CodeRegion_procedure(codeRegion);
+	    Temporary_ *dedicated = Procedure_dedicated(procedure);
+
+---------
+
+	    Memory MEMORY;
+
+Rencontre d'un champ:
+
+Emission du champ dans la structure emettra les macros suivantes apres la
+definition de la structure
+
+	#define MaStruct_MEMORY(this) ((this)->MEMORY)
+	#define MaStruct__MEMORY(this) (&(this)->MEMORY)
+
+---------
+
+	    //@ctor	*MaStruct__MEMORY(this) = memory;
+
+Nouvelle contribution au constructeur:
+
+	    *MaStruct__MEMORY(this) = memory;
+
+---------
+
+	    CodeRegion CODEREGION;
+
+Rencontre d'un champ:
+*	emission du champ dans la structure
+*	emettra les macros suivantes apres la definition de la structure
+
+	#define MaStruct_CODEREGION(this) ((this)->CODEREGION)
+	#define MaStruct__CODEREGION(this) (&(this)->CODEREGION)
+
+---------
+
+	    //@ctor	*MaStruct__CODEREGION(this) = codeRegion;
+
+Nouvelle contribution au constructeur:
+
+	    *MaStruct__CODEREGION(this) = codeRegion;
+
+---------
+
+	    //@access VIRTUALFIELD MaStruct_MEMORY(this)+12
+
+Definition d'un accesseur sur un champ virtuel VIRTUALFIELD:
+
+#define MaStruct_VIRTUALFIELD(this) MaStruct_MEMORY(this)+12
+
+---------
+
+	    //@decl	void MaStruct_ctor_(MaStruct this, Temporary_ *dedicated
+	    //@decl                     bool doIt);
+
+Contribution aux declarations. Le debut d'une forward declaration d'une
+fonction. La contribution sera emis avant les fonctions constructeur,
+destructeur, copy, etc.
+
+	void MaStruct_ctor_(MaStruct this, Temporary_ *dedicated
+	                    bool doIt);
+
+---------
+
+	    //@ctor	MaStruct_ctor_(this, dedicated, true);
+
+Nouvelle contribution au constructeur:
+
+	MaStruct_ctor_(this, dedicated, true);
+
+---------
+
+	    //@size	sizeof(MaStruct_)
+
+Contribution pour la fonction se calcul de taille de la structure.
+Generation du prototype avec les arguments specifies par @args:
+
+	size_t
+	MaStruct_Size(Memory memory, CodeRegion codeRegion) {
+	    return
+	    // Ajout de la contribution
+	    sizeof(MaStruct_)
+	   ;
+
+---------
+
+	};
+
+Fin de la structure.
+
+Emission de la definition, suivi des macros, suivi des declarations, suivi des
+fonctions generees (constructeur, destructeur, ...).
+
+---------
+
+!!!	Resultat final
+
+Voici le resultat final dans le foo_.h, commentaire mis a part.
+
+	struct MaStruct_ {
+	    Memory MEMORY;
+	    CodeRegion CODEREGION;
+	};
+	typedef struct MaStruct_ MaStruct_, *MaStruct;
+	typedef const struct MaStruct_ *const_MaStruct;
+
+
+	#define MaStruct_MEMORY(this) ((this)->MEMORY)
+	#define MaStruct__MEMORY(this) (&(this)->MEMORY)
+
+	#define MaStruct_CODEREGION(this) ((this)->CODEREGION)
+	#define MaStruct__CODEREGION(this) (&(this)->CODEREGION)
+
+	#define MaStruct_VIRTUALFIELD(this) MaStruct_MEMORY(this)+12
+
+	void MaStruct_ctor_(MaStruct this, Temporary_ *dedicated
+	                    bool doIt);
+	MaStruct
+	MaStruct_Ctor(MaStruct this, Memory memory, CodeRegion codeRegion) {
+	    TemporaryTable globalTable = CodeRegion_globalTable(codeRegion);
+	    Procedure procedure = CodeRegion_procedure(codeRegion);
+	    Temporary_ *dedicated = Procedure_dedicated(procedure);
+	    *MaStruct__MEMORY(this) = memory;
+	    *MaStruct__CODEREGION(this) = codeRegion;
+	    MaStruct_ctor_(this, dedicated, true);
+	    return this;
+	}
+
+	size_t
+	MaStruct_Size(Memory memory, CodeRegion codeRegion) {
+	    return
+	    sizeof(MaStruct_)
+	   ;
+	}
+

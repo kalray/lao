@@ -1,0 +1,12 @@
+/*
+ * kv3/RegMask.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef RegMask
+#define RegMask(ID, REGISTERS, REGFILE, ENCODE, DECODE)
+#else /*RegMask*/
+#endif/*RegMask*/
+#undef RegMask
+

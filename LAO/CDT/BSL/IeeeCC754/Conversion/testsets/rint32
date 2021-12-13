@@ -1,0 +1,171 @@
+!!
+!! This file contains precision and range independent vectors to test
+!! the rounding of a floating-point number to a 32-bit hardware
+!! integer (ri). The first character in each test vector refers to
+!! the origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: rint32 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!! Round to signed integer format (32 bits)
+3ri   ALL             0               0               OK      0x00000000
+!3ri   ALL             -0             0               OK      0x00000000
+3ri   ALL             1               0               OK      0x00000001
+3ri   ALL             2               0               OK      0x00000002
+3ri   ALL             3               0               OK      0x00000003
+3ri   ALL             16              0               OK      0x00000010
+3ri   ALL             256             0               OK      0x00000100
+3ri   ALL             65537           0               OK      0x00010001
+3ri   ALL             65535           0               OK      0x0000ffff
+3ri   ALL             -1              0               OK      0xffffffff
+3ri   ALL             -1p31           0               OK      0x80000000
+!! Special representations
+3ri   ALL             Q               0               i       ?0x7fffffff
+3ri   ALL             -Q              0               i       ?0x80000000
+3ri   ALL             H               0               i       ?0x7fffffff
+3ri   ALL             -H              0               i       ?0x80000000
+!! integer overflow
+3ri   ALL             Hm1d1           0               i       ?0x7fffffff
+3ri   ALL             -Hm1d1          0               i       ?0x80000000
+3ri   ALL             1p32d1          0               i       ?0x7fffffff
+3ri   ALL             1p31            0               i       ?0x7fffffff
+Ari s  ALL             1p31d1          0               OK      0x7fffff80
+Ari d  ALL             1p31d(30)1      0               OK      0x7fffffff
+Ari l  ALL             1p31d(30)1      0               OK      0x7fffffff
+Ari q  ALL             1p31d(30)1      0               OK      0x7fffffff
+3ri   ALL             -1p31           0               OK      0x80000000
+Ari s  ALL             -1p31i1         0               i       ?0x80000000
+Ari d  ALL             -1p31i(30)1     0               i       ?0x80000000
+Ari l  ALL             -1p31i(30)1     0               i       ?0x80000000
+Ari q  ALL             -1p31i(30)1     0               i       ?0x80000000
+3ri   ALL             -1p32d1         0               i       ?0x80000000
+3ri   ALL             -1p32i1         0               i       ?0x80000000
+! integer underflow
+3ri   >               0i1             0               x       0x00000001
+3ri   =0<             0i1             0               x       0x00000000
+3ri   <               -0i1            0               x       0xffffffff
+3ri   =0>             -0i1            0               x       0x00000000
+Ari   >               T               0               x       0x00000001
+Ari   =0<             T               0               x       0x00000000
+Ari   <               -T              0               x       0xffffffff
+Ari   =0>             -T              0               x       0x00000000
+!! inexact cases
+!! round bit = 0, sticky bit = 1
+3ri   =0<             10i1            0               x       0x0000000a
+Ari   >               10i1            0               x       0x0000000b
+Ari   =0>             -10i1           0               x       0xfffffff6
+Ari   <               -10i1           0               x       0xfffffff5
+!! round bit = 1, sticky bit = 1
+3ri   =>              1d1             0               x       0x00000001
+Ari   0<              1d1             0               x       0x00000000
+Ari   =<              -1d1            0               x       0xffffffff
+Ari   0>              -1d1            0               x       0x00000000
+Ari   =>              2d1             0               x       0x00000002
+Ari   0<              2d1             0               x       0x00000001
+Ari   =<             -2d1             0               x       0xfffffffe
+Ari   0>             -2d1             0               x       0xffffffff
+!! Halfway cases, round bit = 1
+!! odd
+Ari   =>              3m1            0                x       0x00000002
+Ari   0<              3m1            0                x       0x00000001
+Ari   =<              -3m1           0                x       0xfffffffe
+Ari   0>              -3m1           0                x       0xffffffff
+!! even
+Ari   >               5m1            0                x       0x00000003
+Ari   =0<             5m1            0                x       0x00000002
+Ari   <               -5m1           0                x       0xfffffffd
+Ari   =0>             -5m1           0                x       0xfffffffe
+!! Just above halfway
+Ari   =>              3m1i1          0                x       0x00000002
+Ari   0<              3m1i1          0                x       0x00000001
+Ari   =<              -3m1i1         0                x       0xfffffffe
+Ari   0>              -3m1i1         0                x       0xffffffff
+!! Just under halfway
+Ari   >               3m1d1          0                x       0x00000002
+Ari   =0<             3m1d1          0                x       0x00000001
+Ari   <               -3m1d1         0                x       0xfffffffe
+Ari   =0>             -3m1d1         0                x       0xffffffff
+! exact cases for single
+3ri s  ALL             1p24i1          0               OK      0x01000002
+3ri s  ALL             1p24d1          0               OK      0x00ffffff
+3ri s  ALL             1p23i1          0               OK      0x00800001
+3ri s  ALL             -1p23i1         0               OK      0xff7fffff
+! inexact cases for single
+Ari s  >               1p22i1          0               x       0x00400001
+Ari s  =0<             1p22i1          0               x       0x00400000
+! exact cases for double, Intel extended, quad 
+Ari d  ALL             1p30i(30)1      0               OK      0x40000001
+Ari l  ALL             1p30i(30)1      0               OK      0x40000001
+Ari q  ALL             1p30i(30)1      0               OK      0x40000001
+! inexact cases for double
+Ari d  >               1p24i1          0               x       0x01000001
+Ari d  =0<             1p24i1          0               x       0x01000000
+Ari d  =>              1p24d1          0               x       0x01000000
+Ari d  0<              1p24d1          0               x       0x00ffffff
+Ari d  >               1p23i1          0               x       0x00800001
+Ari d  =0<             1p23i1          0               x       0x00800000
+Ari d  <               -1p23i1         0               x       0xff7fffff
+Ari d  =0>             -1p23i1         0               x       0xff800000
+! inexact cases for Intel extended
+Ari l  >               1p24i1          0               x       0x01000001
+Ari l  =0<             1p24i1          0               x       0x01000000
+Ari l  =>              1p24d1          0               x       0x01000000
+Ari l  0<              1p24d1          0               x       0x00ffffff
+Ari l  >               1p23i1          0               x       0x00800001
+Ari l  =0<             1p23i1          0               x       0x00800000
+Ari l  <               -1p23i1         0               x       0xff7fffff
+Ari l  =0>             -1p23i1         0               x       0xff800000
+! inexact cases for quad
+Ari q  >               1p24i1          0               x       0x01000001
+Ari q  =0<             1p24i1          0               x       0x01000000
+Ari q  =>              1p24d1          0               x       0x01000000
+Ari q  0<              1p24d1          0               x       0x00ffffff
+Ari q  >               1p23i1          0               x       0x00800001
+Ari q  =0<             1p23i1          0               x       0x00800000
+Ari q  <               -1p23i1         0               x       0xff7fffff
+Ari q  =0>             -1p23i1         0               x       0xff800000
+

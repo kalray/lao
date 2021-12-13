@@ -1,0 +1,212 @@
+!!!!	User Guide for the CDT
+
+--	Beno&icirc;t Dupont de Dinechin
+
+!!!	Synopsis
+
+!!	Extract, Configure, Build, Install
+
+The CDT is configured like a GNU package. It has a =autoconf=-generated
+=configure= script and a =automake=-generated
+=Makefile.in=.
+
+The normal use of CDT is to install its build products for use by client
+applications:
+
+	cd /tmp
+	svn co https://svn.cdt.codex.cro.st.com/svnroot/cdt/trunk/CDT
+	mkdir build && cd build
+	../CDT/configure --prefix=/my/local/install
+	make all check install
+
+By default, GCC compilation with =-fshort-enums -Wall -O2=.
+
+
+!!	Using from a Client Package
+
+In the client package's =configure.ac=:
+
+	CDT_PREFIX=${with_cdt-$prefix}
+	CPPFLAGS="-I$CDT_PREFIX/include $CPPFLAGS"
+	LDFLAGS="-L$CDT_PREFIX/lib $LDFLAGS"
+	AC_CHECK_HEADER(CCL.h,,[AC_MSG_ERROR([CCL.h not found! Use --with-cdt argument.])])
+	AC_CHECK_LIB(CCL,CCL_INIT,,[AC_MSG_ERROR([libCCL not found! Use --with-cdt argument.])])
+
+In the client package's main driver:
+
+	int main(int argc, char *argv[]) {
+	  int status = 0;
+	  CCL_INIT();
+	  // ...
+	  CCL_FINI();
+	  return status;
+	}
+
+
+!!	More on CDT Libraries Usage
+
+For each CDT library =LIB= (either CCL or CAL):
+
+   *	A single =#include "LIB.h"= is required. Do not include any of the
+=.h= files of the =/my/local/install/LIB= directories.
+
+   *	Call =LIB_INIT()= and =LIB_FINI()= once (multiple calls do not
+harm as long as they are balanced).
+
+   *	At the linking step, add =-lCAL -lCCL= to the link command if you use
+CAL else only add =-lCCL=.
+
+   *	Configure the CDT with =--disable-memory= if you want to
+debug memory problems using =valgrind=. This will bypass the CDT/CCL custom
+memory allocation.
+
+
+!!!	Coding Style of CDT Libraries
+
+!!	Structure and Members Names
+
+The structures are typically defined like:
+
+
+	typedef struct MyStruct_ {
+	  int16_t FOO;
+	  int16_t BAR;
+	} MyStruct_, *MyStruct;
+
+   *	The structure name is in =MixedCase= with trailing '+_+' for
+the structure itself and the same =MixedCase= name is typedef(ed) as the
+structure pointer type.
+This naming style is consistent with Java and C\# reference names and is also
+used in Fraser & Hanson LCC compiler.
+
+   *	The name of the structure members is in =UPPERCASE=.
+Like in Perl, this highlights direct member access in source code, as opposed to
+calling an accessor or a mutator method.
+
+In order to support a function-like syntax for structure member access, macros
+are often defined and used like this:
+
+	#define MyStruct_FOO(this)	(0, (this)->FOO)
+	#define MyStruct__FOO(this)	(&(this)->FOO)
+	#define MyStruct_BAR(this)	(0, (this)->BAR)
+	#define MyStruct__BAR(this)	(&(this)->BAR)
+	...
+	MyStruct_ *array = calloc(sizeof(MyStruct_), 2);
+	MyStruct myStruct1 = &array[0], myStruct2 = &array[1];
+	*MyStruct__FOO(myStruct1) = MyStruct_FOO(myStruct2);
+	++*MyStruct__BAR(myStruct2);
+
+Using function-like syntax for structure member access makes the source code
+easier to change, whether doing global searches and replace or moving around
+structure members.
+
+
+!!	Variable and Function Names
+
+For pointers to structure variables these, use =mixedCase= names with
+first letter in lower case and a name that corresponds to the structure. Keep
+the trailing '+_+' for the structure variables and prepend a leading
+'+_+' to the pointer to structure pointer variables:
+
+	MyStruct_ myStruct_;
+	MyStruct myStruct = &myStruct_;
+	MyStruct *_myStruct = &myStruct;
+
+Method-like functions use the structure name as a prefix, followed by an action
+name in mixedCase with first letter in lower case:
+
+	void MyStruct_swapFooBar(MyStruct this) {
+	  int16_t temp = MyStruct_FOO(this);
+	  *MyStruct__FOO(this) = MyStruct_BAR(this);
+	  *MyStruct__BAR(this) = temp;
+	}
+
+
+!!	Iteration Macros for Containers
+
+There is a iteration macro defined for (almost) each CDT container:
+
+	typedef struct Point_ { int X, Y; } Point_, *Point;
+	IDList_Ctor(idlist, NULL);
+	...
+	Point pair = IDList_push(idlist, sizeof(Point_));
+	...
+	IDList_FOREACH(idlist, Point_, pair) {
+  	printf("(%d,%d)\t", pair->X, pair->Y);
+	} IDList_ENDEACH;
+
+Such macros can then be used to define typed iteration macros:
+
+	#define BasicBlock_FOREACH_Operation(this, operation) \
+	  IDList_FOREACH(BasicBlock_idlist(this), Operation_, operation)
+	#define BasicBlock_ENDEACH_Operation \
+	  IDList_ENDEACH;
+
+
+!!!	Memory Allocation in CDT Libraries
+
+!!	Custom Memory Allocation
+
+A popular memory allocation policy is to buffer the calls to the system
+=malloc()= and =free()= with a memory pooling system:
+
+    *	Fast allocation by carving big =malloc()=ed memory blocks.
+
+    *	Replace deallocation of individual objects by a whole memory bloc
+=free()=.
+
+    *	Enable a stack-like allocation schemes unconstrained by function
+boundaries (BSD coding rule: don't ever use =alloca()=).
+
+    *	Create one or more memory pools per data lifetime.
+
+    *	Tracking of memory errors is more difficult.
+
+
+!!	CDT/BSL Memory Allocator
+
+Selected =Memory= methods:
+
+	struct Memory_;
+	typedef struct Memory_ Memory_, *Memory;
+	Memory Memory_new(Memory parent, size_t pooled size);
+	void *Memory_alloc(Memory this, size_t size);
+	void Memory_free(Memory this, void *address);
+	Memory Memory_delete(Memory this);
+
+
+!!	Modular Programming
+
+The source code for a library sould be in its own subdirectory, and
+should be decomposed into modules. A module is the minimal unit of
+testing and is composed of several source files:
+
+  *	The =Module.h= file contains the structure definitions and function
+        declarations for use outside the library.
+
+  *	The =Module_.h= file contains the structure definitions and function
+        declarations for use inside the library.
+
+  *	The =Module.c= file contains the definitions for both private and public
+        functions.
+
+  *	The =Module_.c= file contains the self-test code for the module.
+
+It is good practice to have each module define its namespace: all
+symbols names should be prefixed by =Module=.
+
+
+!!	Subtyping Containers
+
+
+!!	Embedding Containers
+
+
+!!	Memory Management
+
+
+!!	Exception Handling
+
+
+!!	Serialization to XML
+

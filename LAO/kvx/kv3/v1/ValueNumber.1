@@ -1,0 +1,31 @@
+
+Figure 5 in Briggs's paper
+
+Code after performing Value Numbering:
+
+------- Region 0 (value-numbering) -----
+   1:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	2:Block_2( 0%)	3:Block_3( 0%)	
+	.LAO_0_1:
+
+   2:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	4:Block_4( 0%)	
+	.LAO_0_2:
+
+   3:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	1:Block_1(-1)	
+	successors:	4:Block_4( 0%)	
+	.LAO_0_3:
+
+   4:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	2:Block_2(-1)	3:Block_3(-1)	
+	successors:	0:Block_0( 0%)	
+	.LAO_0_4:
+
+------- contributed=0 -----

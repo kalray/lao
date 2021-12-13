@@ -1,0 +1,45 @@
+# Mafefile for MDS maintainers.
+#
+# Usage:
+#   make -f Maintainer
+
+PERL:=		perl -I LIB
+BISON:=		bison
+
+vpath %.y	DOC
+vpath %.pa	LIB
+vpath %.dtd	DOC
+
+%.pm: %.dtd
+	$(PERL) BIN/dtd2pm.pl $< > $@
+
+%.pm: %.pa %.output
+	$(PERL) BIN/yaxcc.pl -a $^ > $@
+
+%.rules: %.output
+	$(PERL) BIN/yaxcc.pl -s $^ > $@
+
+%.output: %.y
+	$(BISON) -v $<
+	rm -f $*.tab.c
+
+.PHONY: all all-LIB check
+
+all: all-LIB configure Makefile.in
+
+all-LIB: Declare.pm
+	mv $^ LIB/
+
+configure: configure.ac aclocal.m4 acinclude.m4 Makefile.am
+	autoconf
+	automake
+	rm -rf autom4te.cache/
+
+check: Declare.chk
+
+%.chk: %.rules
+	fgrep '#rule' $^ | sort > $*.rules1
+	fgrep '#rule' LIB/$*.pa | sort > $*.rules2
+	-diff $*.rules1 $*.rules2
+	rm -f $*.rules1 $*.rules2
+

@@ -1,0 +1,38 @@
+/**
+ * @file
+ * @defgroup TSL Target Specific Libraries
+ *
+ * @brief Low-level code for ISS and JIT compiler (not included).
+ *
+ */
+
+#ifndef _INCLUDED_TSL
+#define _INCLUDED_TSL
+
+#cmakedefine _DEBUG
+#cmakedefine _NDTOR
+#cmakedefine _NTRACE
+
+/*
+ * Set _OPTIMIZE according to __OPTIMIZE__ (defined by gcc and icc) and NDEBUG.
+ */
+#ifdef __OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 3
+#  else//!NDEBUG
+#    define _OPTIMIZE 2
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#else//!__OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 1
+#  else//!NDEBUG
+#    define _OPTIMIZE 0
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#endif//__OPTIMIZE__
+
+#endif//_INCLUDED_TSL
+

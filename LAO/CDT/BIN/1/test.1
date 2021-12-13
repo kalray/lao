@@ -1,0 +1,26 @@
+STRUCT(Test_)
+(c)signed char	signed char:	c
+(h)unsigned short int	unsigned short int:	h
+(ll)long long int	long long int:	ll
+(ull)unsigned long long int	unsigned long long int:	ull
+(Action)()	void:	FUNCTION(Action)
+(Datum)()	void:	FUNCTION(Datum)
+(cmp)->	unsigned int:	POINTER{}(FUNCTION(POINTER{}(cmp)))
+(cmp)->	unsigned int:	FUNCTION(POINTER{}(POINTER{}(cmp)))
+(cmp)()	unsigned int:	POINTER{}(POINTER{}(FUNCTION(cmp)))
+(cmp)->	unsigned int:	POINTER{}(POINTER{}(cmp))
+(vararg)->	int:	FUNCTION(POINTER{}(vararg))
+(Table)()	void:	FUNCTION(Table)
+(Table_Entry_CMP)()	ptrdiff_t:	FUNCTION(Table_Entry_CMP)
+(Table_Entry_CMP)()	ptrdiff_t:	FUNCTION(Table_Entry_CMP)
+(succ)->	struct List_Item_:	POINTER{}(succ)
+(succ)->	const struct List_Item_:	POINTER{const}(succ)
+(String_Entry_bytes)()	const Bytes:	FUNCTION(String_Entry_bytes)
+(abc)[]	char:	ARRAY[30](ARRAY[20](ARRAY[10](abc)))
+(tabp)->	char:	ARRAY[20](POINTER{}(tabp))
+(tabp)[]	char:	POINTER{}(ARRAY[SIZE](tabp))
+(t)[]	char:	ARRAY[10](POINTER{}(ARRAY[20](t)))
+(a)int	int:	a
+(b)int	int:	b
+(c)->	int:	POINTER{}(c)
+ACCEPT

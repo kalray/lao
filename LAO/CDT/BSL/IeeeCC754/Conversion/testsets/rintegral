@@ -1,0 +1,210 @@
+!!
+!! This file contains precision and range independent vectors to test
+!! the conversion of a floating-point number to its integral value (i).
+!! The first character in each test vector refers to the origin of the
+!! test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: rintegral 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!! Round to integral value
+!! special representations
+2i   ALL             0                       0               OK      0
+2i   ALL             -0                      0               OK      -0
+2i   ALL             Q                       0               OK      Q
+Ai   ALL             -Q                      0               OK      -Q
+! 2i   ALL             S                       0               i       Q
+2i   ALL             H                       0               OK      H
+2i   ALL             -H                      0               OK      -H
+!! exact values
+2i   ALL             1                       0               OK      1
+2i   ALL             9p9                     0               OK      9p9
+Ai   ALL             2                       0               OK      2
+Ai   ALL             3                       0               OK      3
+Ai   ALL             16                      0               OK      16
+Ai   ALL             17                      0               OK      17
+Ai   ALL             256                     0               OK      256
+Ai   ALL             65537           	     0               OK      65537
+Ai   ALL             65535                   0               OK      65535
+2i   ALL             -1                      0               OK      -1
+2i   ALL             -9p9                    0               OK      -9p9
+Ai   ALL             -1p31           	     0               OK      -1p31
+Ai   ALL             -1p63           	     0               OK      -1p63
+2i   ALL             Hd1          	     0               OK      Hd1
+2i   ALL             -Hd1          	     0               OK      -Hd1
+Ai   ALL             Hd2          	     0               OK      Hd2
+Ai   ALL             Hm1          	     0               OK      Hm1
+Ai   ALL             Hm2i1         	     0               OK      Hm2i1
+Ai   ALL             Hm3d1         	     0               OK      Hm3d1
+2i   ALL             Hm9          	     0               OK      Hm9
+2i   ALL             Hm9d1          	     0               OK      Hm9d1
+2i   ALL             Hm9d9          	     0               OK      Hm9d9
+2i   ALL             Hm9d9d9          	     0               OK      Hm9d9d9
+2i   ALL             -Hm9          	     0               OK      -Hm9
+2i   ALL             -Hm9d1          	     0               OK      -Hm9d1
+2i   ALL             -Hm9d9          	     0               OK      -Hm9d9
+2i   ALL             -Hm9d9d9          	     0               OK      -Hm9d9d9
+! Inexact cases
+! sticky
+2i   =0<             1i1          	     0               x      1
+2i   >               1i1          	     0               x      2
+2i   =0>             -1i1          	     0               x      -1
+2i   <               -1i1          	     0               x      -2
+2i   =0<             8i1          	     0               x      8
+2i   >               8i1          	     0               x      9
+2i   =0>             -8i1          	     0               x      -8
+2i   <               -8i1          	     0               x      -9
+2i   =0<             1p9i8          	     0               x      1p9
+2i   =0>             -1p9i8          	     0               x      -1p9
+2i   =0<             1p9p9i1          	     0               x      1p9p9
+2i   =0>             -1p9p9i1          	     0               x      -1p9p9
+! round and sticky
+2i   =>             1d1          	     0               x      1
+2i   0<             1d1          	     0               x      0
+2i   =<             -1d1          	     0               x      -1
+2i   0>             -1d1          	     0               x      -0
+2i   =>             8d1          	     0               x      8
+2i   0<             8d1          	     0               x      7
+2i   =<             -8d1          	     0               x      -8
+2i   0>             -8d1          	     0               x      -7
+2i   =>             1p9d8          	     0               x      1p9
+2i   =<             -1p9d8          	     0               x      -1p9
+2i   =>             1p9p9d1          	     0               x      1p9p9
+2i   =<             -1p9p9d1          	     0               x      -1p9p9
+!! denormal operands
+2i   =0<             0i1                     0               x      0
+2i   > 	             0i1                     0               x      1
+2i   =0>             -0i1                    0               x      -0
+2i   < 	             -0i1                    0               x      -1
+2i   =0<             Td1                     0               x      0
+2i   >               Td1                     0               x      1
+2i   =0>             -Td1                    0               x      -0
+2i   <               -Td1                    0               x      -1
+2i   =0<             T                       0               x      0
+2i   >               T                       0               x      1
+2i   =0>             -T                      0               x      -0
+2i   <               -T                      0               x      -1
+!! normal operands
+Ai   =0<             1m2                     0               x      0
+Ai   >               1m2                     0               x      1
+Ai   =0>             -1m2                    0               x      -0
+Ai   <               -1m2                    0               x      -1
+!! halfway cases
+!! odd
+2i   =>              3m1                     0               x      2
+2i   0<               3m1                    0               x      1
+2i   =<              -3m1                    0               x      -2
+2i   0>              -3m1                    0               x      -1
+Ai   =>              65535i(16)1             0               x      65536
+Ai   0<              65535i(16)1             0               x      65535
+Ai   =<              -65535i(16)1            0               x      -65536
+Ai   0>              -65535i(16)1            0               x      -65535
+!! even
+2i   =0<             1m1                     0               x      0
+2i   >               1m1                     0               x      1
+2i   =0>             -1m1                    0               x      -0
+2i   <               -1m1                    0               x      -1
+Ai   =0<             2i(2)1                  0               x      2
+Ai   >               2i(2)1                  0               x      3
+Ai   =0>             -2i(2)1                 0               x      -2
+Ai   <               -2i(2)1                 0               x      -3
+2i   =0<             9m1                     0               x      4
+2i   >               9m1                     0               x      5
+2i   =0>             -9m1                    0               x      -4
+2i   <               -9m1                    0               x      -5
+Ai   =0<             65536i(17)1             0               x      65536
+Ai   >               65536i(17)1             0               x      65537
+Ai   =0>             -65536i(17)1            0               x      -65536
+Ai   <               -65536i(17)1            0               x      -65537
+!! Just below halfway
+Ai   =0<             1m1d1                   0               x      0
+Ai   >               1m1d1                   0               x      1
+Ai   =0>             -1m1d1                  0               x      -0
+Ai   <               -1m1d1                  0               x      -1
+2i   =0<             3m1d1                   0               x      1
+Ai   >               3m1d1                   0               x      2
+2i   =0>             -3m1d1                  0               x      -1
+Ai   <               -3m1d1                  0               x      -2
+Ai   =0<             2i(2)1d1                0               x      2
+Ai   >               2i(2)1d1                0               x      3
+Ai   =0>             -2i(2)1d1               0               x      -2
+Ai   <               -2i(2)1d1               0               x      -3
+Ai   =0<             65535i(16)1d1           0               x      65535
+Ai   >               65535i(16)1d1           0               x      65536
+Ai   =0>             -65535i(16)1d1          0               x      -65535
+Ai   <               -65535i(16)1d1          0               x      -65536
+Ai   =0<             65536i(17)1d1           0               x      65536
+Ai   >               65536i(17)1d1           0               x      65537
+Ai   =0>             -65536i(17)1d1          0               x      -65536
+Ai   <               -65536i(17)1d1          0               x      -65537
+!! Just above halfway
+2i   =>              1m1i1                   0               x      1
+Ai   0<              1m1i1                   0               x      0
+2i   =<              -1m1i1                  0               x      -1
+Ai   0               -1m1i1                  0               x      -0
+Ai   =>              3m1i1                   0               x      2
+Ai   0<              3m1i1                   0               x      1
+Ai   =<              -3m1i1                  0               x      -2
+Ai   0>              -3m1i1                  0               x      -1
+Ai   =>              2i(2)1i1                0               x      3
+Ai   0<              2i(2)1i1                0               x      2
+Ai   =<              -2i(2)1i1               0               x      -3
+Ai   0>              -2i(2)1i1               0               x      -2
+2i   =>              9m1i1                   0               x      5
+Ai   0<              9m1i1                   0               x      4
+2i   =<              -9m1i1                  0               x      -5
+Ai   0               -9m1i1                  0               x      -4
+Ai   =>              65535i(16)1i1           0               x      65536
+Ai   0<              65535i(16)1i1           0               x      65535
+Ai   =<              -65535i(16)1i1          0               x      -65536
+Ai   0>              -65535i(16)1i1          0               x      -65535
+Ai   =>              65536i(17)1i1           0               x      65537
+Ai   0<              65536i(17)1i1           0               x      65536
+Ai   =<              -65536i(17)1i1          0               x      -65537
+Ai   0>              -65536i(17)1i1          0               x      -65536
+

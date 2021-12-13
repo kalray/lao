@@ -1,0 +1,2 @@
+# rm -rf k1b_d_build && mkdir -p k1b_d_build && cd k1b_d_build && . ../CMAKE_K1B_D && make all install
+cmake ../LAO  -DTARGET=kv3 -DFAMILY=kvx -DLAO_STATIC=1 -DYAML_ENABLED=OFF -DGLPK_ENABLED=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PWD/../../devimage/toolchain_default/k1tools

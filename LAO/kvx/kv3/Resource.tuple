@@ -1,0 +1,40 @@
+/*
+ * kv3/Resource.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Resource
+#define Resource(ID, AVAILABILITY)
+#else /*Resource*/
+Resource(kv3_ISSUE,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),8) AVAILABLE(PROCESSOR(v2_cpu),8)))
+Resource(kv3_TINY,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),4) AVAILABLE(PROCESSOR(v2_cpu),4)))
+Resource(kv3_LITE,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),2) AVAILABLE(PROCESSOR(v2_cpu),2)))
+Resource(kv3_FULL,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_LSU,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_MAU,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_BCU,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_TCA,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_AUXR,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_AUXW,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_CRRP,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_CRWL,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_CRWH,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),1) AVAILABLE(PROCESSOR(v2_cpu),1)))
+Resource(kv3_NOP,
+         AVAILABILITY(AVAILABLE(PROCESSOR(v1_cpu),4) AVAILABLE(PROCESSOR(v2_cpu),4)))
+#endif/*Resource*/
+#undef Resource
+

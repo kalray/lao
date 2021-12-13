@@ -1,0 +1,9 @@
+This directory contains files used for XML validation:
+
+  * xml.dcl	From the OpenSP-1.5 distribution.
+  * xhtml-lat1.ent	From http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent
+  * xhtml-symbol.ent	From http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent
+  * xhtml-special.ent	From http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent
+
+-- Benoit Dupont de Dinechin
+

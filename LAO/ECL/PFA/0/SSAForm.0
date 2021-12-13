@@ -1,0 +1,18 @@
+SSA: true
+functions:
+  - label: lost-copy
+    test: "SSA Form lost-copy"
+    bbs:
+      - label: L1
+        succs: [L2]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1] }
+          - {op: _APPLY, defs: [V101], uses: [2] }
+      - label: L2
+        succs: [L2, L3]
+        preds: [L1, L2]
+        ops:
+          - {op: _PHI, defs: [V102], uses: [V101, V103] }
+          - {op: _PHI, defs: [V103], uses: [V100, V102] }
+      - label: L3
+        preds: [L2]

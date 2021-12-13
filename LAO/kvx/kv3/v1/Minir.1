@@ -1,0 +1,223 @@
+------- Region 0 (Minir_1) -----
+------- contributed=0 -----
+Procedure Minir_1
+   1:Block_6
+	Entry+Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		  0:ADJUST  	 $r12 = $r12, 0
+		  1:ADD  	 _1159 = $r0, 0
+		  2:ADD  	 _1161 = $r1, 0
+		  3:APPLY  	 _1163 = 0
+		  4:RETURN  	
+
+------- Region 0 (Minir_blocks) -----
+------- contributed=0 -----
+Procedure Minir_blocks
+   3:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		  5:APPLY  	 _1165 = 10
+
+   5:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+	.L2:
+		  6:IFTRUE  	 _1165, .L4
+
+   6:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		  7:JUMP  	 .L5
+
+   7:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+	.L4:
+		  8:ADD  	 _1165 = _1165, -1
+		  9:JUMP  	 .L2
+
+   4:Block_5
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+	.L5:
+		 10:RETURN  	
+
+------- Region 0 (control-flow) -----
+------- contributed=0 -----
+Procedure control-flow
+   9:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	11:Block_2( 0%)	10:Block_3( 0%)	
+
+  11:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	9:Block_1(-1)	
+	successors:	10:Block_3( 0%)	
+
+  10:Block_3
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	11:Block_2(-1)	9:Block_1(-1)	
+	successors:	
+
+------- Region 0 (blocks-random-order) -----
+------- contributed=0 -----
+Procedure blocks-random-order
+  14:Block_5
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	15:Block_2(-1)	
+	successors:	
+
+  15:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	13:Block_1(-1)	15:Block_2(-1)	
+	successors:	15:Block_2( 0%)	14:Block_5( 0%)	
+
+  16:Block_4
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	13:Block_1(-1)	
+	successors:	
+
+  13:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	15:Block_2( 0%)	16:Block_4( 0%)	
+
+------- Region 0 (SSA-diamond) -----
+------- contributed=0 -----
+Procedure SSA-diamond
+  18:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	20:Block_2( 0%)	21:Block_3( 0%)	
+		 11:APPLY  	 _3487 = 1
+		 12:IFTRUE  	 _3487, .L3
+
+  20:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_1(-1)	
+	successors:	19:Block_4( 0%)	
+		 13:APPLY  	 _3490 = 18
+		 14:GOTO  	 .L4
+
+  21:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	18:Block_1(-1)	
+	successors:	19:Block_4( 0%)	
+	.L3:
+		 15:APPLY  	 _3493 = 42
+
+  19:Block_4
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	21:Block_3(-1)	20:Block_2(-1)	
+	successors:	
+	.L4:
+		 16:PHI  	 _3495 = _3490, _3493
+		 17:ADD  	 _3496 = _3495, 3
+		 18:RETURN  	
+
+------- Region 0 (SSA-pcopy) -----
+------- contributed=0 -----
+Procedure SSA-pcopy
+  23:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		 19:PCOPY  	 _4656, _4657 = _4657, _4656
+
+------- Region 0 (symbols) -----
+------- contributed=0 -----
+Procedure symbols
+  25:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		 20:ADD  	 _5816 = _5817, temp+12
+		 21:APPLY  	 _5819 = 242949672, 1234
+		 22:APPLY  	 _5822 = 5
+		 23:CALL  	 callee	{R0-R11 R15-R17 R32-R63}
+
+  26:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		 24:RETURN  	
+
+------- Region 0 (callee) -----
+------- contributed=0 -----
+Procedure callee
+  28:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	
+		 25:APPLY  	 _5825 = 15
+		 26:RETURN  	
+
+Data Section:
+  - str
+    49 bytes
+    4 alignment
+    .data section
+    init:
+	.ascii	"Ala ma kota a kot ma ale i bawili sie wspaniale\n\0"
+
+  - tmp
+    140 bytes
+    4 alignment
+    .data section
+    init:
+	.ascii	"Ala ma kota a kot ma ale i bawili sie wspaniale\n\0\0\0\0\0Hidden Text!\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+	.word	0xfffffffe
+	.word	0xfffffffe
+	.hword	0xffff
+	.space	2
+	.word	0x3f8ccccd
+	.quad	0x000000000001e240
+	.word	tmp
+	.space	4
+	.quad	0x3ff199999999999a
+
+  - main.j
+    4 bytes
+    2 alignment
+    .bss section
+    init:
+	.word	0x00000000
+
+Data Section end.
+------- Region 0 (two-edges) -----
+------- contributed=0 -----
+Procedure two-edges
+  30:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	
+	successors:	31:Block_2( 0%)	
+		 27:APPLY  	 _8144 = 1
+		 28:APPLY  	 _8146 = 2
+		 29:IFTRUE  	 2, .L2
+
+  31:Block_2
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	30:Block_1(-1)	
+	successors:	
+	.L2:
+		 30:PHI  	 _8150 = _8144, _8146
+		 31:ADD  	 _8151 = _8150, 2
+		 32:RETURN  	
+

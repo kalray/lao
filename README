@@ -1,0 +1,83 @@
+***********************************
+* LAO (Linear Assembly Optimizer) *
+***********************************
+
+Requirements & Installation: see the INSTALL file.
+
+The LAO contains the following sub-packages: RE2C, CDT, TSL ECL, PRO.
+
+RE2C is a snapshot of the corresponding open-source projects, it is included in
+order to have a compatible build and cross-build system with the rest of the
+LAO and the Open64.
+
+The lao/LAO/CDT (Compiler Development Tools) package provides the basic utilities:
+
+  [lao/LAO/CDT/BSL] (Basic Services Library)
+  Memory allocator, some XML stuff, emulation of 128-bit integers, emulation of
+32-bit and 64-bit IEEE floating-point for integer processors.
+
+  [lao/LAO/CDT/CCL] (Container CLasses ???)
+  Zoo of containers, plus the base class Indexed with an immutable IDENTITY field
+and a user-defined INDEX field
+
+  [lao/LAO/CDT/CAL] (Combinatorial Algorithm Library)
+  Most interesting are the Network module, that implements primal and dual network simplex for
+solving network flow algorithms, and the LProgram module, a linear programming wrapper that
+abstracts the differences between CPLEX and GLPK.
+
+The lao/LAO/TSL (Target Specific Libraries) package contains the machine description and low-level
+code for ISS and JIT compiler (not included).
+
+  [lao/LAO/TSL/MDT] Make available the results of the MDS as static tables and wrapper functions.
+
+  [lao/LAO/TSL/AIR] Low-level representation for use by the ISS and JIT compiler, includes in
+particular the Scoreboard basic block scheduler and the InterBlock postpass scheduler.
+
+The lao/LAO/ECL (Embedded Compiler Libraries) package contains the LAO intermediate representation,
+control-flow and data-flow analyzes, and a few optimizations. Most notably the SSA-based register
+allocation from Fabrice Rastello team at INRIA is missing:
+
+  [lao/LAO/ECL/LIR] LAO intermediate representation, includes (SSA) Variable as first-class citizen.
+
+  [lao/LAO/ECL/PFA] control-flow analyzes, includes in particular the LoopForest of Ramalingam for
+recovering the loop nesting structure, and also SSA coalescing and out-of-SSA techniques including
+Sreedhar III (SAS'99), Boissinot (CGO'09 best paper), Decoalescer (generalization of Budimlic
+PLDI'02). Fast liveness check and set computation on the SSA form (CGO'08 best paper) are also
+included.
+
+  [lao/LAO/ECL/CGO] code generator optimizations, missing the SSA register allocation of INRIA.
+
+The lao/LAO/PRO package contains legacy superblock scheduling and software pipelining code that is
+used in the ST and Kalray production compilers, which are based on the Open64.
+
+  [lao/LAO/PRO/XFA] support for instruction scheduling, in particular dependence graphs and
+superblock regions.
+
+  [lao/LAO/PRO/SCD] The Relaxation module implements scheduling relaxation of Leung Palem Pnueli
+TOPLAS 2002. The Scheduler module is the instruction scheduler base class. The Insertion module
+implements register lifetime-sensitive software pipelining. The Formulation module implements
+optimal integer programming formulation for modulo scheduling. The Construction module implements
+software pipeline construction after modulo scheduling. The Iterative module is internship code.
+
+  [lao/LAO/PRO/O64] Interface between the LAO and the Open64 CGIR.
+
+A typical build of the LAO for the kvx family is as follows:
+
+  mkdir -p lao/debug-kvx && cd lao/debug-kvx
+  FAMILY=kvx make -C../LAO debug
+
+The self checks display a dump of the MDS tables, for instance:
+
+  make -C ECL check # from lao/debug-kvx directory
+
+Then find the *.1 files in the ECL/MDT directory.
+
+More extensive tests are available as:
+
+  make traces # from lao/debug-kvx directory
+
+This will build a bunch of LAO traces, based on the LAO_INPUT/kvx files which are snapshots of the
+function calls between the Open64 CG and the LAO.
+
+-- Benoit Dinechin
+

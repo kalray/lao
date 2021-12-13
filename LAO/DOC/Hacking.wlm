@@ -1,0 +1,274 @@
+!!!!	ECL Hacking Guide
+
+Author:	Nikola Puzovic
+
+!!!	ECL Overview
+
+!!	ECL/MDS Machine Description System
+
+!!	ECL/AIR Assembler Intermediate Representation
+
+!!	ECL/LIR Layered Intermediate Representation
+
+!!	ECL/PFA Program Flow Analyses
+
+PFA is responsible for preforming Program Flow Analysis and transformations. Its main
+components include transformations such as SSA and analysis such as Liveness, Dominance
+etc. The list of modules that exist within PFA is given below with usage examples.
+
+!	Dominance
+
+<Dominance Dominance.html> is the module that is responsible for creating dominator tree
+(both forward and backward dominance) and dominance frontiers. 
+
+	// Example of Dominance creation
+Dominance dominance = Dominance_new(memory, codeRegion,
+                                    DominanceFlag_Forward+DominanceFlag_Frontiers);
+
+As it can be seen, third parameter of the constructor controls the way dominance is
+constructed. DominanceFlag_Forward tells the Dominance object to compute forward dominance
+(on the contrary, DominanceFlag_Backward would cause the construction of backward
+dominance, and these two flags can't be passed together). DominanceFlag_Frontiers tells
+the module to construct the frontiers (default action is not to construct them).
+
+	// Example of Dominance usage
+CodeRegion_FOREACH_BasicBlock(codeRegion, block) {
+  Dominance_BasicBlock_FORCHILDREN_BasicBlock(dominance, block, dominated_block) {
+    // Iterates over the children in the dominance tree
+  } Dominance_BasicBlock_ENDCHILDREN_BasicBlock;
+  
+  Dominance_BasicBlock_FORFRONTIERS_BasicBlock(dominance, block, frontier_block) {
+    // Iterates over the dominance frontiers of the basic block
+  } Dominance_BasicBlock_ENDFRONTIERS_BasicBlock;
+} CodeRegion_ENDEACH_BasicBlock;
+  
+  ...
+  
+  if Dominance_dominates(dominance, block_1, block_2) {
+    // block_1 is dominating block_2
+  }
+
+!	Liveness Analysis
+
+<Liveness Liveness.html> performs liveness analysis on a code region. This analysis will
+calculate live-in and live-out sets for each basic block in the code region. There are three
+different modes of calculating liveness information:
+
+*	Upward - This method will construct live-in and live-out sets as upward exposed uses.
+This method is the most conservative, meaning that it will add temporaries that are not
+live to live-in and live-out sets.
+*	Linear - This method will first construct Upward liveness, and then it will refine
+information by applying one more forward passs over the code region. This method gives
+more precise (but still not accurate) information then the previous one, and hence is less
+conservative.
+*	Iterative - This algorithm will iterate this Liveness problem until fixpoint. This is the 
+worklist iterative algorithm to solve backward data-flow problems, and gives accurate
+solution of the Liveness problem.
+
+Liveness calculation will also tag Local (local to one basic block) and Global (used in
+multiple basic blocks) temporaries.
+
+Example liveness calculation on a code region is performed by invoking the constructor,
+and that is going to populate appropriate sets in the basic blocks. Even after the
+destruction of the Liveness object, information will remain associated with basic blocks.
+
+	// Example of liveness calculation and usage
+Liveness_delete(Liveness_new(memory, codeRegion, NULL));
+...
+  // Get the liveness from a basic block
+  TemporarySet live_out = BasicBlock_liveOut(basicBlock);
+  if (TemporarySet_contains(live_out, temporary)) {
+    // temporary is live out from the basic_block
+  }
+
+Note that the constructor takes three arguments, and the third argument is a write-back
+function that is responsible for writing liveness information to the code region. If NULL
+value is passed, a function that will simply write live-in and live-out sets is used. This
+gives the opportunity of passing another function in order to perform checks or different
+behavior on write back. For example, if Liveness_mustBeSame is passed, it will check if
+newly created Liveness is the same as the one that already existed (usefull to check if a
+program transformation that was supposed to preserve Liveness information has actually
+broken it).
+
+!	Interference
+
+The <Interference Interference.html> module is responsible for calculating interference
+graph. The method that is used is described in *L. George, A. Appel, "Iterated Register
+Coalescing"*. 
+
+Because interference graph is very demanding in terms of memory usage, interference
+calculation is limited to a subsest of variables that must be defined before constructing
+the interference graph.
+
+Interface for using this module is :
+
+	// codeRegion is the CodeRegion object that we want to analyze,
+// and table is a TemporaryTable filled with relevant temporaries.
+Interference interference = INterference_new(codeRegion, memory, table);
+ ...
+  if (Interference_interfere(interference, t_1, t_2)) {
+    // t_1 and t_2 interfere...
+  }
+ ...
+Interference_delete(interference);
+
+
+!	SSA Form
+
+SSA Form is a program representation where only one assignment to a variable is allowed.
+PFA provides ways to construct (<SSAConstruct SSAConstruct.html> module) and to destruct
+(<SSADestruct SSADestruct.html> module), as well as some optimizations during SSA
+construction. 
+
+SSA Construction is performed in a way described by *Briggs et. al. "Practical
+Improvements to the Construction and Destruction of Static Single Assignment form"*.
+SSAConstruct module depends on forward dominance which must be  constructed and passed 
+to the constructor of the module. Optimizations that can be applied during SSA construction are :
+
+*	Copy Folding - If this optimization is applied, all copies that can be folded will be
+eliminated from the code during the renaming phase of the SSA construction. This 
+optimization can be applied only during SSA construction.
+
+*	Value Numbering - This is Value Numbering as described in *Briggs et. al. "Value
+Numbering"*. It can be performed only during SSA construction, and not as a separate
+phase.
+
+*	Dead Code Elimination - This is standard worklist-based Dead Code Elimination algorithm
+that can be applied at the end of SSA construction. Dead Code Elimination can be invoked
+also after SSA has been constructed because it exists as a separate phase.
+
+Before Invoking SSA construction, one must have filled the coderegion global
+temporary table and have created the dominance information:
+
+	// Example of temporary table and dominance construction
+TemporaryFlags mask = TemporaryFlag_Constant|TemporaryFlag_RenameOK;
+TemporaryTable globalTable = CodeRegion_makeGlobalTable(codeRegion, mask, TemporaryFlag_RenameOK);
+Dominance dominance = SSAForm_makeDominance(this, DominanceFlag_Frontiers);
+
+Invoking SSA construction is straightforward. It is done by setting appropriate
+configuration flags and calling SSAConstruct_new:
+
+	// Example of SSA construction with all optimizations turned on.
+// Copy Folding
+*Optimize__SSACONVERT(CodeRegion_optimize(codeRegion)) |= OptimizeSSAConvert_Folding;
+  
+// Value Numbering
+*Optimize__SSACONVERT(CodeRegion_optimize(codeRegion)) |= OptimizeSSAConvert_Numbering;
+  
+// Dead Code Elimination
+*Optimize__SSACONVERT(CodeRegion_optimize(codeRegion)) |= OptimizeSSAConvert_Cleaning;
+  
+// Translate the program to SSA form
+SSAConstruct_delete(SSAConstruct_new(memory, codeRegion, dominance));
+
+Other optimizations that can be performed after SSA is constructed include
+<predication Predicator.html> and code cleanups.
+
+It is possible that optimizations performed during or after the construction of SSA
+"break" SSA form by causing interference between variables that are joined by PHI
+functions, so PFA provides ways to recover from such situations in SSADestruct phase. Two
+different flavors of transaltion out of SSA are implemented (both from *Sreedhar et. al.
+"Translating Out of Static Single Assignment Form"*):
+
+*	Sreedhars' method I - This method will simply insert copies for all operands of a PHI
+instruction without looking into interference information. This method is very fast, but
+provides bad code quality at output.
+
+*	Sreedhars' method III - This method is going to use interference and Liveness
+information in order to insert minimal number of copies that are needed to break
+interference among the operands of PHI instructions. This method is slower then method I,
+but gives better code at output.
+
+Copy coalescing that can be perfomed after placing the copies is implemented (method
+described in *Sreedhars' paper*).
+
+Translation out of SSA is done by simply setting the flag to indicate the method for
+translation (if OptimizeSSAConvert_MethodIII is set, method III will be used, otherwise
+method I will be used, and if OptimizeSSAConvert_Coalescing is set then coalescing will be
+applied) and calling the constructor.
+
+!	Control Flow Transformations
+
+The <Control Flow ControlFlow.html> module provides functionality for
+optimizing the code layout and cleaning up the control flow graph. All optimizations that
+this module provides share the same object (ControlFlow). This object must be constructed
+prior to calling any of them:
+
+	// Constructing the new ControlFlow object
+ControlFlow controlFlow = ControlFlow_new(memory, codeRegion);
+
+Functions for optimizing *Code Layout* are provided to layout the code according to
+*Pettis-Hansen* bottom-up approach, *Pettis-Hansen* bottom up approach with reverse
+postorder chain positioning at the end, or simple and fast reverse postorder code layout.
+These optimizations can't be performed while program is in the SSA form. They are applied 
+in the following manner:
+
+	// Perform the Pettis-Hansen bottom up layout
+ControlFlow_bottomUpOrderCode(controlFlow);
+  
+// Perform the Pettis-Hansen bottom up layout with RPO order for the chains
+ControlFlow_bottomUpPostorder(controlFlow);
+  
+// Perform the Reverse Post-Order layout
+ControlFlow_reversePostOrderCode(controlFlow);
+
+*Control Flow Cleanup* optimization provides functionality for performing the basic
+cleanup operations on the CFG. These inculde removal of empty basic blocks (blocks that
+consist only of branches are considered empty and their branches are hoisted to the
+predecessor where possible), merging two consecutive basic blocks (in case when parent
+has one outgoing and child has one incoming edge) and eliminating redundant branches (in
+case when both outgoing edges are going to the same child). These transformations are 
+designed with SSA in mind, so they can be applied while program is in SSA form. 
+Invoking them is very simple:
+
+	// Performing the CFG cleanup
+ControlFlow_clean(controlFlow);
+
+*Dead Code Elimination* is equivalent to the one that is implemented in SSAConstruct
+module. It is a standard DCE that will remove all unnecessary operations. It is invoced as
+follows:
+
+	// Perform the DCE
+ControlFlow_eliminate(controlFlow);
+
+This module provides also the functionality for computing simple edge probabilities
+(50-50 rule for forward edges, and 80-20 rule when one of them is a back-edge), as
+well as functionality to calculate or repair block frequencies (as described in *Y. Wu, J.
+Larus "Static Branch Frequency and Program Profile Analysis"*). These transformations are
+invoked as follows:
+
+	// Calculating the dummy probabilities
+ControlFlow_makeDummyEdgeFrequencies(controlFlow);
+  
+// Calculate basic block frequencies  
+ControlFlow_computeBlockFrequency(controlFlow);
+
+!!	ECL/CGO Code Generator Optimizations
+
+CGO provides optimizations that are specific for code generation, such as Scalar
+Optimizations, Post-Scheduler and IF-conversion.
+
+!	IF-conversion
+
+the <Predicator Predicator.html> provides basic if-conversion algorithm that converts
+hammocks by using %SELECT% instructions on target machines that can provide or emulate
+them in some way. Algorithm also assumes (for now) that branches on the target machine are
+in form %opcode condition, target%, where condition is a boolean condition. Currently, for
+any machine that has different type of branches, if-conversion is going to fail.
+
+Algorithm relies on MDS to supply informations about instructions that are speculable and
+about time that each instruction takes to execute (instruction costs) in order to estimate
+from what regions if-conversion can benefit. Applying if-conversion is done by simply
+calling the appropriate constructor:
+
+	// IF-convert the code region
+IFConverter_delete(IFConverter_new(memory, codeRegion));
+
+!	Post-Scheduler
+
+!!	ECL/JIT JIT Compiler Utilities
+
+!!!	ECL Build System
+
+!!!	Writing ECL Self-Tests
+

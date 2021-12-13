@@ -1,0 +1,81 @@
+/* default.css -- default style sheet for Ravenbrook web site
+ *
+ * Copyright 2003 Ravenbrook Limited.
+ *
+ * 2003-07-04  RB  Designed for new web site layout.
+ * 2003-07-09  RB  Split into default stylesheet for all documents and style sheet for web site pages.
+ * 2003-07-11  RB  Changed link styles to be independent of the "A" tag.  Safari 1.0 was
+ *                 (correctly, I think) highlighting A anchors (i.e., with IDs not HREFs)
+ *                 when hovering over them.  Besides, there might be another kind of tag
+ *                 that has links.  Read the CSS1 and CSS2 specs and related documents at
+ *                 w3.org carefully and fixed things up to be consistent with them.
+ *
+ * $Id: //info.ravenbrook.com/project/www.ravenbrook.com/version/4.0/page/style/default.css#1 $
+ */
+
+body {
+  background: white;
+  color: black;
+  font-family: "Optima", "Nu Sans", "Arial", sans-serif;
+}
+
+
+/* Apparently, some browsers don't inherit the font properly on these elements.
+ * See <http://www.w3.org/MarkUp/Guide/Style>.
+ */
+
+h1, h2, h3, h4, h5, p, ul {
+  font-family: "Optima", "Nu Sans", "Arial", sans-serif;
+} 
+
+pre {
+  font-family: monospace;
+  text-align: left;		/* Safari 1.0b doesn't do this by default */
+} 
+
+
+/* ":link", ":visited", and ":active" are disjoint, so you need to specify
+ * styles for all of them.
+ * See <http://www.w3.org/TR/REC-CSS1#anchor-pseudo-classes>.
+ */
+
+a {
+  text-decoration: none;
+}
+
+:link {
+  color: #A00;
+}
+
+:visited {
+  color: #900;
+}
+
+:active {
+  color: #F00;
+}
+
+/* Note you mustn't just say ":hover" because Mozilla (correctly, I think)
+ * applies it to _everything_ you hover over.
+ */
+
+:link:hover, :visited:hover, :active:hover {
+  color: #A00 !important;
+  text-decoration: underline;
+}
+
+/* Make images that are links gain a red border when they're hovered over.
+ * We have to put an equivalent transparent border round them when they're
+ * not hovered, so that the images don't jump around.
+ */
+
+/* Disabled at this doesn't work properly in Safari 1.0.  Submitted bug
+ * to Apple.  RB 2003-07-15
+:link img, :visited img, :active img {
+  border: 1px solid transparent;
+}
+
+:link:hover img, :visited:hover img, :active:hover img {
+  border: 1px solid #A00;
+}
+*/

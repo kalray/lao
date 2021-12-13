@@ -1,0 +1,40 @@
+Initial Program:
+\ Status: Initial
+Maximize
+	+1 x_1	+2 x_2	+3 x_3
+Subject To
+	-1 x_1	+1 x_2	+1 x_3	<=	20
+	+1 x_1	-3 x_2	+1 x_3	<=	30
+Bounds
+  Integer	x_1	<= 40
+  Integer	x_2
+  Integer	x_3
+End
+
+GLPK Simplex Optimizer, v4.53
+2 rows, 3 columns, 6 non-zeros
+      0: obj =   4.000000000e+01  infeas =  1.000e+01 (0)
+*     1: obj =   4.666666667e+01  infeas =  0.000e+00 (0)
+*     2: obj =   2.025000000e+02  infeas =  0.000e+00 (0)
+OPTIMAL LP SOLUTION FOUND
+GLPK Integer Optimizer, v4.53
+2 rows, 3 columns, 6 non-zeros
+3 integer variables, none of which are binary
+Integer optimization begins...
++     2: mip =     not found yet <=              +inf        (1; 0)
++     3: >>>>>   2.020000000e+02 <=   2.020000000e+02   0.0% (1; 0)
++     3: mip =   2.020000000e+02 <=     tree is empty   0.0% (0; 1)
+INTEGER OPTIMAL SOLUTION FOUND
+Solved Program:
+\ Status: Solved
+Maximize
+	+1 x_1	+2 x_2	+3 x_3
+Subject To
+	-1 x_1	+1 x_2	+1 x_3	<=	20
+	+1 x_1	-3 x_2	+1 x_3	<=	30
+Bounds
+  Integer	x_1	<= 40	Value	40
+  Integer	x_2	Value	18
+  Integer	x_3	Value	42
+End
+

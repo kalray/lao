@@ -1,0 +1,14 @@
+package "laoi" 
+version "" 
+purpose "This laoi is a minir interpreter/jitter driver"
+usage "laoi [OPTIONS]... [--] MINIR_FILE [ARGS]"
+
+option  "help"                h   "Print help and exit"                   flag        off
+option  "debug"               d   "Run in debug mode"                     flag        off
+option  "version"             V   "Print version and exit"                flag        off
+option  "stable"              S   "Dump the symbol table"                 flag        off
+option  "step"                s   "Stop after each operation"             flag        off
+option  "jit"                 j   "JIT mode"                              flag        off
+option  "treshold"            t   "JIT treshold"                          long        optional   default="20"
+
+text "\n\n"

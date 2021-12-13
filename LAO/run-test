@@ -1,0 +1,4 @@
+#!/bin/sh
+#echo "run-test on $*" >&2
+$1 < $2 > $3 && \
+diff -u $3 $4

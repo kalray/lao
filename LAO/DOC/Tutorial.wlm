@@ -1,0 +1,472 @@
+!!!!	LIR Tutorial
+
+Author:	Nikola Puzovic
+
+!!!	Introduction
+
+The purpose of this document is to illustrate how to build simple Procedure with Code
+Regions by using LIR (Layered Intermediate Representation). We will start with a program
+in assembly, and construct its LIR representation.
+
+General knowledge of compilers and IR representations is a must for reading this
+document, because it focuses only on LIR.
+
+!!!	Basic Concepts
+
+In order to build LIR representation of the program, some basic concepts need to be
+introduced first. Understanding of how program is decomposed into procedures, code
+regions, basic blocks and operations is necessary for the proper usage of the LIR. 
+This section introduces in a bottom-up approach all basic concepts of the LIR, meaning
+that basic building blocks will be introduced first, and the awys to utilize them will be
+introduced later.
+
+!!	Temporary
+
+<Temporary Temporary.html> is a operand of a LIR instruction, and it can represent a
+constant, virtual register, dedicated register or SSA variable. Creation of the temporaries
+is done  by calling the appropriate function from the <Procedure Procedure.html> or
+<Code Region CodeRegion.html>.
+
+Temporaries come in a variety of types, each of them suited for particular use.
+<Temporary Temporary.html> class defines different types, and offers further documentation
+for them. Here, we will list only some of the types that are interesting.
+
+!	Dedicated Temporaries
+
+These temporaries are immutable and represent the arguments or
+results of an instruction that must be in a specific machine register. For example,
+register arguments of a procedure or register operands that are pinned to a specific
+register are represented using this type of temporaries.
+
+	bool
+Temporary_isDedicated(Temporary temporary);
+  Returns true if a temporary is dedicated.
+
+
+	Temporary
+Procedure_makeDedicatedTemporary(Procedure this, Register register);
+  Creates a new dedicated temporary in the procedure with the specified register.
+
+	Register
+Temporary_register(Temporary this);
+  Returns a register associated with this temporary.
+
+!	Virtual temporaries
+
+These temporaries are actually pseudo registers. Their main
+purpose is to carry values between different operations. They have register class
+(register file) assigned to them. These temporaries can be assigned a machinr register, in which
+case they are converted to Assigned Temporaries. The main operations performed on this
+type of temporaries are checking if temporary is variable, assigning a machine register to
+variable temporary and creating a new variable temporary.
+
+	bool
+Temporary_isVirtual(Temporary temporary);
+  Returns true if a temporary is virtual.
+
+	void
+Temporary_assignRegister(Temporary this, Register register);
+  Assigns a register to the Virtual Temporary and converts it to Assigned Temporary.
+
+	Temporary
+Procedure_makeVirtualTemporary(Procedure procedure, RegFile regFile)
+  Creates a new virtual temporary in the procedure and assigns it a register file.
+
+!	Assigned temporaries
+
+Assigned Temporaries are basically Virtual Temporaries that are assigned to a machine
+Register. They can be reverted back to virtual temporaries by unassigning. The basic
+operations that are performed on this type of temporaries are checking if a temporary is
+assigned, unassigning the register and creating a new Absolute Temporary.
+
+	bool
+Temporary_isAssigned(Temporary temporary);
+  Returns true if a temporary is assigned.
+
+	void
+Temporary_unassignRegister(Temporary this);
+  Unassigns a register from Assigned Temporary and reverts it to Virtual Temporary.
+
+	Temporary
+Procedure_makeAssignedTemporary(Procedure this, Register registre);
+  Creates a new assigned temporary in the procedure that is assigned to the specified register.
+
+!	Variable Temporaries
+
+Variable Temporaries are used instead of of Register Temporaries when the
+code gets translated into SSA form. Since they are created to represent a temporary that
+already existed in a procedure, they have origin temporary associated to them.
+
+	bool
+Temporary_isVariable(Temporary temporary);
+  Returns true if a temporary is a Variable Temporary.
+
+	Temporary
+CodeRegion_makeVariableTemporary(CodeRegion this, Temporary origin_temporary);
+  Creates new variable temporary associated with the origin.
+
+	Temporary
+Temporary_ORIGIN(Temporary temporary);
+  Returns the origin of this temporary.
+
+!	Absolute Temporaries
+
+Absolute Temporaries represent constants that are resolved at compile time.
+
+	bool
+Temporary_isAbsolute(Temporary temporary);
+  Returns true if a temporary is Absolute Temporary.
+
+	Temporary
+Procedure_makeAbsoluteTemporary(Procedure this,
+                                ImmediateValue value, Relocation relocation);
+  Creates a new Absolute Temporary. Value is the actual value of the temporary, 
+  and relocation represents the relocation type.
+
+	ImmediateValue
+Temporary_VALUE(Temporary temporary);
+  Returns the immediate value from this temporary.
+
+!	Label Temporaries
+
+Label Temporaries are used for the arguments for intra-procedural branchesa and they
+represent a label belonging to one basic block in the same procedure. They can't be
+used for inter-procedural branches.
+
+	bool
+Temporary_isLabel(Temporary temporary);
+  Returns true if a temporary is a Label Temporary.
+
+	// Example of creating a label and a temporary associated to it.
+Label L1 = LabelTable_lookup(labelTable, 1, "L1");
+Temporary t_L1 = Procedure_makeLabelTemporary(procedure, L3, 0, (Relocation)0);
+
+	Label
+Temporary_label(Temporary temporary);
+  Returns a label associated with this temporary.
+
+!	Symbol Temporaries
+
+Symbol Temporaries are used to represent symbolic values made of a base Symbol plus an 
+offset. They are used for inter-procedural branches.
+
+	bool
+Temporary_isSymbol(Temporary temporary);
+  Returns true if a temporary is a Symbol Temporary.
+
+	Symbol
+Temporary_SYMBOL(this);
+  Returns a symbol associated with this variable.
+
+	ImmediateValue
+Temporary_OFFSET(this);
+  Returns offset associated with this variable.
+
+	Temporary
+Procedure_makeSymbolTemporary(Procedure this, Symbol symbol,
+                              ImmediateValue offset, Relocation relocation);
+  Creates a new symbol temporary in a procedure with a given symbol, offset and relocation type.
+
+!	General Properties
+
+There are couple of common properties for some temporary types that are worth mentioning.
+
+*	Dedicated, Assigned and Virtual temporaries are called register temporaries,
+and =Temporary_isRegister()= returns true in all tree cases.
+
+*	Only Dedicated and Assigned temporaries have a machine register associated with them,
+and =Temporary_hasRegister()= returns true for them.
+
+*	Absolute, Label and Symbol are called immediate temporaries, and =Temporary_isImmediate()=
+returns true in all tree cases.
+
+!!	Operations and Selectors
+
+LIR operation represents one program instruction. It is determined by its operand (object
+of type <Operand Operand.html>), arguments and results (temporaries). In general case,
+operation can have both multiple arguments and results.
+
+Operations are created using selectors. <Selector Selector.html> represents a list of
+operations and usually is associated to a basic block. Selector is responsible for
+maintaing the order of operations, and has methods for inserting new operations into it, 
+and for moving the operations around the selector. 
+
+For example, syntax of the selector operation for adding new operations with =m= result
+temporaries and =n= argument temporaries is :
+
+	Operation
+Selector_makeOperation_m_n(Selector this, Operator operator, 
+                           Temporary result_1, ..., Temporary result_m,
+                           Temporary argument_1, ..., Temporary argument_n);
+
+Call to =Selector_makeOperation_1_2()= will create operation with one result and two
+arguments, and push it to the end of the selector.
+
+Here are couple examples of how the operations are created:
+
+	ADD TEMP_X = TEMP_Y + TEMP_Z
+  Selector_makeOperation_1_2(BasicBlock_selector(block), Opetrator_ADD, temp_x, temp_y, temp_z);
+
+	COPY TEMP_X = TEMP_Y
+     Selector_makeOperation_1_1(BasicBlock_selector(block), Operator_COPY, temp_x, temp_y);
+or   Selector_makeCOPYOperation(BasicBlock_selector(block), tempx, temp_y);
+
+	GOTRUE condition, label
+  Selector_makeOperation_0_2(BasicBlock_selector(block), Opetrator_GOTRUE,
+                             temporary_condition, temporary_label);
+
+
+As it can be seen from second example, multiple ways can be used to create some
+operations. In this case, =Selector_makeCOPY()= is just a wrapper for
+=Selector_makeOperation_1_1()=. For the list of these functions please reffer to 
+the <Selector Selector.html> documentation.
+
+It is also important to note that there are two modes to add new operation to the
+selector, namely push and put. Pushing an operation to the selctor means that the
+operation will be pushed to the very end of the selector, while puting it means that the
+operation will be placed at the beginning of the selector.
+
+The functionality of an operation depends on its operator. <Operation Operation.html>
+provides methods to check for the type of operation :
+
+*	Operation_isGoTo() - Returns true if operation is GoTo.
+*	Operation_isRoutine() - Returns true if operation is routine call.
+*	Operation_isReturn() - Returns true if operation is return from a pricedure.
+
+For further checking on the type of operation, operator must be obtained by using
+=Operation_OPERATOR()= and checked. It is possible to check in this way wether operator is
+a control transfer operator, memory read or write etc. These properties of the opreators
+are machine dependent. For further explanations see <Operator Operator.xcc> documentation.
+
+!!	Basic Block
+
+<Basic Block BasicBlock.html> represents a sequence of instructions that will execute
+sequentially without and ends with at most one branch at the end. 
+
+!	Creating Basic Blocks
+
+Basic Blocks can be created before procedure is divided into code regions, or after the
+division. In the first case, procedure is responsible for creating the block bu using
+=Procedure_makeBasicBlock()=:
+
+	BasicBlock
+Procedure_makeBasicBlock(Procedure this, Processor processor,
+                         intptr_t regionId, float frequency,
+                         int32_t labelCount, Label *labels);
+    this - Procedure that this block belongs to.
+    processor - XXX
+    regionId - Number representing the code region that this block belongs to.
+    frequency - Execution frequency of this basic block (based on profile data for example).
+    labelCount - Number of labels that belong to this basic block.
+    labels - Labels that represent this basic block (multiple labels allowed).
+
+It is important to understand the way in which a code region is assigned to a basic block.
+When basic block is created using previous function, =regionId= is passed to identify the
+code region of the basic block. For example, if a procedure is to be divided into two code
+regions, with IDs 0 and 1 respectively, all basic blocks that belong to code region 0 must
+be created first (CHECK: by looking into the implementation, this seems to be a limit) by
+passing 0 as regionId, and after that all blocks that belong to region 1 by passing the
+region id 1. Subsequent call to =Procedure_makeCodeRegions()= is going to create code
+regions correctly based on these IDs.
+
+If new basic blocks need to be created after code regions have been built, it must be done
+using the following function from CodeRegion:
+
+	BasicBlock
+CodeRegion_makeBasicBlock(CodeRegion this, float frequency,
+                          int32_t labelCount, Label *labels);
+
+The parameters are equivalent as the ones for =Procedure_makeBasicBlock()=, and the ones
+that are missing are taken from the code region.
+
+!	Connecting basic blocks
+
+Basic blocks are connected by creating edges between two basic blocks.
+
+	BasicBlockEdge
+BasicBlock_makeEdge(BasicBlock this, BasicBlock that, float probability)
+    this - Source Basic Block
+    that - Destination Basic Block
+    probability - Probability that control will transfer trough this edge
+
+A call to this function is going to create an edge between these two basic blocks.
+As for any other IR, for LIR, each basic block that has more then one successor must end
+in a branch, and sum of the probabilities of all outgoing edges must be 1.0.
+
+!!	Code Region
+
+<Code Region CodeRegion.html> represents one part of a procedure, and provides a basic
+scope for procedure optimization. Procedure should be divided into code regions in case
+that you want to optimize them separately. One code regions consists of multiple basic 
+blocks, which are connected to each other, and also can be connected to other blocks 
+outside of a code region. Multiple entry and exit blocks are allowed in one code region.
+
+Code Regions can be constructed manually (not recommended) or by populating the procedure
+with basic blocks and then letting the procedure make code regions automatically. The
+following code snippet shows the creation and manipulation of code regions.
+
+	Procedure procedure = Program_makeProcedure(program, symbol);
+// Create basic blocks
+// Connect basic blocks
+Procedure_buildCodeRegions(procedure);
+Procedure_FOREACH_CodeRegion(procedure, codeRegion) {
+  // Do something with code region...
+} Procedure_ENDEACH_CodeRegion;
+
+The previous example shows the creation of one procedure and iteration over its code
+regions. The actual creation of basic blocks and division of procedure into code regions
+is shown in the next section.
+
+!!	Procedure
+
+<Procedure Procedure.html> represents one procedure in the program. The contents of a 
+procedure are code regions which consists of basic blocks. Code snippet below shows the
+steps needed to create one procedure inside a program.
+
+	Symbol symbol = SymbolTable_lookup(symbolTable, 1, "procedure-name");
+Procedure procedure = Program_makeProcedure(program, symbol);
+
+Program is responsible for creating procedures, and at the time of the creation the name
+of the procedure must be known and entered to the symbol table (automatically done by
+calling =SymbolTable_lookup()= in the above example).
+
+!!	Program
+
+<Program Program.html> represents a program that is compiled as a whole. It is the top
+level container of all other components. From the point of view of a program, it is
+decomposed into procedures. 
+
+Program is the fist object to be created when building LIR representation, and its
+constructor, =Program_new(memory)= takes only memory (TBD! How to cross-link to CDT?) as
+argument. Later, program will be populated with procedures during the construction of the
+LIR representation.
+
+!!!	Putting it all together - small example
+
+The goal of this example is to build one procedure with one code region. The example code is shown below:
+
+	L1:
+    X = 1
+    Y = 15
+    GOTRUE cond, L3
+L2:
+    X = X + Y
+    Y = 2 * X
+    GOTO L4
+L3:
+    Y = X
+L4:
+    p = X + 1
+    q = Y + 1
+
+First, we need to make <Program Program.html> and <Procedure Procedure.html> objects in
+order to create our code region :
+
+	Program program = Program_new(Memory_Root);
+Memory memory = Program_memory(program);
+SymbolTable symbolTable = Program_symbolTable(program);
+Symbol symbol = SymbolTable_lookup(symbolTable, 1, "weird-case");
+Procedure procedure = Program_makeProcedure(program, symbol);
+
+Second step is to create basic blocks and their respective labels, and to connect the
+basic blocks:
+
+	LabelTable labelTable = Procedure_labelTable(procedure);
+Label L1 = LabelTable_lookup(labelTable, 1, "L1");
+Label L2 = LabelTable_lookup(labelTable, 2, "L2");
+Label L3 = LabelTable_lookup(labelTable, 3, "L3");
+Label L4 = LabelTable_lookup(labelTable, 4, "L4");
+BasicBlock block_l1 = Procedure_makeBasicBlock(procedure, 0, 0, 0.0, 1, &L1);
+BasicBlock block_l2 = Procedure_makeBasicBlock(procedure, 0, 0, 0.0, 1, &L2);
+BasicBlock block_l3 = Procedure_makeBasicBlock(procedure, 0, 0, 0.0, 1, &L3);
+BasicBlock block_l4 = Procedure_makeBasicBlock(procedure, 0, 0, 0.0, 1, &L4);
+BasicBlock_makeEdge(block_l1, block_l2, 0.5);
+BasicBlock_makeEdge(block_l1, block_l3, 0.5);
+BasicBlock_makeEdge(block_l2, block_l4, 1.0);
+BasicBlock_makeEdge(block_l3, block_l4, 1.0);
+
+In order to create correct operations we are going to need temporaries to be used as
+arguments :
+
+	// Virtual temporaries
+Temporary temporary_x = Procedure_makeVirtualTemporary(procedure, 0);
+Temporary temporary_y = Procedure_makeVirtualTemporary(procedure, 0);
+Temporary temporary_p = Procedure_makeVirtualTemporary(procedure, 0);
+Temporary temporary_q = Procedure_makeVirtualTemporary(procedure, 0);
+Temporary temporary_cond = Procedure_makeVirtualTemporary(procedure, 0);
+Temporary temporary_l3 = Procedure_makeLabelTemporary(procedure, L3, 0, (Relocation)0);
+// Constants
+Temporary temporary_c1 = Procedure_makeAbsoluteTemporary(procedure, 1, (Relocation)(0));
+Temporary temporary_c2 = Procedure_makeAbsoluteTemporary(procedure, 2, (Relocation)(0));
+Temporary temporary_c15 = Procedure_makeAbsoluteTemporary(procedure, 15, (Relocation)(0));
+
+Now, we have everything in place to start creating the operations in the basic blocks:
+
+	// Operations for BB1
+Selector_makeOperation_1_1(BasicBlock_selector(block_l1),
+                           Operator_APPLY, temporary_x, temporary_c1);
+Selector_makeOperation_1_1(BasicBlock_selector(block_l1),
+                           Operator_APPLY, temporary_y, temporary_c15);
+Selector_makeOperation_0_2(BasicBlock_selector(block_l1),
+                           Operator_GOTRUE, temporary_cond, temporary_l3);
+// Operations to fill BB2
+Selector_makeOperation_1_2(BasicBlock_selector(block_l2),
+                           Operator_ADD, temporary_x, temporary_x, temporary_y);
+Selector_makeOperation_1_2(BasicBlock_selector(block_l2),
+                           Operator_MUL, temporary_y, temporary_c2, temporary_x);
+Selector_makeGoTo(BasicBlock_selector(block_l2), L4);
+// Copies in BB3
+Selector_makeCOPYOperation(BasicBlock_selector(block_l3), temporary_y, temporary_x);
+// Operations to fill BB4
+Selector_makeOperation_1_2(BasicBlock_selector(block_l4),
+                           Operator_ADD, temporary_q, temporary_x, temporary_c1);
+Selector_makeOperation_1_2(BasicBlock_selector(block_l4),
+                           Operator_MUL, temporary_p, temporary_y, temporary_c1);
+
+
+If, in this moment, =CodeRegion_pretty()= is called to pretty print the code region,
+output will look like this:
+
+	------- Region 0 -----
+  24:Block_1
+        frequency=0     regionId=0x0    traceId=0
+        predecessors:   23:Block_0(-1)
+        successors:     25:Block_2( 0%) 26:Block_3( 0%)
+        live-in:        B492
+        L1:
+                 23:APPLY        B488 = 1
+                 24:APPLY        B489 = 15
+                 25:GOTRUE       B492, L3
+        live-out:       B488 B489
+	  25:Block_2
+        frequency=0     regionId=0x0    traceId=0
+        predecessors:   24:Block_1(-1)
+        successors:     27:Block_4( 0%)
+        live-in:        B488 B489
+        L2:
+                 26:ADD          B488 = B488, B489
+                 27:MUL          B489 = 2, B488
+                 28:goto         L4
+        live-out:       B488 B489
+	  26:Block_3
+        frequency=0     regionId=0x0    traceId=0
+        predecessors:   24:Block_1(-1)
+        successors:     27:Block_4( 0%)
+        live-in:        B488
+        L3:
+                 29:COPY         B489 = B488
+        live-out:       B488 B489
+	  27:Block_4
+        frequency=0     regionId=0x0    traceId=0
+        predecessors:   26:Block_3(-1)  25:Block_2(-1)
+        successors:     23:Block_0( 0%)
+        live-in:        B488 B489
+        L4:
+                 30:ADD          b491 = B488, 1
+                 31:MUL          b490 = B489, 1
+        live-out:
+------- contributed=0 -----
+
+
+
+

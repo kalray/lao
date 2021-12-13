@@ -1,0 +1,224 @@
+SSA: true
+functions:
+  - label: sreedhar-fig-1
+    test: "Sreedhar's Translating out of SSA form; Fig. 1"
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1]} # var y
+          - {op: _APPLY, defs: [V101], uses: [2]} # var x1
+      - label: L2
+        succs: [L3]
+        ops:
+          - {op: _COPY, defs: [V102], uses: [V100]} # x2 = y
+      - label: L3
+        preds: [L1, L2]
+        ops:
+          - {op: _PHI, defs: [V103], uses: [V101, V102]} # x3 = phi(x1, x2)
+          - {op: _COPY, defs: [V104], uses: [V103]} # z = x3
+
+---
+SSA: true
+functions:
+  - label: sreedhar-fig-3
+    test: "Sreedhar's Translating out of SSA form; Fig. 3"
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1]} # var y
+          - {op: _APPLY, defs: [V101], uses: [2]} # var x1
+      - label: L2
+        succs: [L3]
+      - label: L3
+        preds: [L1, L2]
+        ops:
+          - {op: _PHI, defs: [V103], uses: [V101, V100]} # x3 = phi(x1, y)
+          - {op: _COPY, defs: [V104], uses: [V103]} # z = x3
+
+
+--- 
+SSA: true
+functions:
+  - label: sreedhar-fig-6
+    test: "Sreedhar's Translating out of SSA form; Fig. 6"
+    bbs:
+      - label: BB1
+        labels: [L3]
+        succs: [BB5, BB2] # [L0, L4]
+        ops:
+          - {op: _APPLY, defs: [V103], uses: [1]}  # x3
+          - {op: _APPLY, defs: [V101], uses: [2]}  # x1
+      - label: BB2
+        labels: [L4]
+        succs: [BB3, BB4] # [L1, L2]
+        ops:
+          - {op: _APPLY, defs: [V102], uses: [3]}  # x2
+      - label: BB3
+        labels: [L1]
+        succs: [BB5] # [L0]
+      - label: BB4
+        labels: [L2]
+        succs: [BB5] # [L0]
+      - label: BB5
+        labels: [L0]
+        preds: [BB1, BB3, BB4] # [L3, L1, L2]
+        ops:
+          - {op: _PHI, defs: [V100], uses: [V103, V101, V102]} # x0 = phi(x3, x1, x2)
+
+---
+SSA: false
+functions:
+  - label: "lost-copy"
+    test: "Lost-Copy Problem in Sreedhar's paper: Fig. 7"
+    bbs:
+      - label: L1
+        succs: [L2]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1]} # x
+      - label: L2
+        succs: [L2, L3]
+        ops:
+          - {op: _COPY, defs: [V101], uses: [V100]}    # y
+          - {op: _ADD,  defs: [V100], uses: [V100, 1]} # x = x+1
+      - label: L3
+        ops:
+          - {op: _SUB, defs: [V102], uses: [V101, 42]} # .. = y
+
+---
+SSA: false
+functions:
+  - label: "swap-problem"
+    test: "Swap Problem in Sreedhar's paper: Fig. 8"
+    bbs:
+      - label: L1
+        succs: [L2]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1]} # x
+          - {op: _APPLY, defs: [V101], uses: [2]} # y
+      - label: L2
+        succs: [L2, L3]
+        ops:
+          - {op: _COPY, defs: [V102], uses: [V100]} # z = x
+          - {op: _COPY, defs: [V100], uses: [V101]} # x = y
+          - {op: _COPY, defs: [V101], uses: [V102]} # y = z
+      - label: L3
+
+---
+SSA: false
+functions:
+  - label: "virtual-swap-problem"
+    test: "Virtual Swap Problem in Budimlic's paper"
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1]}
+          - {op: _APPLY, defs: [V101], uses: [2]}
+      - label: L2
+        succs: [L4]
+        ops:
+          - {op: _COPY, defs: [V102], uses: [V100]}
+          - {op: _COPY, defs: [V103], uses: [V101]}
+      - label: L3
+        succs: [L4]
+        ops:
+          - {op: _COPY, defs: [V102], uses: [V101]}
+          - {op: _COPY, defs: [V103], uses: [V100]}
+      - label: L4
+        ops:
+          - {op: _SUB, defs: [V105], uses: [V102, V103]}
+
+---
+SSA: false
+functions:
+  - label: "weird-case"
+    test: "A weird case"
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+        ops:
+          - {op: _APPLY, defs: [V100], uses: [1]}
+          - {op: _APPLY, defs: [V101], uses: [15]}
+      - label: L2
+        succs: [L4]
+        ops:
+          - {op: _ADD, defs: [V100], uses: [V100, V101]}
+          - {op: _MUL, defs: [V101], uses: [V100, 2]}
+      - label: L3
+        succs: [L4]
+        ops:
+          - {op: _COPY, defs: [V101], uses: [V100]}
+      - label: L4
+        ops:
+          - {op: _ADD, defs: [V102], uses: [V100, 1]}
+          - {op: _MUL, defs: [V103], uses: [V101, 1]}
+
+---
+SSA: true
+functions:
+  - label: ssa-coalescing
+    test: "Sreedhar's Translating out of SSA form; Fig. 10"
+    bbs:
+      - label: L1
+        succs: [L2, L3, L4]
+      - label: L2
+        succs: [L5, L6]
+        ops:
+          - {op: _APPLY, defs: [V111], uses: [30]}   # y1
+          - {op: _COPY, defs: [V101], uses: [V111]}  # x1
+      - label: L3
+        succs: [L5]
+        ops:
+          - {op: _APPLY, defs: [V112], uses: [10]}   # y1
+      - label: L4
+        succs: [L6]
+        ops:
+          - {op: _APPLY, defs: [V102], uses: [20]}   # x2
+      - label: L5
+        preds: [L2, L3]
+        ops:
+          - {op: _PHI, defs: [V113], uses: [V111, V112]} # y3 = phi(y1, y2)
+          - {op: _COPY, defs: [$r1], uses: [V113]} # foo(y3)
+          - {op: _CALL, uses: [[foo]]} # foo(y3)
+#          - {op: _CALL, uses: [V113]} # foo(y3)
+      - label: L6
+        preds: [L2, L4]
+        ops:
+          - {op: _PHI, defs: [V103], uses: [V101, V102]} # x3 = phi(x1, x2)
+          - {op: _COPY, defs: [$r1], uses: [V103]} # foo(y3)
+          - {op: _CALL, uses: [[goo]]} # goo(x3)
+#          - {op: _CALL, uses: [V103]} # goo(x3)
+
+---
+SSA: true
+functions:
+  - label: rastello-test-coalescing
+    test: "Rastello's report, SSA-based coalescing; Fig. 10"
+    bbs:
+      - label: L1
+        succs: [L2]
+        ops:
+          - {op: _APPLY, defs: [V101], uses: [10]}   # x1
+          - {op: _APPLY, defs: [V111], uses: [20]}   # y1
+      - label: L2
+        succs: [L3, L4]
+        preds: [L1, L4]
+        ops:
+          - {op: _PHI, defs: [V102], uses: [V101, V103]} # x2 = phi(x1, x3)
+          - {op: _PHI, defs: [V112], uses: [V111, V113]} # y2 = phi(y1, y3)
+      - label: L3
+        succs: [L4]
+      - label: L4
+        succs: [L5, L2]
+        preds: [L2, L3]
+        ops:
+          - {op: _PHI, defs: [V103], uses: [V102, V112]} # x3 = phi(x2, y2)
+          - {op: _PHI, defs: [V113], uses: [V112, V102]} # y3 = phi(y2, x2)
+      - label: L5
+        succs: []
+        ops:
+          - {op: _COPY, defs: [$r1], uses: [V103]}
+          - {op: _COPY, defs: [$r2], uses: [V113]}
+          - {op: _CALL, uses: [[foo]]} # foo(x3, y3)

@@ -1,0 +1,237 @@
+body
+        {
+	text-align:justify;
+	font-size:9pt;
+	font-family:"Times New Roman";
+	margin-bottom:4pt;
+        }
+p,li,dd
+	{
+	margin-top:0pt;
+	margin-bottom:4pt;
+	text-align:justify;
+	font-size:9pt;
+	font-family:"Times New Roman";}
+dt
+	{
+	margin-top:2pt;
+	margin-bottom:4pt;
+	text-align:justify;
+	font-size:10pt;
+	font-family:"Times New Roman";
+        font-weight:bold}
+h1
+	{
+	margin-top:2pt;
+	margin-bottom:0pt;
+	page-break-after:avoid;
+	font-size:12pt;
+	font-family:"Times New Roman";
+        font-weight:bold;}
+h2
+	{
+	margin-top:2pt;
+	margin-bottom:0pt;
+	page-break-after:avoid;
+	font-size:12pt;
+	font-family:"Times New Roman";
+        font-weight:bold;}
+h3
+	{
+	margin-top:2pt;
+	margin-bottom:0pt;
+	page-break-after:avoid;
+	font-size:11pt;
+	font-family:"Times New Roman";
+	font-weight:normal;
+	font-style:italic;}
+h4,h5,h6
+	{
+	margin-top:2pt;
+	margin-bottom:0pt;
+	page-break-after:avoid;
+	font-size:11pt;
+	font-family:"Times New Roman";
+	font-weight:normal;
+	font-style:italic;}
+
+
+a:link
+	{color:blue;
+	text-decoration:underline;}
+a:visited
+	{color:purple;
+	text-decoration:underline;}
+
+h1.title
+	{
+	margin-bottom:6pt;
+	text-align:center;
+	font-size:18pt;
+	font-family:Helvetica;
+	font-weight:bold;}
+
+h2.author
+	{
+	margin-top:4pt;
+	margin-bottom:2pt;
+	text-align:center;
+	font-size:12pt;
+	font-family:Helvetica;}
+
+
+h3.affiliation
+	{
+	margin-top:2pt;
+	margin-bottom:2pt;
+	text-align:center;
+	font-size:10pt;
+	font-family:Helvetica;}
+
+h2.email
+	{
+	margin-top:2pt;
+	margin-bottom:3pt;
+	text-align:center;
+	font-size:12pt;
+	font-family:Helvetica;}
+
+
+h1.abstract
+	{
+	margin-top:6pt;
+	margin-bottom:0pt;
+	page-break-after:avoid;
+	font-size:12pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+
+p.abstract
+	{
+	margin-top:2pt;
+	page-break-after:avoid;
+	font-size:9pt;
+	font-family:"Times New Roman";
+	font-weight:normal;}
+
+h2.keywords
+	{
+	margin-top:6pt;
+	margin-bottom:0pt;
+	page-break-after:avoid;
+	font-size:12pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+
+p.keywords
+	{
+	margin-top:2pt;
+	page-break-after:avoid;
+	font-size:9pt;
+	font-family:"Times New Roman";
+	font-weight:normal;}
+
+p.caption
+	{
+	margin-bottom:4pt;
+	text-align:center;
+	font-size:9pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+
+p.image, div.image
+	{
+	margin-bottom:2pt;
+	margin-top:4pt;
+	text-align:center;
+	font-size:9pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+
+p.reference
+	{
+	margin-bottom:4pt;
+	margin-left:.25in;
+	text-align:justify;
+	text-indent:-.25in;
+	font-size:10pt;
+	font-family:"Times New Roman";
+        }
+
+div.table
+        {
+        text-align:center;
+        }
+
+table
+        {
+        margin-top:4pt;
+        font-size:9pt;
+        font-family:"Times New Roman";
+        color:black;
+        cell-spacing:4%;
+        border-collapse:collapse;
+        border: 1px solid black;
+        }
+td
+        {
+        font-size:9pt;
+        font-family:"Times New Roman";
+        border: 1px solid black;
+        padding: 2pt;
+        vertical-align:baseline;
+        text-align:left;
+        }
+
+table.data tbody td
+        {
+        font-size:9pt;
+        font-family:"Times New Roman";
+        border: 1px solid black;
+        padding: 2pt;
+        vertical-align:baseline;
+        text-align:right;
+        }
+
+table thead th      {
+        text-align:center;
+        font-size:9pt;
+        font-family:"Times New Roman";
+        color:green;
+        border: 1px solid black;
+        padding: 2pt;
+        vertical-align:baseline
+        }
+th      {
+        text-align:left;
+        font-size:9pt;
+        font-family:"Times New Roman";
+        color:green;
+        border: 1px solid black;
+        padding: 2pt;
+        vertical-align:baseline
+        }
+tr
+        {
+        font-size:9pt;
+        font-family:"Times New Roman";
+        color:black;
+        }
+ol
+	{margin-bottom:0pt}
+ul
+	{margin-bottom:0pt}
+
+em
+        {
+         font-weight:bold;
+         font-style:italic;
+        }
+
+em.code
+        {
+         font-weight:bold;
+         font-family:Courier;
+         font-style:normal;
+         color:green;
+        }

@@ -1,0 +1,188 @@
+
+Spill by hand on a straight-line code
+------- Region 0 (spill-by-hand) -----
+   1:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	0:Block_0( 0%)	
+	.LAO_0_1:
+		  0:APPLY  	 g1200 = 0
+		  1:APPLY  	 g1201 = 1
+		  2:APPLY  	 g1202 = 2
+		  3:ADD  	 g1203 = g1201, g1202
+		  4:ADD  	 g1204 = g1200, g1203
+		  5:RETURN  	
+
+------- contributed=0 -----
+------- Region 0 (spill-by-hand) -----
+   1:Block_1
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	0:Block_0(-1)	
+	successors:	0:Block_0( 0%)	
+	.LAO_0_1:
+		  0:APPLY  	 g1200 = 0
+		  6:sw  	 .lao_spill_temp_0, $r12, g1200	MemorySpill
+		  1:APPLY  	 g1201 = 1
+		  8:sw  	 .lao_spill_temp_1, $r12, g1201	MemorySpill
+		  2:APPLY  	 g1202 = 2
+		  3:ADD  	 g1203 = g1201, g1202
+		  9:lws  	 g1201 = .lao_spill_temp_1, $r12	MemorySpill
+		  4:ADD  	 g1204 = g1200, g1203
+		  7:lws  	 g1200 = .lao_spill_temp_0, $r12	MemorySpill
+		  5:RETURN  	
+
+------- contributed=0 -----
+
+Spill test one variable
+------- Region 0 (spill-everywhere one) -----
+   3:Block_1
+	Entry+Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	2:Block_0(-1)	
+	successors:	2:Block_0( 0%)	
+	.LAO_1_3:
+		 10:APPLY  	 V2400(g2500) = 0
+		 11:APPLY  	 V2401(g2501) = 1
+		 12:ADD  	 V2402(g2502) = V2400(g2500), V2401(g2501)
+		 13:ADD  	 V2403(g2503) = V2402(g2502), V2400(g2500)
+		 14:RETURN  		ExitCode
+
+------- contributed=0 -----
+------- Region 0 (spill-everywhere one) -----
+   3:Block_1
+	Entry+Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	2:Block_0(-1)	
+	successors:	2:Block_0( 0%)	
+	.LAO_1_3:
+		 10:APPLY  	 V2506(g2505) = 0
+		 15:PCOPY  	 V2400(g2500)^[.lao_spill_temp_2] = V2506(g2505)
+		 11:APPLY  	 V2401(g2501) = 1
+		 16:PCOPY  	 V2509(g2508) = V2400(g2500)^[.lao_spill_temp_2]
+		 12:ADD  	 V2402(g2502) = V2509(g2508), V2401(g2501)
+		 17:PCOPY  	 V2512(g2511) = V2400(g2500)^[.lao_spill_temp_2]
+		 13:ADD  	 V2403(g2503) = V2402(g2502), V2512(g2511)
+		 14:RETURN  		ExitCode
+
+------- contributed=0 -----
+
+Spill test all variables
+------- Region 0 (spill-everywhere all) -----
+   5:Block_1
+	Entry+Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_0(-1)	
+	successors:	4:Block_0( 0%)	
+	.LAO_2_5:
+		 18:APPLY  	 V3700(g3800) = 0
+		 19:APPLY  	 V3701(g3801) = 1
+		 20:ADD  	 V3702(g3802) = V3700(g3800), V3701(g3801)
+		 21:ADD  	 V3703(g3803) = V3702(g3802), V3700(g3800)
+		 22:RETURN  		ExitCode
+
+------- contributed=0 -----
+------- Region 0 (spill-everywhere all) -----
+   5:Block_1
+	Entry+Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	4:Block_0(-1)	
+	successors:	4:Block_0( 0%)	
+	.LAO_2_5:
+		 18:APPLY  	 V3806(g3805) = 0
+		 23:PCOPY  	 V3700(g3800)^[.lao_spill_temp_3] = V3806(g3805)
+		 19:APPLY  	 V3816(g3815) = 1
+		 24:PCOPY  	 V3809(g3808), V3701(g3801)^[.lao_spill_temp_4], V3819(g3818) = V3700(g3800)^[.lao_spill_temp_3], V3816(g3815), V3816(g3815)
+		 20:ADD  	 V3823(g3822) = V3809(g3808), V3819(g3818)
+		 25:PCOPY  	 V3812(g3811), V3702(g3802)^[.lao_spill_temp_5], V3826(g3825) = V3700(g3800)^[.lao_spill_temp_3], V3823(g3822), V3823(g3822)
+		 21:ADD  	 V3830(g3829) = V3826(g3825), V3812(g3811)
+		 26:PCOPY  	 V3703(g3803)^[.lao_spill_temp_6] = V3830(g3829)
+		 22:RETURN  		ExitCode
+
+------- contributed=0 -----
+
+Spill test all variables with control-flow
+------- Region 0 (spill-everywhere complete) -----
+   7:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	6:Block_0(-1)	
+	successors:	8:Block_2( 0%)	9:Block_3( 0%)	
+	.LAO_3_7:
+		 27:APPLY  	 V5000(g5100) = 0
+		 28:APPLY  	 V5001(g5101) = 1
+		 29:ADD  	 V5002(g5102) = V5000(g5100), V5001(g5101)
+		 30:IFTRUE  	 V5001(g5101), .LAO_3_9
+
+   8:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	7:Block_1(-1)	
+	successors:	10:Block_4( 0%)	
+	.LAO_3_8:
+		 31:ADD  	 V5003(g5103) = V5000(g5100), V5002(g5102)
+		 32:GOTO  	 .LAO_3_10
+
+   9:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	7:Block_1(-1)	
+	successors:	10:Block_4( 0%)	
+	.LAO_3_9:
+		 33:ADD  	 V5005(g5105) = V5001(g5101), V5002(g5102)
+
+  10:Block_4
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	8:Block_2(-1)	9:Block_3(-1)	
+	successors:	6:Block_0( 0%)	
+	.LAO_3_10:
+		 34:PHI  	 V5006(g5106) = V5003(g5103), V5005(g5105)
+		 35:ADD  	 V5004(g5104) = V5001(g5101), V5006(g5106)
+		 36:RETURN  		ExitCode
+
+------- contributed=0 -----
+------- Region 0 (spill-everywhere complete) -----
+   7:Block_1
+	Entry
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	6:Block_0(-1)	
+	successors:	8:Block_2( 0%)	9:Block_3( 0%)	
+	.LAO_3_7:
+		 27:APPLY  	 V5109(g5108) = 0
+		 37:PCOPY  	 V5000(g5100)^[.lao_spill_temp_7] = V5109(g5108)
+		 28:APPLY  	 V5119(g5118) = 1
+		 38:PCOPY  	 V5112(g5111), V5001(g5101)^[.lao_spill_temp_8], V5122(g5121) = V5000(g5100)^[.lao_spill_temp_7], V5119(g5118), V5119(g5118)
+		 29:ADD  	 V5135(g5134) = V5112(g5111), V5122(g5121)
+		 40:PCOPY  	 V5125(g5124), V5002(g5102)^[.lao_spill_temp_9] = V5001(g5101)^[.lao_spill_temp_8], V5135(g5134)
+		 30:IFTRUE  	 V5125(g5124), .LAO_3_9
+
+   8:Block_2
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	7:Block_1(-1)	
+	successors:	10:Block_4( 0%)	
+	.LAO_3_8:
+		 39:PCOPY  	 V5115(g5114), V5138(g5137) = V5000(g5100)^[.lao_spill_temp_7], V5002(g5102)^[.lao_spill_temp_9]
+		 31:ADD  	 V5145(g5144) = V5115(g5114), V5138(g5137)
+		 43:PCOPY  	 V5003(g5103)^[.lao_spill_temp_10] = V5145(g5144)
+		 32:GOTO  	 .LAO_3_10
+
+   9:Block_3
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	7:Block_1(-1)	
+	successors:	10:Block_4( 0%)	
+	.LAO_3_9:
+		 41:PCOPY  	 V5128(g5127), V5141(g5140) = V5001(g5101)^[.lao_spill_temp_8], V5002(g5102)^[.lao_spill_temp_9]
+		 33:ADD  	 V5149(g5148) = V5128(g5127), V5141(g5140)
+		 44:PCOPY  	 V5005(g5105)^[.lao_spill_temp_11] = V5149(g5148)
+
+  10:Block_4
+	Exit
+	frequency=0	regionId=0x0	traceId=0
+	predecessors:	8:Block_2(-1)	9:Block_3(-1)	
+	successors:	6:Block_0( 0%)	
+	.LAO_3_10:
+		 34:PHI  	 V5006(g5106)^[.lao_spill_temp_12] = V5003(g5103)^[.lao_spill_temp_10], V5005(g5105)^[.lao_spill_temp_11]
+		 42:PCOPY  	 V5131(g5130), V5153(g5152) = V5001(g5101)^[.lao_spill_temp_8], V5006(g5106)^[.lao_spill_temp_12]
+		 35:ADD  	 V5157(g5156) = V5131(g5130), V5153(g5152)
+		 45:PCOPY  	 V5004(g5104)^[.lao_spill_temp_13] = V5157(g5156)
+		 36:RETURN  		ExitCode
+
+------- contributed=0 -----

@@ -1,0 +1,13 @@
+ffffffff00000000|ffffffff10000004|
+0|7|
+126456789abcdef|1234467896bcdef|
+123453782abcdef|123436779abcdef|
+aaa8aaaaaaaaaaaa|aa2aa2aaaa4aaaaa|
+upper: ffffffff00000000|ffffffff10000004|
+lower: 0|7|
+upper: 123456789abcdef|123456789abcdef|
+lower: 123456789abcdef|123456789abcdef|
+upper: 123456789abcdef|123456789abcdef|
+lower: aaaaaaaaaaaaaaaa|aaaaaaaaaaaaaaaa|
+upper: aaaaaaaaaaaaaaaa|aaaaaaaaaaaaaaaa|
+lower: 0|0|

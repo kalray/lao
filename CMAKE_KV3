@@ -1,0 +1,2 @@
+# rm -rf kv3_build && mkdir -p kv3_build && cd kv3_build && . ../CMAKE_KV3 && make all install
+cmake ../LAO  -DTARGET=kv3 -DFAMILY=kvx -DLAO_STATIC=1 -DSOFTFLOAT_PREFIX=../../kEnv/k1tools/usr/local/k1Req/softfloat/softfloat-3e -DYAML_ENABLED=OFF -DGLPK_ENABLED=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PWD/../../devimage/toolchain_default/k1tools

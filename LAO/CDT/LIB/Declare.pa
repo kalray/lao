@@ -1,0 +1,284 @@
+#
+#	Semantic actions for the XCC C declaration parser.
+#
+#	This program is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU Lesser General Public License (LGPL)
+#	version 2 as published by the Free Software Foundation.
+
+package Declare;
+
+#
+# Scanner code: export &yydebug, &yylval, &yyin, &yylex.
+#
+$yydebug = 0;
+sub yydebug {
+  $yydebug = shift;
+}
+$yylval = undef;
+@yylval = ();
+sub yylval {
+  $yylkeep =  shift;
+  if (defined $yylkeep) {
+    shift @yylval while @yylval > $yylkeep;
+  }
+  @yylval;
+}
+@yyin = ();
+sub yyin {
+  my @buffer = @_;
+  my $buffer = join("\n", @buffer);
+  # strip C comments from $buffer
+  $buffer =~ s/\/\*.*?\*\///sg;
+  $buffer =~ s/\/\/.*//g;
+  $buffer =~ s/^\#.*//mg;
+  push @yyin, grep { length($_) } split '\b|\s+', $buffer;
+}
+sub yylex {
+  my $token;
+  return '' unless (@yyin);
+  my $value = shift @yyin;
+  if ($value =~ s/^(\.\.\.)//) {
+    ($token, $yylval) = ('ELLIPSIS', $1);
+    unshift @yyin, $value if length($value);
+  } elsif ($value =~ s/^(\W)//) {
+    unshift @yyin, $value if length($value);
+    ($token, $yylval) = ($1, $1);
+  } elsif ($value =~ s/^(\d+)//) {
+    unshift @yyin, $value if length($value);
+    ($token, $yylval) = ('INT_LITERAL', $1);
+  } elsif ($value =~ /^(char)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(short)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(int)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(long)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(signed)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(unsigned)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(float)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(double)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(const)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(volatile)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(void)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(struct)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(union)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(enum)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } elsif ($value =~ /^(typedef)$/) {
+    ($token, $yylval) = (uc($1), $1);
+  } else {
+    ($token, $yylval) = ('IDENTIFIER', $value);
+  }
+  push @yylval, $yylval if $yylkeep;
+  shift @yylval if @yylval > $yylkeep;
+  $token;
+}
+
+sub pretty {
+  my $type = shift;
+  if (ref $type eq 'HASH') {
+    return "ARRAY[".$$type{DIMENSION}."](".&pretty($$type{ARRAY}).")" if $$type{ARRAY};
+    return "POINTER{".$$type{QUALIFIER}."}(".&pretty($$type{POINTER}).")" if $$type{POINTER};
+    return "FUNCTION(".&pretty($$type{FUNCTION}).")" if $$type{FUNCTION};
+  }
+  return $type;
+}
+
+@struct = ();
+sub struct {
+  @struct;
+}
+
+#
+# Begin semantic actions
+#
+
+#rule parse_struct_definition -> struct_introduction '{' struct_declaration_list '}' ';'
+  @struct = ($_[0], @{$_[2]});
+  undef;
+
+#rule parse_struct_definition -> struct_introduction '{' struct_declaration_list '}' init_declarator_list ';'
+  @struct = ($_[0], @{$_[2]});
+  undef;
+
+#rule struct_introduction -> STRUCT IDENTIFIER
+  $_[1];
+
+#rule struct_introduction -> TYPEDEF STRUCT IDENTIFIER
+  $_[2];
+
+#rule struct_declaration_list -> struct_declaration
+  [ $_[0] ];
+
+#rule struct_declaration_list -> struct_declaration_list struct_declaration
+  [ @{$_[0]}, $_[1] ];
+
+#rule struct_declaration -> specifier_qualifier_list struct_declarator_list ';'
+  { DECLARATION => $_[0], DECLARATORS => $_[1] };
+
+#rule struct_declaration -> identifier_qualifier_list struct_declarator_list ';'
+  { DECLARATION => $_[0], DECLARATORS => $_[1] };
+
+#rule specifier_qualifier_list -> type_specifier
+  $_[0];
+
+#rule specifier_qualifier_list -> type_specifier specifier_qualifier_list
+  "$_[0] $_[1]";
+
+#rule specifier_qualifier_list -> type_qualifier specifier_qualifier_list
+  "$_[0] $_[1]";
+
+#rule identifier_qualifier_list -> IDENTIFIER
+  $_[0];
+
+#rule identifier_qualifier_list -> type_qualifier identifier_qualifier_list
+  "$_[0] $_[1]";
+
+#rule struct_declarator_list -> struct_declarator
+  [ $_[0] ];
+
+#rule struct_declarator_list -> struct_declarator_list ',' struct_declarator
+  [ @{$_[0]}, $_[2] ];
+
+#rule struct_declarator -> declarator
+  $_[0];
+
+#rule struct_declarator -> declarator ':' constant_expression
+  $_[0];
+
+#rule declarator -> pointer direct_declarator
+  my $pointer = $_[0];
+  $pointer = $$pointer{POINTER} while ($$pointer{POINTER});
+  $$pointer{POINTER} = $_[1];
+  $_[0];
+
+#rule declarator -> direct_declarator
+  $_[0];
+
+#rule pointer -> '*'
+  { POINTER => '', QUALIFIER => '' };
+
+#rule pointer -> '*' type_qualifier_list
+  { POINTER => '', QUALIFIER => $_[1] };
+
+#rule pointer -> '*' pointer
+  { POINTER => $_[1], QUALIFIER => '' }
+
+#rule pointer -> '*' type_qualifier_list pointer
+  { POINTER => $_[2], QUALIFIER => $_[1] }
+
+#rule type_qualifier_list -> type_qualifier
+  $_[0];
+
+#rule type_qualifier_list -> type_qualifier_list type_qualifier
+  "$_[0] $_[1]";
+
+#rule type_qualifier -> CONST
+  $_[0];
+
+#rule type_qualifier -> VOLATILE
+  $_[0];
+
+#rule direct_declarator -> IDENTIFIER
+  $_[0];
+
+#rule direct_declarator -> '(' declarator ')'
+  $_[1];
+
+#rule direct_declarator -> direct_declarator '[' constant_expression ']'
+  { ARRAY => $_[0], DIMENSION => $_[2] };
+
+#rule direct_declarator -> direct_declarator '[' ']'
+  { ARRAY => $_[0] };
+
+#rule direct_declarator -> direct_declarator '(' parameter_type_list ')'
+  { FUNCTION => $_[0] };
+
+#rule direct_declarator -> direct_declarator '(' ')'
+  { FUNCTION => $_[0] };
+
+#rule declaration_specifiers -> type_specifier
+  $_[0];
+
+#rule declaration_specifiers -> type_specifier declaration_specifiers
+  "$_[0] $_[1]";
+
+#rule declaration_specifiers -> type_qualifier declaration_specifiers
+  "$_[0] $_[1]";
+
+#rule identifier_specifier -> IDENTIFIER
+  $_[0];
+
+#rule identifier_specifier -> type_qualifier identifier_specifier
+  "$_[0] $_[1]";
+
+#rule type_specifier -> VOID
+  $_[0];
+
+#rule type_specifier -> CHAR
+  $_[0];
+
+#rule type_specifier -> SHORT
+  $_[0];
+
+#rule type_specifier -> INT
+  $_[0];
+
+#rule type_specifier -> LONG
+  $_[0];
+
+#rule type_specifier -> FLOAT
+  $_[0];
+
+#rule type_specifier -> DOUBLE
+  $_[0];
+
+#rule type_specifier -> SIGNED
+  $_[0];
+
+#rule type_specifier -> UNSIGNED
+  $_[0];
+
+#rule type_specifier -> struct_or_union_specifier
+  $_[0];
+
+#rule type_specifier -> enum_specifier
+  $_[0];
+
+#rule type_specifier -> TYPE_NAME
+  $_[0];
+
+#rule struct_or_union_specifier -> struct_or_union IDENTIFIER
+  "$_[0] $_[1]";
+
+#rule struct_or_union -> STRUCT
+  $_[0];
+
+#rule struct_or_union -> UNION
+  $_[0];
+
+#rule enum_specifier -> ENUM IDENTIFIER
+  "$_[0] $_[1]";
+
+#rule constant_expression -> INT_LITERAL
+  $_[0];
+
+#rule constant_expression -> IDENTIFIER
+  $_[0];
+
+#rule constant_expression -> IDENTIFIER '-' INT_LITERAL
+  "$_[0]-$_[2]";
+
+#rule constant_expression -> IDENTIFIER '+' INT_LITERAL
+  "$_[0]+$_[2]";
+

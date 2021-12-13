@@ -1,0 +1,71 @@
+/**
+ @page codingRules Coding Rules for the ECL Developments
+
+ @section memory Memory Allocation
+
+The _new should always have Memory parent as first parameter and create a new Memory and
+allocate itself into it. The _delele should delete the Memory created by _new.
+
+When calling the _Dtor or _delete of top-level objects, there should be no leaks.
+When omitting to call _Dtor or _delete, the program should work as usual. Beware of
+setting fields in _Dtor or _delete!
+
+It is possible to improve speed by omittimg explicit calls to _Dtor or _delete except for
+the root objects. When a Memory is deleted it recursively deletes its children so there
+will be no leaks.
+
+ @section naming Naming Rules
+
+Module names are nouns for computed information (e.g. Liveness) and
+transformations (e.g. Scheduler)
+
+Container_popObject should pop and delete an Object
+
+Container_pushObject should create and push an Object
+
+Container_push_ should push an already created Object on Container
+
+ObjectContainer_push should push an existing Object on ObjectContainer
+
+Container_makeObject should create Object or return a cached one
+
+Container_makeObject should create Object or return a cached one
+
+Container_createObject should always create a new Object.
+
+Container_killObject should delete Object.
+
+Container_lookup
+
+Container_access
+
+Container_search
+
+Container_insert
+
+Container_remove
+
+Object_member
+
+Object_setMember
+
+Object_getMember
+
+enum ObjectFlag
+unsigned ObjectFlags
+
+enum ObjectType
+short_ObjectType
+
+const_Object
+
+Delaying memory allocation for IArray, IStack, IQueue with maxCount=0
+
+For complex processing:
+
+Processing is the object that contains the Processing useful data.
+
+ProcessingConstruct is the object that constructs Processing.
+
+ProcessingDestruct is the object that destructs Processing.
+*/

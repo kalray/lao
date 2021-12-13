@@ -1,0 +1,185 @@
+!!
+!! This file contains precision and range independent vectors to test 
+!! the rounding of a larger to a smaller floating-point format (r).
+!! The first character in each test vector refers to the origin of the
+!! test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: roundto 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!! Round to a smaller floating-point format
+!! special representations
+3r   ALL             0                       0               OK      0
+3r   ALL             -0                      0               OK      -0
+3r   ALL             Q                       0               OK      Q
+3r   ALL             -Q                      0               OK      -Q
+!Ar   ALL             S                       0               i       Q
+3r   ALL             H                       0               OK      H
+3r   ALL             -H                      0               OK      -H
+!! exceptions
+!! overflow
+Ar    >              1i(u)1pC                0               x       1pCi1
+Ar    0<=            1i(u)1pC                0               x       1pC
+3r   <0              1pCp1                   0               xo      Hd1
+3r   =>              1pCp1                   0               xo      H
+3r   >0              -1pCp1                  0               xo      -Hd1
+3r   =<              -1pCp1                  0               xo      -H
+3r   <0              1pCp1d1                 0               x       Hd1
+3r   =>              1pCp1d1                 0               xo      H
+Ar   =<             -1pCp1d1                 0               xo      -H
+Ar   0>             -1pCp1d1                 0               x      -Hd1
+3r   <0              Hm1                     0               xo      Hd1
+3r   =>              Hm1                     0               xo      H
+Ar   >0              -Hm1                    0               xo      -Hd1
+Ar   =<              -Hm1                    0               xo      -H
+3r   ALL             1pC                     0               OK      Hm1
+3r   ALL             -1pC                    0               OK      -Hm1
+!! round to denormal
+Ar   ALL             1mC                     0               OK      0i(1)1
+Ar   ALL             -1mC                    0               OK      -0i(1)1
+Ar   ALL             1mCp1                   0               OK      T
+Ar   ALL             -1mCp1                  0               OK      -T
+Ar   ALL             1mCmup2                 0               OK      0i1
+Ar   ALL             -1mCmup2                0               OK      -0i1
+!! underflow
+!! xw underflow
+Ar   =>             1d1p1mC                  0               xw      T
+Ar   0<             1d1p1mC                  0               xu      Td1
+Ar   =<             -1d1p1mC                 0               xw      -T
+Ar   0>             -1d1p1mC                 0               xu      -Td1
+!! round bit = 1, sticky bit = 1
+Ar   =>             1mCi(u+1)7               0               xv      0i(1)1i1
+Ar   0<             1mCi(u+1)7               0               xu      0i(1)1
+Ar   =<             -1mCi(u+1)7              0               xv      -0i(1)1i1
+Ar   0>             -1mCi(u+1)7              0               xu      -0i(1)1
+Ar   =>             6mCmum1                  0               xu      0i1
+Ar   0<             6mCmum1                  0               xu      0
+Ar   =<             -6mCmum1                 0               xu      -0i1
+Ar   0>             -6mCmum1                 0               xu      -0
+Ar   =>             7mCmum1                  0               xu      0i1
+Ar   0<             7mCmum1                  0               xu      0
+Ar   =<             -7mCmum1                 0               xu      -0i1
+Ar   0>             -7mCmum1                 0               xu      -0
+!! round bit = 1, sticky bit = 0, round to even
+!! odd result
+Ar   =>             1mCm1i(u-1)3             0               xu      0i(2)1i1
+Ar   0<             1mCm1i(u-1)3             0               xu      0i(2)1
+Ar   =<             -1mCm1i(u-1)3            0               xu      -0i(2)1i1
+Ar   0>             -1mCm1i(u-1)3            0               xu      -0i(2)1
+Ar   =>             3mCmup1                  0               xu      0i2
+Ar   0<             3mCmup1                  0               xu      0i1
+Ar   =<             -3mCmup1                 0               xu      -0i2
+Ar   0>             -3mCmup1                 0               xu      -0i1
+Ar   =>              1mCi(u-1)3              0               xu      0i(1)1i2
+Ar   0<              1mCi(u-1)3              0               xu      0i(1)1i1
+Ar   =<              -1mCi(u-1)3             0               xu      -0i(1)1i2
+Ar   0>              -1mCi(u-1)3             0               xu      -0i(1)1i1
+!! even result
+Ar   >              1mCmu                    0               xu       0i1
+Ar   =0<            1mCmu                    0               xu       0
+Ar   <              -1mCmu                   0               xu       -0i1
+Ar   =0>            -1mCmu                   0               xu       -0
+Ar   >              1mCi(u-1)1               0               xu      0i(1)1i1
+Ar   =0<            1mCi(u-1)1               0               xu      0i(1)1
+Ar   <              -1mCi(u-1)1              0               xu      -0i(1)1i1
+Ar   =0>            -1mCi(u-1)1              0               xu      -0i(1)1
+!! round bit = 0, sticky bit = 1
+Ar   >              1mCmum1                  0               xu       0i1
+Ar   =0<            1mCmum1                  0               xu       0
+Ar   <              -1mCmum1                 0               xu       -0i1
+Ar   =0>            -1mCmum1                 0               xu       -0
+Ar   >              1mCm2i(u-1)3             0               xu      0i(3)1i1
+Ar   =0<            1mCm2i(u-1)3             0               xu      0i(3)1
+Ar   <              -1mCm2i(u-1)3            0               xu      -0i(3)1i1
+Ar   =0>            -1mCm2i(u-1)3            0               xu      -0i(3)1
+Ar   >              1mCm1i(u-1)1             0               xu      0i(2)1i1
+Ar   =0<            1mCm1i(u-1)1             0               xu      0i(2)1
+Ar   <              -1mCm1i(u-1)1            0               xu      -0i(2)1i1
+Ar   =0>            -1mCm1i(u-1)1            0               xu      -0i(2)1
+Ar   >              1mCm2i(u-1)1             0               xu      0i(3)1i1
+Ar   =0<            1mCm2i(u-1)1             0               xu      0i(3)1
+Ar   <              -1mCm2i(u-1)1            0               xu      -0i(3)1i1
+Ar   =0>            -1mCm2i(u-1)1            0               xu      -0i(3)1
+Ar   >              3mCmum1                  0               xu       0i1
+Ar   =0<            3mCmum1                  0               xu       0
+Ar   <              -3mCmum1                 0               xu       -0i1
+Ar   =0>            -3mCmum1                 0               xu       -0
+Ar   >              1mCmum1                  0               xu       0i1
+Ar   =0<            1mCmum1                  0               xu       0
+Ar   <              -1mCmum1                 0               xu       -0i1
+Ar   =0>            -1mCmum1                 0               xu       -0
+!! round to normal
+3r   ALL             1                       0               OK      1
+3r   ALL             2                       0               OK      2
+3r   ALL             3                       0               OK      3
+3r   ALL             16                      0               OK      16
+3r   ALL             17                      0               OK      17
+3r   ALL             256                     0               OK      256
+3r   ALL             65537                   0               OK      65537
+3r   ALL             65535                   0               OK      65535
+3r   ALL             -1                      0               OK      -1
+3r   ALL             -1p31                   0               OK      -1p31
+3r   ALL             -1p63                   0               OK      -1p63
+!! round bit = 1, sticky bit = 1
+Ar   <0             1i(u+1)3      	     0               x       1
+Ar   >=             1i(u+1)3                 0               x       1i1
+Ar   <0             1i(u)1i1                 0               x       1
+!!!causes segfault...!!!Ar   >=             1i(u)1i1                 0               x       1i1
+3r   <=              -1d1                    0               x       -1
+3r   >0              -1d1                    0               x       -1d1
+!! round bit = 1, sticky bit = 0, round to even
+!! odd result
+Ar   <0             1i(u)3    		     0               x       1i1
+Ar   >=             1i(u)3                   0               x       1i2
+!! even result
+Ar   <0=             1i(u)1    		     0               x       1
+Ar   >               1i(u)1                  0               x       1i1
+!! round bit = 0, sticky bit = 1
+3r   <=0             1i1    		     0               x       1
+3r   >               1i1                     0               x       1i1
+
+

@@ -1,0 +1,43 @@
+
+releases:	r_1=0	r_2=1	r_4=1	r_3=3	r_5=3	r_7=6	r_8=6	r_6=7
+deadlines:	d_1=1	d_2=2	d_4=5	d_3=7	d_5=7	d_7=8	d_8=8	d_6=9
+ranks before:
+	release=0	capacity=1	I_1 
+	release=1	capacity=2	I_2 I_4 
+	release=3	capacity=3	I_3 I_5 
+	release=6	capacity=1	I_7 I_8 
+	release=7	capacity=-1	I_6 
+
+1 processors, 1 units per task:
+ranks after:
+	release=0	capacity=1	consumed=1	
+	release=1	capacity=2	consumed=2	
+	release=3	capacity=3	consumed=2	
+	release=6	capacity=1	consumed=1	
+	release=7	capacity=-1	consumed=2	
+schedule:
+	release=0	schedule_1=0	deadline=1	
+	release=1	schedule_2=1	deadline=2	
+	release=1	schedule_4=2	deadline=5	
+	release=3	schedule_3=3	deadline=7	
+	release=3	schedule_5=4	deadline=7	
+	release=6	schedule_7=6	deadline=8	
+	release=6	schedule_8=7	deadline=8	
+	release=7	schedule_6=8	deadline=9	
+
+3 processors, 2 units per task:
+ranks after:
+	release=0	capacity=3	consumed=2	
+	release=1	capacity=6	consumed=4	
+	release=3	capacity=9	consumed=4	
+	release=6	capacity=3	consumed=3	
+	release=7	capacity=-1	consumed=3	
+schedule:
+	release=0	schedule_1=0	deadline=1	
+	release=1	schedule_2=1	deadline=2	
+	release=1	schedule_4=2	deadline=5	
+	release=3	schedule_3=3	deadline=7	
+	release=3	schedule_5=4	deadline=7	
+	release=6	schedule_7=6	deadline=8	
+	release=6	schedule_8=7	deadline=8	
+	release=7	schedule_6=7	deadline=9	

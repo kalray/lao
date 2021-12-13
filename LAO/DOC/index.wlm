@@ -1,0 +1,39 @@
+!!!!	The Embedded Compiler Libraries
+
+--	Beno&icirc;t Dupont de Dinechin
+
+The Embedded Compiler Libraries (ECL) is a GNU-style package that provides
+libraries that are used to develop compiler code generators, with primary focus
+on the ST200 VLIW processor family. The ECL package is currently used for the
+ST200 LAO and for the STMicroelectronics CIL JIT compiler.
+
+The main features of the ECL are:
+
+ *	Target machine description are captured in <MDS
+ https://mds.codex.cro.st.com>-generated tables.
+ *	The intermediate representation is inspired from the Open64 CGIR.
+ *	The intermediate representation and optimizations are biased towards
+ efficiency, so they are suitable for use in JIT compilers.
+ *	The intermediate representation supports at the same time
+ machine-independent and machine dependent Operator(s).
+ *	The intermediate representation supports SSA form on machine code.
+ *	The ECL source code uses XCC, WLM, and follows well-defined programming
+ practices.
+
+The ECL is composed of the following libraries:
+
+ *	<Target machine description library configured by the MDS MDS.html>
+ *	<Assembler Intermediate Representation (AIR) AIR.html>
+ *	<Layered Intermediate Representation (LIR) LIR.html>
+ *	<Program Flow Analyses (PFA) PFA.html>
+ *	<Code Generator Optimizations (CGO) CGO.html>
+ *	<Just-In-Time compiler (JIT) JIT.html>
+
+Some useful documents about ECL:
+
+ *	<ECL Hacking Hacking.html>
+ *	<LIR Tutorial Tutorial.html>
+ *	<ECL Must Know MustKnow.html>
+ *	<CIL Upstream Upstream.html>
+ *	<JIT Issues Issues.html>
+

@@ -1,0 +1,22 @@
+/*
+ * kv3/Decoding.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef Decoding
+#define Decoding(ID, PROCESSOR, WORDTYPE, WORDCOUNT)
+#else /*Decoding*/
+Decoding(v1_double, PROCESSOR(v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(2))
+Decoding(v1_simple, PROCESSOR(v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(1))
+Decoding(v1_triple, PROCESSOR(v1_cpu), WORDTYPE(uint32_t), WORDCOUNT(3))
+Decoding(v2_double, PROCESSOR(v2_cpu), WORDTYPE(uint32_t), WORDCOUNT(2))
+Decoding(v2_simple, PROCESSOR(v2_cpu), WORDTYPE(uint32_t), WORDCOUNT(1))
+Decoding(v2_triple, PROCESSOR(v2_cpu), WORDTYPE(uint32_t), WORDCOUNT(3))
+#endif/*Decoding*/
+#undef Decoding
+
+#ifndef Decoding_SIZE_MAX
+#define Decoding_SIZE_MAX 12
+#endif/*Decoding_SIZE_MAX*/
+

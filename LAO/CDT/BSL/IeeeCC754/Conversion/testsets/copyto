@@ -1,0 +1,78 @@
+!!
+!! This file contains precision and range independent vectors to test
+!! the conversion from a smaller to a larger floating-point format (c).
+!! The first character in each test vector refers to the origin of the
+!! test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: copyto 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!! Copy to a larger floating-point format
+!! special representations
+3c   ALL             0                       0               OK      0
+3c   ALL             -0                      0               OK      -0
+3c   ALL             Q                       0               OK      Q
+3c   ALL             -Q                      0               OK      -Q
+! Ac   ALL             S                       0               i       Q
+3c   ALL             H                       0               OK      H
+3c   ALL             -H                      0               OK      -H
+
+!! copy to normal
+3c   ALL             1                       0               OK      1
+3c   ALL             2                       0               OK      2
+3c   ALL             3                       0               OK      3
+3c   ALL             16                      0               OK      16
+3c   ALL             17                      0               OK      17
+3c   ALL             256                     0               OK      256
+3c   ALL             65537           	0               OK      65537
+3c   ALL             65535           	0               OK      65535
+3c   ALL             -1                     	0               OK      -1
+3c   ALL             -1p31           	0               OK      -1p31
+3c   ALL             -1p63           	0               OK      -1p63
+3c   ALL             Hm1                0               OK      1pB0
+3c   ALL             -Hm2               0               OK      -1pB0m1
+3c   ALL             T                  0               OK      1mB0p1

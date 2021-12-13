@@ -1,0 +1,492 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{palatino,epsfig}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym}
+\usepackage{pstcol}
+
+\title{Just-In-Time Compiler Design
+for a .NET Embedded Translation System}
+\author{Beno\^{\i}t Dupont de Dinechin}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+We discuss the design of a Just-In-Time (JIT) for an embedded program
+translation system. This system uses Microsoft .NET CIL byte codes as input and
+produces binary executable code for embedded processors such as the ST200 and
+ARM families.
+
+\end{abstract}
+
+
+\section{Design Objectives and Constraints}
+
+The JIT design objectives and constraints are set by the \textbf{cli-tech}
+project of AST computing in STMicroelectronics: \begin{description}
+
+\item[R1] The proposed JIT compiler is running CIL code that has been produced
+from: Microsoft Visual Studio when compiling standard C and C++ code under user
+option \verb|/clr:pure|; the LCC compiler with its MSIL code generator; an
+upcoming CIL generator developed by AST Computing on top of the GCC4 compiler.
+
+\item[R2] The JIT compiler will be used in install-time, load-time, and later
+run-time, configurations on an embedded device that comprises a micro-controller
+and one or more media processors. The JIT compiler will target the media
+processor(s) but may execute on the micro-controller.
+
+\item[R3] The JIT compiler will focus on high performance of generated code,
+relying on the upstream compiler to specifically optimize and annotate the CIL
+code it produces. Because the applications considered are media processing
+algorithms written in C or C++, the JIT compiler does not have to deal with
+managed data (e.g. support garbage collection by an underlying virtual machine).
+
+\item[R4] The JIT compiler source code should be mostly target-independent. Most
+of the target system dependencies should be captured in the tables that are
+produced by the Machine Description System (MDS).
+
+\item[R5] The JIT compiler should be able to recover from low memory errors.
+Whenever the memory required for a compiler optimization cannot be obtained, the
+JIT compiler should signal the problem to the environment, then try again the
+optimization dumbed down.
+
+\item[R6] For the JIT development considered here, the speed of code generation
+should be in the range of 10,000 to 100,000 processor cycles per CIL byte code.
+
+\end{description}
+
+There is no need for this JIT to support the highest possible code generation
+speed at expense of code quality. If required, such high-speed JIT compilation
+will be performed by a separate program called JIT0. From published numbers of
+JIT research and production projects, it appears that the highest possible code
+generation speed in a JIT0 is about 1000 processor cycles average per CIL byte
+code.
+
+
+\section{Proposed JIT Software Architecture}
+
+
+\subsection{Region-Based Compilation}
+
+Control of the resources (time and space) needed by performance-oriented
+compilation can be achieved by scoping the optimizations to \emph{code regions},
+instead of applying them to a whole procedure at a time
+\cite{Hank:1995:MICRO,Way:2000:PACT}. Recent work by the IBM JVM team
+\cite{Suganuma:2003:PLDI} extends the applicability of region-based compilation
+to dynamic optimizations in a Java JIT by speculatively ignoring the data-flow
+effects of seldom executed code regions. In this setting, they demonstrate that
+region-based compilation not only reduces the compilation resource requirements,
+but also provides significant performance improvements of the resulting code.
+
+For the JIT we propose, code regions implemented as the CodeRegion class provide
+the scope for most analyzes and transformation, in particular SSA form building
+and register allocation. These CodeRegion(s) are a partition of a Procedure
+control-flow graph, possibly after some inlining has been performed.  To be more
+specific, the CodeRegion(s) we propose are not hierarchical. However,
+CodeRegion(s) are containers for optimization-dependent partitions of the
+control-flow graph, in particular IF-conversion regions, loop optimization
+regions, extended basic blocks and instruction scheduling regions.
+
+In order to support exceptions in C++, the JIT has to represent the nesting of
+\emph{try/catch/finally} program scopes. This nesting which is hierarchical must
+be represented by a structure distinct from CodeRegion(s). The constraints on
+\emph{try/catch/finally} program scopes on CodeRegion boundaries is yet to be
+specified.
+
+
+\subsection{SSA Form Program Representations}
+
+A recent trend in compiler code generator design is the use of SSA form on
+machine operators \cite{Leung:1999:PLDI,Dinechin:2000:CASES} in static
+compilers. Another is the use of SSA form with generic code followed by a code
+selection to a machine-level program representation, as exemplified in the Intel
+StarJIT compiler \cite{Tabatabai:2003:INTELTJ}. A more pervasive use of SSA form
+in JIT compilation is exemplified by the Java HotSpot Server Compiler
+\cite{Paleczny:2001:JVM}. The usual perception with the SSA form is that it
+expensive to construct and destruct, even though it makes optimizations less
+costly and more effective once available. It is interesting to note that, for
+the IBM JVM team, even the SSA form optimizations themselves are too expensive
+for an optimizing JIT \cite{Suganuma:2000:IBMSJ}.
+
+For the JIT we propose, we use the SSA form pervasively, both at the generic
+code level and the machine code level. The SSA form at the generic code level
+means a SSA form whose node operators are target independent. This SSA form is
+similar to what exists in the target-independent optimization stages of static
+optimizing compilers, such as \textbf{wopt} in the Open64 compiler. However, the
+generic operators we propose closely match a subset of the CIL opcodes in order
+to simplify the translation from CIL object format. At the code selection stage,
+the SSA form remains except that the generic operators patterns are matched an
+expanded to machine operators.
+
+In order to save the compilation resources while enabling high code quality, we
+adopt the following key design principles: \begin{itemize}
+
+\item SSA form optimizations and analyzes should be done whenever possible on
+the generic SSA form.
+
+This includes at least: method inlining and loop unrolling; cleanup with
+constant propagation and dead code elimination; bit-width analysis to prepare
+the code selection. Some cleanup of the machine SSA form is also required.
+
+\item Eliminate the need for explicit interference graph construction in
+SSA form destruction, register coalescing and allocation.
+
+The interference graph is normally required for these steps. However, in case
+\emph{strict SSA form} is maintained\footnote{Definitions by Phi-functions
+dominate their uses. This is the case after SSA form construction but may not be
+after PRE or even value numbering.} interferences can be quickly checked by
+combining dominance and liveness information \cite{Budimlic:2002:PLDI}. This
+interference test has been combined with the SSA form destruction and variable
+coalescing of Sreedhar et al. \cite{Sreedhar:1999:SAS} in the LAO. Last, using
+the most advanced linear-scan allocator as developed for the Java HotSpot client
+compiler \cite{Wimmer:2005:VEE}, register allocation can be achieved in almost
+linear time without relying on an explicit interference graph.
+
+Also, a research objective for the proposed JIT is to achieve register
+allocation for machine code SSA form with register coalescing. This would
+eliminate the explicit SSA form destruction step, while the chordality of
+(strict) SSA form interference graphs ensures coloring can be done efficiently
+without explicitly building the interference graph \cite{Hack:2005:TR}.
+
+\item Eliminate the need for explicit dependence graph construction in
+instruction scheduling and software pipelining.
+
+In the context of the AST Computing PJIT project, I have developed a post-pass
+``Scoreboard'' scheduler that behaves like the dynamic instruction scheduler of
+an out-of-order superscalar processor. A key point is that, given the
+instructions to schedule in some priority order, such Scoreboard scheduler
+computes the same instruction schedule as list scheduling, provided the
+scheduled resources are used one cycle at most by the instructions. The latter
+is accurately verified for most modern processors, including VLIWs such as the
+ST200 family. This means that, given an instruction priority, constructing the
+instruction schedule does not requires the dependence graph.
+
+Furthermore, I have established in 2004 that modulo scheduling problems are
+equivalent to the acyclic scheduling of the corresponding unwinded problem under
+``regularization'' constraints \cite{Dinechin:2004:DOM}. It turns out that
+Scoreboard scheduling can easily accommodate the regularization constraints, and
+also be trivially extended to operate on pseudo-registers. This opens the door
+to software pipeline construction within tight compilation resource constraints,
+still without the expense of building an explicit dependence graph (the current
+LAO software pipeliner maintains three parallel dependence graphs).
+
+Even though a Scoreboard scheduler does not require an explicit dependence
+graph, computing a good instruction priority list might require it. Given the
+context of JIT compilation, one can decide to improve instruction scheduling in
+by spending more time on the priority list construction. How to to best spend
+time is one of the research topics we plan to explore in collaborations with
+Prof. Hanen and Prof.  Munier at U. of Paris-VI.
+
+\end{itemize}
+
+
+\subsection{Predicated Execution Support}
+
+Predicated execution support in processors comes in various flavors that can be
+accommodated in compiler design in different ways:
+\begin{itemize}
+
+\item Select instructions as supported in VLIW processors such as the ST200
+family are the easiest to accommodate.
+
+\item Conditional move instructions are found in a variety of general-purpose
+architectures, including DEC Alpha AMD64. Conditional move instructions
+introduce ambiguous register definitions, but this can be hidden from the
+compiler by using simulated Select instructions that expand into a simple copy
+followed by conditional move.
+
+\item Fully predicated instructions are found on the ARM, the IA64 and high-end
+VLIW processors for media processing including TIC6xxx family, StarCore SC140
+and the STMicroelectronics ST100.
+
+Additional complexities include: there can be at most one predicate active at a
+time (ARM, SC140); the need of explicitly complementing predicates (ST240);
+predicate defining instructions that define multiple conditions at once (IA64,
+ST100); whether the instruction set is fully predicated. For instance, the
+STMicroelectronics ST240 only offers full predication on memory access
+instructions; IF-converting other instructions rely on a Select instruction.
+
+\end{itemize}
+
+For compiler design, a key point is that after IF-conversion into Select
+operations, there are no ambiguous register definitions seen by the compiler, so
+textbook algorithms for SSA form and register allocation can run unchanged. On
+the other hand, ambiguous (non-kill) register definitions of conditional moves
+or fully predicated instructions have a major impact on code generation, in
+particular: register liveness and reaching definitions; SSA form construction,
+optimizations and destruction; register allocation.
+
+Fortunately, during the design and development of the LAO for the
+STMicroelectronics ST100, and later the development of the Open64 code generator
+and LAO for the STMicroelectronics ST200, the difficulties of carrying
+predicated code across code generator and SSA form optimizations have been
+solved, in particular: the discovery of the PSI-SSA form
+\cite{Stoutchinin:2001:MICRO}, that allows to carry SSA form analyzes and
+optimization on predicated code; validity conditions of direct predication of
+SSA form into PSI-SSA form \cite{Stoutchinin:2004:EUROPAR}; extensions of the
+SSA form destruction to machine code algorithm \cite{Rastello:2004:CGO} to
+handle PSI-SSA form, that have been implemented by F. de Ferri\`ere in the
+Open64 code generator for the ST240.
+
+Thus, for the JIT design discussed here, we propose to fully support predication
+in a mostly processor-independent way by reusing these results. Some adaptations
+will be required, in particular if we end up with SSA based register allocation.
+
+
+\section{JIT Organization and Program Representations}
+
+
+\subsection{CIL to Generic SSA Form}
+
+\begin{description}
+
+\item[Loading of CIL Representation]
+
+\item[Verification of CIL Representation]
+
+\item[Recovery of Pseudo-Registers] Unwind the evaluation stack and promote the
+local variables.
+
+\item[CodeRegion Formation] Includes partial inlining of methods.
+
+\item[Generic SSA Form Construction] Based on a set of generic operators to be
+defined in relation with the MDS Semantics language.
+
+\end{description}
+
+
+\subsection{Generic SSA Form to Machine SSA Form}
+
+\begin{description}
+
+\item[Range and Modulo Analysis] These are two basic abstract interpretations
+whose purpose is to annotate program variables for the purposes of code
+selection. Can be performed on the SSA form complemented with def-use chains
+(as in the ST100 LAO) or on the SSI from (prototyped in the ST200 LAO).
+
+\item[Eliminate Redundant Tests]
+
+\item[Intrinsic Function Inlining]
+
+\item[Loop Optimizations and Cleanups] Inner loop unrolling on the SSA form as
+in the ST100 LAO and the LxBE. Induction variable identification for use in
+hardware loop exploitation and auto-modifying addressing modes. Perform
+SIMDization of memory accesses based on inductions and modulo analysis.
+
+\item[Code Selection to Machine SSA Form] Should use a finite-state automaton
+like GBURG? Will eventually include matching of SIMD and DSP instructions.
+
+\end{description}
+
+
+\subsection{Machine SSA Form to JIR Code}
+
+\begin{description}
+
+\item[Machine SSA Form Predication] The SSA form is converted to PSI-SSA form.
+Use Fang's algorithm for predicate assignment.
+
+\item[Code Cleanups and Block Alignment] Aligned basic blocks sequence provide
+the basis for trace or superblock identification.
+
+\item[Software Pipelining by Unwinding] Includes induction variable relaxation
+and speculative load analysis.
+
+\item[Register Allocation on PSI-SSA Form] On-going research at ENS-Lyon/CompSys
+laboratory in collaboration with HPC compiler group in Grenoble.
+
+\item[Scoreboard Instruction Scheduling] Prototyped in the PJIT.
+
+\item[Conversion to JIR Code]
+
+\end{description}
+
+
+\section{Work Breakdown Structure}
+
+
+\subsection{Milestone M1 (April 2006): Conversion to LIR}
+
+\begin{description}
+
+\item[LIR Building from PJIT]
+
+\item[Frame Layout and ABI in LIR]
+
+\item[Linear-Scan Register Allocation]
+
+\item[Scoreboard Instruction Scheduling]
+
+\item[Conversion to JIR Code]
+
+\item[C Compiler Test Infrastructure I] Probably use PVM with Visual Studio
+generated CIL and LAO within Open64 as test infrastructure.
+
+The Open64 can be used to activate the LAO and execute its JIT optimizations in
+static context. This only works for the st200 family but allows to check the
+effectiveness of JIT optimizations in addition to their functionality over more
+than 1 million lines of C.
+
+\end{description}
+
+
+\subsection{Milestone M2 (August 2006): Machine SSA Form}
+
+\begin{description}
+
+\item[Machine SSA Form Construction]
+
+\item[Machine SSA Form Predication]
+
+\item[Code Cleanups and Block Alignment]
+
+\item[PSI-SSA Form Destruction]
+
+\item[C Compiler Test Infrastructure II] Use LCC.NET code generator if
+Infrastructure I is not sufficient.
+
+\end{description}
+
+
+\subsection{Milestone M3 (December 2006): Generic SSA Form}
+
+\begin{description}
+
+\item[Generic SSA Form Construction]
+
+\item[Range and Modulo Analysis]
+
+\item[Loop Optimizations and Cleanups]
+
+\item[Code Selection to Machine SSA Form]
+
+\item[C Compiler Test Infrastructure III] Hope to have first GCC4NET compiler by
+then. Otherwise will have to extend LCC.NET to generate CIL attributes.
+
+\end{description}
+
+
+\subsection{Milestone M4 (April 2007): Static Optimizations}
+
+\begin{description}
+
+\item[CodeRegion Formation]
+
+\item[Eliminate Redundant Tests]
+
+\item[Intrinsic Function Inlining]
+
+\item[Software Pipelining by Unwinding]
+
+\item[Register Allocation on PSI-SSA Form]
+
+\end{description}
+
+
+\subsection{Milestone M5: Dynamic Optimizations}
+
+\begin{description}
+
+\item[Conditional Loop Generation]
+
+\item[Code Specialization on Quasi-Constants]
+
+\end{description}
+
+
+\section{Requirements on the CIL Producer}
+
+\begin{itemize}
+
+\item Identify the CIL local variables that are in fact pseudo-registers.
+
+\item Annotate the address variables with alignment attributes.
+
+\item Perform extensive memory disambiguation and provide the resulting memory
+dependence tables.
+
+\item Match DSP arithmetic idioms and convert them to intrinsic calls.
+
+\item Insert edge or path profiling in CIL and flag such code for easy removal
+by the JIT.
+
+\end{itemize}
+
+
+\newcommand{\bibas}[1]{{\sc{}#1}:}
+\newcommand{\bibts}[1]{\emph{#1}}
+\newcommand{\bibps}[1]{{#1}}
+
+\begin{thebibliography}{99}
+
+\bibitem{Budimlic:2002:PLDI} \bibas{Z. Budimlic, K. Cooper, T. Harvey, K.
+Kennedy, T. Oberg S. Reeves} \bibts{Fast Copy Coalescing and Live Range
+Identification} \bibps{PLDI 2002, pages 25-32}. 
+
+\bibitem{Dinechin:2000:CASES} \bibas{B. Dupont de Dinechin, F. de Ferri\`ere, C.
+Guillon, A. Stoutchinin} \bibts{Code Generator Optimizations for the ST120
+DSP-MCU Core} \bibps{CASES 2000}.
+
+\bibitem{Dinechin:2004:DOM} \bibas{B. Dupont de Dinechin} \bibts{Modulo
+Scheduling with Regular Unwinding} \bibps{2nd International Workshop on Discrete
+Optimization Methods in Production and Logistics -- DOM-2004}, 2004.
+\texttt{http://www.cri.ensmp.fr/classement/2004.html}
+
+\bibitem{Hack:2005:TR} \bibas{S. Hack, D. Grund, G. Goos} \bibts{Towards
+Register Allocation for Programs in SSA-form} \bibps{Universität Karlsruhe
+Technical Report, September 2005}.
+
+\bibitem{Hank:1995:MICRO} \bibas{R. E. Hank, W.-M. Hwu, B. B. R Rau}
+\bibts{Region-Based Compilation: an Introduction and Motivation} \bibps{MICRO
+1995: 158-168}.
+
+\bibitem{Leung:1999:PLDI} \bibas{A. Leung, L. George} \bibts{Static Single
+Assignment Form for machine Code} \bibps{ACM PLDI 1999}.
+
+\bibitem{Paleczny:2001:JVM} \bibas{M. Paleczny, C. A. Vick, C. Click}
+\bibts{The Java HotSpot Server Compiler} \bibps{Java Virtual Machine Research
+and Technology Symposium 2001}.
+
+\bibitem{Rastello:2004:CGO} \bibas{F. Rastello, F. de Ferri\`ere, C. Guillon}
+\bibas{Optimizing Translation Out of SSA Using Renaming Constraints} \bibps{CGO
+2004: 265-278}.
+
+\bibitem{Sreedhar:1999:SAS} \bibas{V. C. Sreedhar, R. D.-C. Ju, D. M. Gillies,
+V. Santhanam} \bibts{Translating Out of Static Single Assignment Form}
+\bibps{SAS'99, LNCS 1694, pp. 194-210, 1999}.
+
+\bibitem{Stoutchinin:2001:MICRO} \bibas{A. Stoutchinin, F. de Ferrière}
+\bibts{Efficient Static Single Assignment Form for Predication} \bibps{MICRO
+2001: 172-181}.
+
+\bibitem{Stoutchinin:2004:EUROPAR} \bibas{A. Stoutchinin, G. R. Gao}
+\bibts{If-Conversion in SSA Form} \bibps{Euro-Par 2004: 336-345}.
+
+\bibitem{Suganuma:2000:IBMSJ} \bibas{T. Suganuma, T. Ogasawara, M. Takeuchi, T.
+Yasue, M. Kawahito, K. Ishizaki, H. Komatsu, T. Nakatani} \bibts{Overview of
+the IBM Java Just-in-Time Compiler} \bibps{IBM Systems Journal, Volume 39,
+Number 1, 2000}.
+
+\bibitem{Suganuma:2003:PLDI} \bibas{T. Suganuma, T. Yasue, T. Nakatani} \bibts{A
+Region-Based Compilation Technique for a Java Just-In-Time Compiler} \bibps{PLDI
+2003: 312-323}.
+
+\bibitem{Tabatabai:2003:INTELTJ} \bibas{A.-R. Adl-Tabatabai, J. Bharadwaj, D.-Y.
+Chen, A. Ghuloum, V. Menon, B. Murphy, M. Serrano, T. Shpeisman} \bibts{The
+StarJIT Compiler: A Dynamic Compiler for Managed Runtime Environments}
+\bibps{Intel Technology Journal Volume 7, Number 1, February, 2003}.
+
+\bibitem{Way:2000:PACT} \bibas{T. Way, B. Breech, L. L. Pollock} \bibts{Region
+Formation Analysis with Demand-Driven Inlining for Region-Based Optimization}
+\bibps{IEEE PACT 2000: 24-36}.
+
+\bibitem{Wimmer:2005:VEE} \bibas{C. Wimmer, H. M\"oessenb\"oeck}
+\bibts{Optimized Interval Splitting in a Linear Scan Register Allocator}
+\bibps{pp. 132-141. VEE'05, 2005}.
+
+\end{thebibliography}
+
+\end{document}
+

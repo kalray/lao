@@ -1,0 +1,43 @@
+/**
+ * @file
+ * @defgroup ECL Embedded Compiler Libraries
+ *
+ * @brief LAO intermediate representation, control-flow and
+ * data-flow analyzes, and a few optimizations. Most notably the SSA-based
+ * register allocation from Fabrice Rastello team at INRIA is missing.
+ * 
+ */
+
+#ifndef _INCLUDED_ECL
+#define _INCLUDED_ECL
+
+#cmakedefine YAML_ENABLED
+#cmakedefine _DEBUG
+#cmakedefine _NDTOR
+#cmakedefine _NTRACE
+
+#cmakedefine FLO_DEBUG
+
+/*
+ * Set _OPTIMIZE according to __OPTIMIZE__ (defined by gcc and icc) and NDEBUG.
+ */
+#ifdef __OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 3
+#  else//!NDEBUG
+#    define _OPTIMIZE 2
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#else//!__OPTIMIZE__
+# ifndef _OPTIMIZE
+#  ifdef NDEBUG
+#    define _OPTIMIZE 1
+#  else//!NDEBUG
+#    define _OPTIMIZE 0
+#  endif//NDEBUG
+# endif//_OPTIMIZE
+#endif//__OPTIMIZE__
+
+#endif//_INCLUDED_ECL
+

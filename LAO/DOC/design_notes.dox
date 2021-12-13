@@ -1,0 +1,285 @@
+/*! @page design_notes Design Notes
+
+@section design_notes_memory Memory Management
+
+Modules that need to allocate memory locally define a MemoryPool object. From
+this MemoryPool, Memory objects are created using MemoryPool_makeMemory(), and
+destroyed using MemoryPool_killMemory().
+
+The MemoryPool is local to a Module. this MemoryPool is used to create a Memory
+object inside Object_new functions. In the Object_del function, the Memory
+object is destroyed:
+
+@verbatim
+Object
+Object_new(Args args) {
+  Memory memory = MemoryPool_makeMemory(Module_Pool, 1);
+  size_t size = ObjectSIZE(args);
+  Object this = Memory_alloc(memory, size);
+  return ObjectCTOR(this, args);
+}
+
+Object
+Object_del(Object this) {
+  if (this != NULL) {
+    Memory memory = Object_MEMORY(this);
+    ObjectDTOR(this);
+    Memory_free(memory, this);
+    MemoryPool_killMemory(Module_Pool, memory);
+  }
+  return NULL;
+}
+@endverbatim
+
+@section design_notes_liveness Liveness
+
+In the Open64 live analysis, the liveIn sets are initialized to exposedUses -
+reachingDefs. The reachingDefs results from a forward flow analysis. In
+pre-pass, all dedicated effects are local, except for the following cases:
+indirect-def of dedicated on top of Entry blocks; indirect-def of dedicated at
+the end of a CALL block; indirect-use of dedicated after Exit blocks.
+
+In the LAO Liveness analysis, no special conditions are introduced.
+
+@section design_notes_basicblock BasicBlock
+
+Basic blocks are implemented by the BasicBlock_ structure. A basic block is
+terminated by a single control operation, that is,
+Operator_isControl(Operation_OPERATOR(operation))
+
+@section design_notes_blockregion BlockRegion
+
+A BlockRegion is the unit of low-level optimizations, such as instruction
+scheduling. Depending on the ConfigurationItem_RegionType, Block Regions are
+either basick blocks, super blocks, or trace blocks.
+
+Super blocks are strings of basic blocks where each basic block except the first
+has only one predecessor that is part of the super blocks. Super block are
+terminated before basic blocks with multiple predecessors, and after basic
+blocks with control hazards. A control hazard is any control operation that is
+not a GOTO operation.
+
+@section design_notes_gnuasm GNU ASM Operations
+
+The GNU ASM statements become GNUASM operations with a clobber list. A GNUASM is
+currently considered as a Control operation. Due to Open64 limitations that
+prevent duplicating the GNUASM operations, the LAO sould not duplicate the
+GNUASM operation either. This means that loop unrolling and software pipelining
+must be disabled for BlockRegion(s) that contain a GNUASM operation.
+
+@section design_notes_stack_adjust Stack Adjust Operations
+
+Stack ADJUST operations occurs as: 1) first in Entry blocks; 2) just before
+RETURN in Exit blocks: 3) in other basic blocks that call alloca() or declare a
+VLA (Variable Length Array).
+
+CHECK: the conditions to anchor the ADJUST operations in instruction scheduling.
+
+@section design_notes_call_return Call/Return Operations
+
+Call/Return operations have implied operands, that are dedicated Temporaries
+defined in the BasicBlock the Call/Return operation terminates. Likewise, the
+result of a Call operation is read in a dedicated Temporary in the fall-through
+BasicBlock.
+
+@section design_notes_volatile Volatile Operations
+
+Volatile operations have the Operation_Volatile flag set. In the instruction
+scheduler they are all sequentialized.
+
+@section design_notes_gnuasm GNUASM Operations
+
+The GNUASM operations can have optional parameters, an optional clobber list,
+and an optional volatile effect.
+
+@section design_notes_pseudo Pseudo Operations
+
+@li LABEL operation
+@li MOVE operation
+@li FALL operation
+
+@section design_notes_operation Operation
+
+Operations are instructions with parameters. The parameters are the variant
+fields of an instruction, and are represented by Temporary(es). However, the
+parameters are not sufficient to represent an Operation's semantic effects. For
+this, a list of Effect(s) is associated to each Operation.
+
+@section design_notes_operand Operand
+
+Operand(s) are to instructions as parameters are to operations. An Operand is a
+static entity that describes various constraints for the corresponding Operation
+parameter.
+
+@section design_notes_change_log Change Log
+
+@verbatim
+From - Fri Aug 22 18:12:50 2003
+Date: Fri, 22 Aug 2003 14:59:42 +0200
+Message-Id: <200308221259.OAA17897@gnx009.gnb.st.com>
+Subject: Merge pro-dev-gra into pro-branch-main in LAO
+From: christophe.guillon@st.com
+
+Change log for merge of pro-branch-dev-gra into pro-branch-main.
+
+** lao/CSD:
+
+* Operator.xcc: Added function Operator_isMove().
+
+* MType.xcc: Added assertions in accessors.
+
+
+** lao/LIR:
+
+* OperationList.xcc: New file for manipulation of list of Operations.
+		     Permits the creation of temporary list of operation
+		     and latter insertion in basic blocks. Used by the
+		     expander to return list of operation for a peace of
+		     generated code.
+		     - OperationList_last/first()
+		     - OperationList_put/push()
+		     - OperationList_build()
+		     - OperationList_local()
+
+* Expander.xcc:	     New file for code generation. Expander is an object
+		     configured and passed for code expansion to a
+		     serie of Expand_... functions.
+		     Current configuration item for used code generation
+		     are StackModel and InstrMode.
+		     Expand_... functions expand target operations into
+		     an operation list:
+		     - Expand_Load()
+		     - Expand_Store()
+		     - Expand_DLoad()
+		     - Expand_DStore()
+		     - Expand_Move()
+		     - Expand_Transfer()
+		     - Expand_Address()
+
+		     Effective implementation of these functions for
+		     ST200 is located into CSD/st200/Expand.targ.c.
+
+* BasicBlock.xcc:
+		  Added support for insert/append Operation
+		  - BasicBlock_insertOperation()
+		  - BasicBlock_appendOperation()
+
+		  Added support for inserting OperationList
+		  - BasicBlock_putOperationList()
+		  - BasicBlock_pushOperationList()
+		  - BasicBlock_addOperationList()
+		  - BasicBlock_insertOperationList()
+		  - BasicBlock_appendOperationList()
+
+		  Implemented BasicBlock_setLiveOut()
+
+* ControlGraph.xcc:
+		Added LIVEOUT to ControlNode and support:
+		-  ControlNode_liveOut()
+		-  ControlNode_countLiveOut()
+		-  ControlNode_liveOut_FOREACH_Temporary
+		-  ControlNode_pretty() : added live-out output
+
+* Operation.xcc:
+		Added the spill location argument to MACRO_RELOAD/MACRO_SPILL:
+		- Operation_RELOAD()/Operation_SPILL(): added argument
+		Exported (._h) the Operation_Memory for use by
+		OperationList.
+
+* Temporary.xcc:
+	        Augmented interface of temporaries:
+		- TemporaryFlag: new enum for temporary flags:
+				 Temporary_Rematerializable
+				 Temporary_Homeable
+				 Temporary_Interface
+				 Temporary_ValidCGIR
+				 added set/reset/testFlags functions.
+		- new accessors and queries for rematerializable and homeable.
+		- Added some mutators for temporaries:
+		  Temporary_setGlobal()
+		  Temporary_setDedicated()
+		Removed factorization of symbols/labels temporaries.
+		Factorized dedicated temporaries.
+
+* Symbol.xcc:
+		Symbols are now hashed in the sybmol table with their
+		identity instead of their name.
+		Currenlty the table does not support scoping.
+		The tuple (class,storage,export) have been added to the
+		symbol.
+		Each created symbol as an unique identity and no
+		factorization is done.
+		Symbols may have the same name.
+		Symbols are clasified into leaf and root symbol with
+		leaf symbol having a location into a root symbol at a
+		specified offset. This enable the manipulation of
+		segments of symbols and the merging of segments.
+		Accessors added are:
+		 - Symbol_hasSize()
+		 - Symbol_isTyped()
+		 - Symbol_isAllocated()
+		 - Symbol_isRoot()
+		 - Symbol_setBaseOffset()
+		 - Symbol_setBaseIdentity()
+		 - Symbol_getBase()
+		 - Symbol_setClasses()
+		 - Symbol_setClass()
+		 - Symbol_setStorage()
+		 - Symbol_setExport()
+		 - Symbol_setSize()
+
+* LIR.xcc: added includes for Expander and OperationList
+
+** lao/SSA:
+* Construct.xcc: fixed a -Wall warning.
+
+** lao/LAO:
+
+* Configuration.xcc: Added the Configuration_StackModel item. Used
+		     for spill code generation.
+
+* Optimization.xcc: Added the Optimization_Localize optimization flag.
+
+* LAO.xcc:	    Added the environment LAO_OPTIMIZATIONS_[123] for
+		    overriding each of prepass/regalloc/postpass.
+		    Removed dependency on LAI.h.
+
+** lao/GRA
+
+* Localize.xcc: Localization of a code region.
+		Performs spilling of any global temporary, leaving
+		unchanged boundary condition and updating live analysis.
+		After this optimization all temporaries are local to
+		basic blocks (except dedicated).
+		Interface:
+		- Localize_localizeCodeRegion()
+
+* Spill.xcc:	Spill code generation and spill symbol manipulation.
+		Interface:
+		- Spill_initCodeRegion()
+		- Spill_finiCodeRegion()
+		- Spill_appendSpill()
+		- Spill_insertRalod()
+		- Spill_genStackedLocation()
+		- Spill_getRematerializeValue()
+		- Spill_getHomeLocation()
+
+** lao/LAI:
+
+* LAI.xcc:	Added accessor functions for opaque LAO objects.
+		This is the only external interface for accessing
+		LAO objects.
+		- LAI_Temporary_...()
+		- LAI_Symbol_...()
+		- ...
+
+* CGIR.xcc:	Callback update/create now take opaque LAO object as
+		argument. Further queries on this objects are allowed
+		though the LAI_... interface.
+
+* Interface.xcc: Don't allow multiple CGIR object for a single LAO object.
+		 Allow multiple LAO object for a single CGIR object.
+		 Reset the inInterface flag on Interface_close.
+@endverbatim
+
+*/

@@ -1,0 +1,2 @@
+# rm -rf st200_build && mkdir -p st200_build && cd st200_build && . ../CMAKE_ST200 && make all install tests
+cmake ../LAO  -DTARGET=st200 -DFAMILY=st200 -DLAO_STATIC=1 -DSOFTFLOAT_PREFIX=../../kEnv/k1tools/usr/local/k1Req/softfloat/softfloat-3e -DYAML_ENABLED=OFF -DGLPK_ENABLED=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$PWD/../../devimage/toolchain_default/k1tools

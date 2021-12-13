@@ -1,0 +1,120 @@
+/*! @page coding_style Coding Style
+
+@section coding_style_terms Terms and Definitions
+
+A Module is a XCCGEN source file (.xcc) that is similar in spritit to a Java or
+a C# class. That is, the name of any entity (functions, structures,
+enumerations, global variables) defined in file Module.xcc is prefixed by
+"Module", even for static scope entities.
+
+A Library is a subdirectory that comprises one or more modules. The result of
+building a Library is a library object file.
+
+@section coding_style_xccgen Use of XCCGEN
+
+The most important things to remenber:
+
+@li The XCCGEN tool takes as input a Module.xcc file, and outputs a Module.h,
+Module._h, Module._c, Module.c files.
+@li The code that goes in the Module.h file are the paragraphs tagged with
+"//@XCC.h", which should contain the exported definitions needed to use the
+library.
+@li The code that goes in the Module._h file are the paragraphs tagged with
+"//@XCC._h", which should contain the exported definitions needed to use the
+module from within its library. The Module._h automatically includes the
+Module.h file.
+@li The code that goes in the Module._c file are the paragraphs tagged with
+"//@XCC._c", should contain the code that needs to be seen early in the Module.c
+compilation such inline function definitions and local structure or
+enumerations. The Module._c file automatically includes the Module._h file.
+@li All remaining contents of the Module.xcc file is copied into the Module.c
+file. The developer must manually include the Module._c file.
+@li When code is distributed under a "//@XCC.h", "//@XCC._h", or "//@XCC._c",
+tag, if it contains a structure definition, then the XCCGEN structure tags are
+expanded into additional code and macros.
+
+@section coding_style_libccl Use of the CCL Library.
+
+@li The stub objects IDList__, HTable__ etc.
+@li the FOREACH / ENDEACH iterator macros.
+
+@section coding_style_liborg Library Organization.
+
+@section coding_style_struct Structures
+
+@li All data members of a structure are upper-cased as in Perl.
+
+@verbatim
+  struct MyStruct_ {
+    int VALUE;
+  };
+@endverbatim
+
+@li In order to have XCCGEN automate code for a structure, one needs to use a
+few tags, for instance:
+
+@verbatim
+  //@XCC.h
+  struct MyStruct_ {
+  //@args	int value
+    int VALUE;
+    //@ctor	*MyStruct__VALUE(this) = value;
+  };
+@endverbatim
+
+@li Access / mutate of structure members done through macros defined by XCCGEN:
+
+@verbatim
+  int value = MyStruct_VALUE(this);
+  *MyStruct__VALUE(this) = newValue;
+@endverbatim
+
+@section coding_style_memory Memory Management
+
+The memory management is based on Memory objects, that are able to allocate or
+release memory. The Memory objects are created on from the MemoryPool objects.
+In order to promote code modularity, one MemoryPool object named Module_Pool is
+created in a module Module that needs its own memory allocators. This is to
+avoid the dangerous practice of passing around memory allocators from one module
+to another.
+
+@section coding_style_inlining Inlining Objects
+
+@li Try to inline as much as possible, (using the CCL stub objects).
+@li Do not inline objects that cannot be constructed early.
+
+@section coding_style_efficient Efficient Coding
+
+@li Hoist idempotent function calls:
+
+@verbatim
+  // Slow code:
+  for (i = 0; i < Count(); i++) {
+    ...
+  }
+  // Fast code:
+  int count = Count();
+  for (i = 0; i < count; i++) {
+    ...
+  }
+@endverbatim
+
+@li Avoid the redundant memory access indirections, which are expensive both for
+the memory access latencies, and for the missed optimizations. Also, try to
+hoist the memory read accesses above the memory write accesses:
+
+@verbatim
+  // Slow code:
+  d = a->b->c->d;
+  *p = q;
+  e = a->b->c->e;
+  ...
+  // Fast code:
+  s = a->b->c;
+  d = s->d;
+  e = s->e;
+  *p = q;
+@endverbatim
+
+
+*/

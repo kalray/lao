@@ -1,0 +1,359 @@
+!!
+!! This file contains test vectors for binary (format -s or -e 8 -t 24 -h) 
+!! to decimal conversion (b2ds) . The first character in each
+!! test vector refers to the origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: b2dconvs 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+Ab2d sieee ALL +0 E-127 OK +0 E+0
+Ab2d sieee ALL -0 E-127 OK -0 E+0
+Ab2d sieee =<0 84d000 E+13 x +8 E+3
+Ab2d sieee > 84d000 E+13 x +9 E+3
+Ab2d sieee =<0 e8d4a5 E+37 x +2 E+11
+Ab2d sieee > e8d4a5 E+37 x +3 E+11
+Ab2d sieee =>0 -84d000 E+13 x -8 E+3
+Ab2d sieee < -84d000 E+13 x -9 E+3
+Ab2d sieee =>0 -e8d4a5 E+37 x -2 E+11
+Ab2d sieee < -e8d4a5 E+37 x -3 E+11
+
+!! 1 dec digits
+!! just over exact
+Ab2d s UN b5e621 E46 x +1_00000000& E+14 
+Ab2d s UN -b5e621 E47 x -2_00000000& E+14 
+Ab2d s UN 9a130c E+116 x +1_0000000& E+35 
+Ab2d s UN -9a130c E+117 x -2_0000000& E+35 
+Ab2d s UN cad2f8 E-97 x +1_00000000& E-29 
+Ab2d s UN -cad2f8 E-96 x -2_00000000& E-29 
+Ab2d s UN 981e3a E-95 x +3_00000000& E-29 
+Ab2d s UN -a24260 E-100 x -1_00000000& E-30 
+!! just under exact
+Ab2d s UN 8ac723 E+65 x +3_99999999& E+19 
+Ab2d s UN -8ac723 E+62 x -4_99999999& E+18 
+Ab2d s UN 90c1b1 E+89 x +6_99999999& E+26 
+Ab2d s UN -8ac723 E+64 x -1_99999999& E+19 
+Ab2d s UN c16d9a E-76 x +1_999999999& E-23 
+Ab2d s UN -c16d9a E-75 x -3_999999999& E-23 
+Ab2d s UN c16d9a E-78 x +4_999999999& E-24 
+Ab2d s UN -c16d9a E-77 x -9_99999999& E-24 
+
+!! 2 dec digits
+!! just over exact
+Ab2d sieee UN 985722 E+49 x +67_000000000& E+13 
+Ab2d s UN 9a8b05 E+56 x +87_00000000& E+15 
+Ab2d s UN -9573c1 E+116 x -97_00000000& E+33 
+!! just under exact
+
+!! 3 dec digits
+!! just over exact
+!! just under exact
+Ab2d s UN ebac15 E+110 x +238_999999999& E+31 
+Ab2d s UN -ebac15 E+111 x -477_999999999& E+31 
+Ab2d s UN ebac15 E+112 x +955_999999999& E+31 
+Ab2d s UN -da7dea E-109 x -262_999999999& E-35 
+
+!! 4 dec digits
+!! just over exact
+!! just under exact
+
+!! 5 dec digits
+!! just over exact
+!! just under exact
+
+!! 6 dec digits
+!! just over exact 
+!! just under exact 
+
+!! 7 dec digits
+!! just over exact 
+!! just under exact
+
+!! 8 dec digits
+!! just over exact
+Ab2d s UN f79a70 E-114 x +93137999_000000000& E-42 
+Ab2d s UN -9ac086 E-110 x -93137999_000000000& E-41  
+!! just under exact 
+
+!! 9 dec digits
+!! just over exact
+Ab2d s UN -8442d3 E+80 x -124917013_000000000& E+16 
+Ab2d s UN 8442d3 E+81 x +249834026_000000000& E+16  
+Ab2d s UN e2aef2 E-58 x +614426533_0000000000& E-26 
+!! just under exact 
+
+!! 10 dec digits
+!! just over exact 
+Ab2d s UN -e2aef2 E-57 x -1228853066_000000000& E-26 
+!! just under exact
+
+!! 11 dec digits
+!! just over exact 
+!! just under exact
+
+!! 12 dec digits
+!! just over exact
+!! just under exact
+
+!! 13 dec digits
+!! just over exact
+Ab2d s UN -ca264a E+119 x -1049620559873_000000000& E+24 
+!! just under exact
+
+
+!! 1 dec digits
+!! just over half ulp
+Ab2d s UN ad78ec E+64 x +2_5000000& E+19 
+Ab2d s UN -e18399 E+65 x -6_5000000& E+19 
+Ab2d s UN 9fdf43 E+55 x +4_5000000& E+16 
+Ab2d sieee UN -b5e621 E+44 x -2_50000000& E+13 
+Ab2d s UN baeabf E-34 x +8_50000000& E-11 
+Ab2d s UN -cad2f8 E-99 x -2_50000000& E-30 
+Ab2d s UN a24260 E-102 x +2_50000000& E-31 
+Ab2d s UN -901d7d E-52 x -2_50000000& E-16 
+!! just under half ulp
+Ab2d s UN a2a15d E+70 x +1_49999999& E+21 
+Ab2d s UN -90c1b1 E+88 x -3_49999999& E+26 
+Ab2d s UN 8a3e42 E+43 x +9_49999999& E+12 
+Ab2d s UN -c685fa E+83 x -1_49999999& E+25 
+Ab2d s UN 9bc4d7 E-106 x +1_49999999& E-32 
+Ab2d s UN -ba1788 E-115 x -3_49999999& E-35 
+Ab2d s UN 9bc4d7 E-107 x +7_49999999& E-33 
+Ab2d s UN -fda48a E-55 x -5_49999999& E-17 
+
+!! 2 dec digits
+!! just over half ulp
+Ab2d s UN e92597 E+59 x +10_50000000& E+17 
+Ab2d s UN -9573c1 E+115 x -48_50000000& E+33 
+Ab2d s UN e5d9d2 E+67 x +26_50000000& E+19  
+!! just under half ulp
+
+!! 3 dec digits
+!! just over half ulp
+!! just under half ulp
+Ab2d s UN ebac15 E+108 x +597_499999999& E+30 
+Ab2d s UN da7dea E-110 x +131_499999999& E-35 
+
+!! 4 dec digits
+!! just over half ulp
+Ab2d s UN c1e2f9 E+95 x +6000_500000000& E+25  
+!! just under half ulp
+Ab2d s UN -d190eb E-115 x -3941_499999999& E-38 
+
+!! 5 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 6 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 7 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 8 dec digits
+!! just over half ulp
+Ab2d s UN -8442d3 E+79 x -62458506_500000000& E+16 
+!! just under half ulp
+
+!! 9 dec digits
+!! just over half ulp
+Ab2d s UN 8442d3 E+78 x +312292532_500000000& E+15 
+Ab2d s UN e2aef2 E-59 x +307213266_5000000000& E-26 
+!! just under half ulp
+Ab2d s UN d3d951 E-44 x +940798071_499999999& E-22 
+Ab2d s UN -f38bfc E-102 x -375243281_499999999& E-39 
+
+!! 10 dec digits
+!! just over half ulp
+Ab2d s UN -e2aef2 E-60 x -1536066332_500000000& E-27 
+!! just under half ulp
+
+!! 11 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 12 dec digits
+!! just over half ulp
+Ab2d s UN -ca264a E+118 x -524810279936_500000000& E+24 
+Ab2d s UN e82e76 E-86 x +234443390500_500000000& E-37 
+!! just under half ulp
+
+!! 13 dec digits
+!! just over half ulp
+Ab2d s UN -eb7ade E-96 x -2322011580998_500000000& E-41 
+!! just under half ulp
+
+!! 1 dec digits
+!! just over exact
+Ab2d sieee UN ba43b8 E+36 x +1_0000000& E+11 
+Ab2d sieee UN -9184e8 E+43 x -1_0000000& E+13 
+Ab2d sieee UN da475b E+44 x +3_0000000& E+13 
+Ab2d sieee UN -b5e621 E+45 x -5_0000000& E+13 
+Ab2d sieee UN e12e14 E-44 x +1_0000000& E-13 
+Ab2d sieee UN -a7c5ad E-17 x -1_0000000& E-5 
+Ab2d sieee UN abcc78 E-27 x +1_0000000& E-8 
+Ab2d sieee UN -c50851 E-41 x -7_0000000& E-13 
+!! just under exact
+Ab2d sieee UN e8d4a5 E+40 x +1_99999999& E+12 
+Ab2d sieee UN -e8d4a5 E+38 x -4_9999999& E+11 
+Ab2d sieee UN e8d4a5 E+39 x +9_9999999& E+11 
+Ab2d sieee UN -9184e7 E+44 x -1_9999999& E+13 
+Ab2d sieee UN afebff E-36 x +1_99999999& E-11 
+Ab2d sieee UN -8637bd E-19 x -1_99999999& E-6 
+Ab2d sieee UN 8cbccc E-39 x +1_99999999& E-12 
+Ab2d sieee UN -8cbccc E-41 x -4_9999999& E-13 
+
+!! 2 dec digits
+!! just over exact
+Ab2d sieee UN 985722 E+49 x +67_000000000& E+13 
+Ab2d sieee UN b45ae6 E-15 x +43_00000000& E-6 
+Ab2d sieee UN -b8af00 E-25 x -43_00000000& E-9 
+Ab2d sieee UN 9048b8 E-18 x +43_00000000& E-7 
+Ab2d sieee UN -e6dac0 E-22 x -43_00000000& E-8 
+!! just under exact
+Ab2d sieee UN -b82b0f E-31 x -66_99999999& E-11 
+
+!! 3 dec digits
+!! just over exact
+Ab2d sieee UN -985722 E+50 x -134_00000000& E+13 
+Ab2d sieee UN 985722 E+51 x +268_00000000& E+13 
+Ab2d sieee UN -985722 E+52 x -536_00000000& E+13  
+!! just under exact
+
+!! 4 dec digits
+!! just over exact
+!! just under exact
+
+!! 5 dec digits
+!! just over exact
+!! just under exact
+Ab2d sieee UN -e411ec E+53 x -16048_99999999& E+12 
+Ab2d sieee UN e411ec E+54 x +32097_99999999& E+12 
+
+!! 6 dec digits
+!! just over exact 
+!! just under exact
+
+!! 7 dec digits
+!! just over exact
+!! just under exact 
+
+!! 8 dec digits
+!! just over exact
+!! just under exact 
+
+!! 9 dec digits
+!! just over exact
+!! just under exact
+
+!! 1 dec digits
+!! just over half ulp
+Ab2d sieee UN b5e621 E+44 x +2_50000000& E+13 
+Ab2d sieee UN -82f79d E+42 x -4_5000000& E+12
+Ab2d sieee UN baeabf E-34 x +8_50000000& E-11 
+Ab2d sieee UN -dbe6ff E-36 x -2_5000000& E-11 
+Ab2d sieee UN 88509c E-14 x +6_5000000& E-5 
+Ab2d sieee UN -d6bf95 E-26 x -2_5000000& E-8 
+!! just under half ulp
+Ab2d sieee UN da475a E+43 x +1_4999999& E+13 
+Ab2d sieee UN -df8475 E+33 x -1_4999999& E+10 
+Ab2d sieee UN 8a3e42 E+43 x +9_49999999& E+12 
+Ab2d sieee UN -dd3069 E+39 x -9_499999& E+11 
+Ab2d sieee UN d31b32 E-40 x +1_49999999& E-12 
+Ab2d sieee UN -a8e28e E-43 x -1_4999999& E-13 
+Ab2d sieee UN d31b32 E-41 x +7_4999999& E-13 
+Ab2d sieee UN -80d959 E-26 x -1_4999999& E-8 
+
+!! 2 dec digits
+!! just over half ulp
+Ab2d sieee UN b5e621 E+43 x +12_5000000& E+12 
+Ab2d sieee UN -fb0542 E+44 x -34_5000000& E+12 
+Ab2d sieee UN -8a8340 E-24 x -64_50000000& E-9 
+Ab2d sieee UN f27bb3 E-10 x +18_50000000& E-4 
+Ab2d sieee UN -d86d14 E-18 x -64_50000000& E-7 
+!! just under half ulp
+Ab2d sieee UN -8a3e42 E+42 x -47_4999999& E+11 
+Ab2d sieee UN -d0678c E-11 x -79_49999999& E-5 
+Ab2d sieee UN b82b0f E-32 x +33_49999999& E-11 
+
+!! 3 dec digits
+!! just over half ulp
+Ab2d sieee UN -e482b3 E+49 x -100_50000000& E+13 
+Ab2d sieee UN e482b3 E+48 x +502_50000000& E+12 
+!! just under half ulp
+
+!! 4 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 5 dec digits
+!! just over half ulp
+Ab2d sieee UN -a51f53 E+59 x -74364_50000000& E+13 
+!! just under half ulp
+Ab2d sieee UN ab0d71 E+54 x +24073_49999999& E+12 
+
+!! 6 dec digits
+!! just over half ulp
+!! just under half ulp
+Ab2d sieee UN -c31d18 E+61 x -351485_49999999& E+13 
+Ab2d sieee UN -e984d5 E-25 x -543703_49999999& E-13 
+
+!! 7 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 8 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! 9 dec digits
+!! just over half ulp
+!! just under half ulp
+
+!! EOF

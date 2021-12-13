@@ -1,0 +1,120 @@
+functions:
+  - label: dgraph-makenested
+    test: "Testing DGraph_makeNestedSCC"
+    entries: [L1]
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+      - label: L2
+        succs: [L3, L4]
+      - label: L3
+        succs: [L2, L4]
+      - label: L4
+
+  - label: procedure-makenested
+    test: "Testing Procedure_makeNestedSCC"
+    entries: [L1]
+    bbs:
+      - label: L1
+        succs: [L2, L4, L5]
+      - label: L2
+        succs: [L3, L4]
+      - label: L3
+      - label: L4
+        succs: [L4]
+      - label: L5
+        succs: [L6]
+      - label: L6
+        succs: [L7]
+      - label: L7
+        succs: [L6, L8, L9]
+      - label: L8
+        succs: [L8]
+      - label: L9
+        succs: [L5, L7]
+
+  - label: loopforest-makenested
+    test: "Testing LoopForest_makeNestedSCC"
+    entries: [L1]
+    bbs:
+      - label: L1
+        succs: [L2, L4]
+      - label: L2
+        succs: [L3]
+      - label: L3
+        succs: [L1]
+      - label: L4
+        succs: [L3]
+
+  - label: loopforest-makenested-fig5
+    test: "Testing LoopForest_makeNestedSCC with Fig. 5"
+    entries: [L1]
+    bbs:
+      - label: L1
+        succs: [L2, L4]
+      - label: L2
+        succs: [L3]
+      - label: L3
+        succs: [L6]
+      - label: L4
+        succs: [L11]
+      - label: L5
+        succs: [L6]
+      - label: L6
+        succs: [L15]
+      - label: L7
+      - label: L8
+      - label: L9
+      - label: L10
+      - label: L11
+        succs: [L12, L14]
+      - label: L12
+        succs: [L13]
+      - label: L13
+        succs: [L16]
+      - label: L14
+        succs: [L1]
+      - label: L15
+        succs: [L16]
+      - label: L16
+        succs: [L5]
+
+  - label: loopforest-makenested-ramalingam
+    test: "Testing LoopForest_makeNestedSCC with Ramalingam"
+    entries: [L1]
+    bbs:
+      - label: L1
+        succs: [L2, L3]
+      - label: L2
+        succs: [L4]
+      - label: L3
+        succs: [L5]
+      - label: L4
+        succs: [L2, L5, L6]
+      - label: L5
+        succs: [L3, L4, L6]
+      - label: L6
+
+  - label: loopforest-makenested-lasttest
+    test: "Testing LoopForest_makeNestedSCC, last test"
+    entries: [L1]
+    bbs:
+      - label: L1
+        succs: [L2]
+      - label: L2
+        succs: [L3, L5, L6]
+      - label: L3
+        succs: [L4, L5]
+      - label: L4
+      - label: L5
+        succs: [L5]
+      - label: L6
+        succs: [L7]
+      - label: L7
+        succs: [L8]
+      - label: L8
+        succs: [L7, L9, L10]
+      - label: L9
+        succs: [L9]
+      - label: L10
+        succs: [L6, L8]

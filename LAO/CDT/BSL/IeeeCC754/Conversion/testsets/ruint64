@@ -1,0 +1,133 @@
+!!
+!! This file contains precision and range independent vectors to test
+!! the rounding of a floating-point number to a 64-bit unsigned
+!! integer (rU). The first character in each test vector refers to
+!! the origin of the test vector
+!! 
+!! 2:  Jerome Coonen Version <2>
+!! 3:  Jerome Coonen Version <3>
+!!      @Phdthesis{ 
+!!              author = {Coonen, J.T.},
+!!              title  = {Contributions to a proposed standard for binary
+!!                 floating-point arithmetic},
+!!              school = {University of California, Berkeley},
+!!              year   = {1984}}
+!!
+!! A:  Verdonk-Cuyt-Verschaeren (University of <A>ntwerp)
+!!      @Article{
+!!             author  = {Verdonk, B. and Cuyt, A. and Verschaeren, D.},
+!!             title   = {A precision- and range-independent tool for testing
+!!                       floating-point arithmetic {II}: conversions},
+!!             journal = {ACM TOMS},
+!!             volume  = {27},
+!!             number  = {1},
+!!             pages   = {119-140},
+!!             year    = {2001}}
+!! 
+!! This file is part of the tool IeeeCC754 or IEEE 754 Compliance Checker.
+!! It is a precision and range independent tool to test whether
+!! an implementation of floating-point arithmetic (in hardware or
+!! software) is compliant with the principles of the IEEE 754-854
+!! floating-point standards. You can find out more about the testing
+!! tool IeeeCC754 and the syntax and semantics of the test vectors
+!! at
+!!            http://www.win.ua.ac.be/~cant/ieeecc754.html
+!!
+!! Contact:                                                              
+!!      Brigitte.Verdonk@ua.ac.be
+!!      Departement Wiskunde en Informatica
+!!      Universiteit Antwerpen
+!!      Middelheimlaan 1
+!!      B-2020 Antwerpen, Belgium
+!!
+!!
+!!
+!! $Id: ruint64 55 2005-01-26 16:59:10Z huesken $
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!!
+!! Round to unsigned integer format (64 bits)
+3rU   ALL             0    	      0               OK      0x0000000000000000
+!3rU   ALL            -0              0               OK      0x0000000000000000
+3rU   ALL             1               0               OK      0x0000000000000001
+3rU   ALL             2               0               OK      0x0000000000000002
+3rU   ALL             3               0               OK      0x0000000000000003
+3rU   ALL             16              0               OK      0x0000000000000010
+3rU   ALL             16              0               OK      0x0000000000000010
+3rU   ALL             256             0               OK      0x0000000000000100
+3rU   ALL             65537           0               OK      0x0000000000010001
+3rU   ALL             65535           0               OK      0x000000000000ffff
+ArU   ALL             Q               0               i       ?0x7fffffffffffffff
+! integer overflow
+ArU   ALL             H               0               i       ?0xffffffffffffffff
+ArU   ALL             Hm1d1           0               i       ?0xffffffffffffffff
+ArU   ALL             1p65d1          0               i       ?0xffffffffffffffff
+ArU   ALL             1p64            0               i       ?0xffffffffffffffff
+ArU s  ALL             1p64d1          0               OK      0xffffff0000000000
+ArU d  ALL             1p64d1          0               OK      0xfffffffffffff800
+ArU l  ALL             1p64d(63)1      0               OK      0xffffffffffffffff
+ArU q  ALL             1p64d(63)1      0               OK      0xffffffffffffffff
+! integer underflow
+3rU   >               0i1             0               x       0x0000000000000001
+3rU   =0<             0i1             0               x       0x0000000000000000
+ArU   >               T               0               x       0x0000000000000001
+ArU   =0<             T               0               x       0x0000000000000000
+!! inexact cases
+!! round bit = 0, sticky bit = 1
+ArU   =0<             10i1            0               x       0x000000000000000a
+ArU   >               10i1            0               x       0x000000000000000b
+!! round bit = 1, sticky bit = 1
+ArU   =>              1d1             0               x       0x0000000000000001
+ArU   0<              1d1             0               x       0x0000000000000000
+ArU   =>              2d1             0               x       0x0000000000000002
+ArU   0<              2d1             0               x       0x0000000000000001
+!! Halfway cases, round bit = 1
+!! odd
+ArU   =>              3m1            0                x       0x0000000000000002
+ArU   0<              3m1            0                x       0x0000000000000001
+!! even
+ArU   >               5m1            0                x       0x0000000000000003
+ArU   =0<             5m1            0                x       0x0000000000000002
+!! Just above halfway
+ArU   =>              3m1i1          0                x       0x0000000000000002
+ArU   0<              3m1i1          0                x       0x0000000000000001
+!! Just under halfway
+ArU   >               3m1d1          0                x       0x0000000000000002
+ArU   =0<             3m1d1          0                x       0x0000000000000001
+! exact cases for single
+3rU s  ALL             1p24i1          0               OK      0x0000000001000002
+3rU s  ALL             1p24d1          0               OK      0x0000000000ffffff
+3rU s  ALL             1p23i1          0               OK      0x0000000000800001
+! inexact cases for single
+ArU s  >               1p22i1          0               x       0x0000000000400001
+ArU s  =0<             1p22i1          0               x       0x0000000000400000
+! exact cases for double
+ArU d  ALL             1p30i(30)1      0               OK       0x0000000040000001
+ArU d  ALL             1p53i1          0               OK       0x0020000000000002
+ArU d  ALL             1p53d1          0               OK       0x001fffffffffffff
+ArU d  ALL             1p52i1          0               OK       0x0010000000000001
+! exact cases for Intel extended
+ArU l  ALL             1p30i(30)1      0               OK       0x0000000040000001
+ArU l  ALL             1p62i(62)1      0               OK       0x4000000000000001
+! inexact cases for Intel extended
+ArU l  >               1p53i1          0               x        0x0020000000000001
+ArU l  =0<             1p53i1          0               x        0x0020000000000000
+ArU l  =>              1p53d1          0               x        0x0020000000000000
+ArU l  0<              1p53d1          0               x        0x001fffffffffffff
+ArU l  >               1p52i1          0               x        0x0010000000000001
+ArU l  =0<             1p52i1          0               x        0x0010000000000000
+! exact cases for quad
+ArU q  ALL             1p30i(30)1      0               OK       0x0000000040000001
+ArU q  ALL             1p62i(62)1      0               OK       0x4000000000000001
+! inexact cases for quad
+ArU q  >               1p53i1          0               x        0x0020000000000001
+ArU q  =0<             1p53i1          0               x        0x0020000000000000
+ArU q  =>              1p53d1          0               x        0x0020000000000000
+ArU q  0<              1p53d1          0               x        0x001fffffffffffff
+ArU q  >               1p52i1          0               x        0x0010000000000001
+ArU q  =0<             1p52i1          0               x        0x0010000000000000

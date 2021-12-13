@@ -1,0 +1,134 @@
+functions:
+  - label: basic-triangle-minir
+    test: Small example to test IF-conversion (basic triangle hammock)
+    #entries: [BB_1]
+    #exit: [BB_3]
+    bbs:
+      - label: BB_1
+        freq: 10.0
+        ops:
+          - { op: _APPLY, defs: [_279], uses: ['1'] }
+          - { op: _APPLY, defs: [_281], uses: ['1'] }
+          - { op: _IFFALSE, defs: [], uses: [_281, 'L3'], target: BB_3, fallthru: .next }
+
+      - label: BB_2
+        freq: 10.0
+        ops:
+          - { op: _APPLY, defs: [_279], uses: ['2'] }
+
+      - label: BB_3
+        labels: [L3]
+        freq: 10.0
+        ops:
+          - { op: _APPLY, defs: [_280], uses: [_279] }
+
+---
+functions:
+  - label: backedge-triangle-minir
+    test: Small example to test IF-conversion (triangle hammock with back-edge)
+    bbs:
+      - label: BB_1
+        freq: 5
+        ops:
+          - { op: _APPLY, defs: [_100], uses: ['1'] }
+          - { op: _APPLY, defs: [_101], uses: ['1'] }
+
+      - label: BB_2
+        labels: [L2]
+        freq: 10
+        ops:
+          - { op: _IFTRUE, uses: [_100, 'L4'], target: BB_4, freq: .5, fallthru: .next }
+
+      - label: BB_3
+        freq: 5
+        ops:
+          - { op: _IFTRUE, uses: [_101, 'L2'], target: BB_2, freq: 1, fallthru: .next }
+
+      - label: BB_4
+        labels: [L4]
+        freq: 5
+
+---
+functions:
+  - label: basic-diamond-minir
+    test: Small example to test IF-conversion (basic diamond hammock)
+    bbs:
+      - label: BB_1
+        freq: 10
+        ops:
+          - { op: _APPLY, defs: [_100], uses: ['1'] }
+          - { op: _APPLY, defs: [_101], uses: ['1'] }
+          - { op: _IFTRUE, uses: [_101, 'L3'], target: BB_3, freq: .5, fallthru: .next }
+
+      - label: BB_2
+        freq: 5
+        ops:
+          - { op: _APPLY, defs: [_100], uses: ['2'] }
+          - { op: _GOTO, uses: ['L4'], target: BB_4 }
+
+      - label: BB_3
+        labels: [L3]
+        freq: 5
+        ops:
+          - { op: _APPLY, defs: [_100], uses: ['3'] }
+
+      - label: BB_4
+        labels: [L4]
+        freq: 10
+        ops:
+          - { op: _APPLY, defs: [_102], uses: [_100] }
+
+---
+functions:
+  - label: if-conversion-minir
+    test: Example from Bruel's presentation
+    bbs:
+      - label: BB_1
+        freq: 10
+        ops:
+          - { op: _APPLY, defs: [_100], uses: ['1'] }
+          - { op: _APPLY, defs: [_101], uses: ['1'] }
+          - { op: _APPLY, defs: [_102], uses: ['1'] }
+          - { op: _APPLY, defs: [_103], uses: ['1'] }
+          - { op: _APPLY, defs: [_104], uses: ['1'] }
+
+      - label: BB_2
+        labels: [L2]
+        freq: 20
+        ops:
+          - { op: _ADD, defs: [_104], uses: [_104, '1'] }
+          - { op: _IFTRUE, uses: [_100, 'L5'], target: BB_5, freq: .5,
+            fallthru: .next }
+
+      - label: BB_3
+        freq: 10
+        ops:
+          - { op: _APPLY, defs: [_104], uses: ['3'] }
+          - { op: _IFTRUE, uses: [_101, 'L5'], target: BB_5, freq: .5,
+            fallthru: .next }
+
+      - label: BB_4
+        freq: 5
+        ops:
+          - { op: _APPLY, defs: [_104], uses: [4] }
+
+      - label: BB_5
+        labels: [L5]
+        freq: 20
+        ops:
+          - { op: _ADD, defs: [_104], uses: [_104, '1'] }
+          - { op: _IFTRUE, uses: [_102, 'L7'], target: BB_7, freq: 1,
+            fallthru: .next }
+
+      - label: BB_6
+        freq: 20
+        ops:
+          - { op: _MUL, defs: [_104], uses: [_104, 3] }
+          - { op: _IFTRUE, uses: [_103, 'L2'], target: BB_2, freq: .5,
+            fallthru: .next }
+
+      - label: BB_7
+        labels: [L7]
+        freq: 10
+        ops:
+          - { op: _APPLY, defs: [_105], uses: [_104] }

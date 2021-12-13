@@ -1,0 +1,48 @@
+srcdir:=	@srcdir@
+top_srcdir:=	@top_srcdir@
+wlmdirs:=	$(addprefix @top_builddir@/, @WLMDIRS@) @srcdir@
+
+this_subdir:=	DOC
+
+figures:=	FIG EPS
+include ../Makerules
+cleanfiles=	*.dvi *.log *.pdf *.html
+
+vpath %.pl	$(PERLBIN)
+vpath %.dtd	$(top_srcdir)/DOC
+
+vpath %.tex	$(srcdir)
+
+%.pdf: %.tex
+	pdflatex $<
+
+texfiles:=	$(wildcard $(srcdir)/*.tex)
+pdffiles:=	$(notdir $(texfiles:.tex=.pdf))
+
+wlmfiles:=	$(foreach dir,$(wlmdirs),$(wildcard $(dir)/*.wlm))
+htmlfiles:=	$(notdir $(wlmfiles:.wlm=.html))
+vpath %.wlm	$(wlmdirs)
+
+%.html: %.wlm
+	$(WLM2HTML) $< > $@	|| (rm -f $@)
+
+all: $(htmlfiles)
+
+doc: $(figures) $(pdffiles)
+
+refs:
+	-cp $(pdffiles) $(srcdir)/
+
+FIG:
+	-ln -s $(srcdir)/$@
+
+EPS:
+	-ln -s $(srcdir)/$@
+
+../Makerules: ../config.status $(top_srcdir)/Makerules.in
+	cd .. && $(SHELL) ./config.status Makerules
+
+Makefile: ../config.status $(top_srcdir)/$(this_subdir)/Makefile.in
+	cd .. && $(SHELL) ./config.status $(this_subdir)/Makefile
+
+

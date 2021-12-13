@@ -1,0 +1,3 @@
+#!/bin/sh
+SGML_CATALOG_FILES=@srcdir@/XML/xml.soc @OSX@ -wxml $*
+

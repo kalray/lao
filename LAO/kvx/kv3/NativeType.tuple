@@ -1,0 +1,34 @@
+/*
+ * kv3/NativeType.tuple
+ *  (c) Copyright 2010-2018 Kalray SA.
+ * Automatically generated from the Machine Description System (MDS).
+ */
+
+#ifndef NativeType
+#define NativeType(ID, WIDTH, SIZEOF, ALIGN, FORMAT, SLICE)
+#else /*NativeType*/
+NativeType(kv3_Void, WIDTH(0), SIZEOF(0), ALIGN(0), PRINTF(".void"), SLICE(0))
+NativeType(kv3_Bool, WIDTH(1), SIZEOF(1), ALIGN(1), PRINTF(".byte 0x%x"), SLICE(1))
+NativeType(kv3_Int8, WIDTH(8), SIZEOF(1), ALIGN(1), PRINTF(".byte 0x%x"), SLICE(8))
+NativeType(kv3_Int16, WIDTH(16), SIZEOF(2), ALIGN(2), PRINTF(".hword 0x%x"), SLICE(16))
+NativeType(kv3_Int32, WIDTH(32), SIZEOF(4), ALIGN(4), PRINTF(".word 0x%x"), SLICE(32))
+NativeType(kv3_Int64, WIDTH(64), SIZEOF(8), ALIGN(8), PRINTF(".word 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_Int128, WIDTH(128), SIZEOF(16), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_Int128x4, WIDTH(512), SIZEOF(64), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_Int128x8, WIDTH(1024), SIZEOF(128), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_Int128x2, WIDTH(256), SIZEOF(32), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_UInt8, WIDTH(8), SIZEOF(1), ALIGN(1), PRINTF(".byte 0x%x"), SLICE(8))
+NativeType(kv3_UInt16, WIDTH(16), SIZEOF(2), ALIGN(2), PRINTF(".hword 0x%x"), SLICE(16))
+NativeType(kv3_UInt32, WIDTH(32), SIZEOF(4), ALIGN(4), PRINTF(".word 0x%x"), SLICE(32))
+NativeType(kv3_UInt64, WIDTH(64), SIZEOF(8), ALIGN(8), PRINTF(".word 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_UInt128, WIDTH(128), SIZEOF(16), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_UInt128x2, WIDTH(256), SIZEOF(32), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_UInt128x4, WIDTH(512), SIZEOF(64), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_UInt128x8, WIDTH(1024), SIZEOF(128), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_Float16, WIDTH(16), SIZEOF(2), ALIGN(2), PRINTF(".hword 0x%x"), SLICE(16))
+NativeType(kv3_Float32, WIDTH(32), SIZEOF(4), ALIGN(4), PRINTF(".word 0x%x"), SLICE(32))
+NativeType(kv3_Float64, WIDTH(64), SIZEOF(8), ALIGN(8), PRINTF(".word 0x%x, 0x%x"), SLICE(32))
+NativeType(kv3_Float128, WIDTH(128), SIZEOF(16), ALIGN(16), PRINTF(".word 0x%x, 0x%x, 0x%x, 0x%x"), SLICE(32))
+#endif/*NativeType*/
+#undef NativeType
+
