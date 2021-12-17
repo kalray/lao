@@ -38,8 +38,9 @@
  */
 typedef char *UTF8;
 typedef const char *const_UTF8;
-int escape;
 #endif//$XCC_h
+
+static int escape;
 
 #ifdef $XCC_h
 typedef enum {
