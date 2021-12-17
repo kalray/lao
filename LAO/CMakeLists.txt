@@ -141,18 +141,6 @@ macro(SetupInstallPaths)
   set(_CROSS_COMPILE_32BITS OFF)
   message(STATUS "Compiler host arch is \"${CMAKE_SYSTEM_PROCESSOR}\"")
 
-  if( EXISTS "/etc/fedora-release" )
-    set( DISTRIB "Fedora" )
-  elseif( EXISTS "/etc/redhat-release" )
-    set( DISTRIB "CentOS" )
-  elseif( EXISTS "/etc/debian_version" )
-    set( DISTRIB "Debian" )
-  else()
-    message(FATAL_ERROR "Could not detect the distro...")
-  endif()
-  
-  message(STATUS "DISTRIB is ${DISTRIB}.")
-
   # Check if building on a 64-bit machine
   if(CMAKE_SYSTEM_PROCESSOR MATCHES ".*_64")
 
