@@ -6292,246 +6292,246 @@ Operator(kv3_FMULW__S_3singleReg_4singleReg_5singleReg_simple, ATTRIBUTES(0, /**
 Operator(kv3_FMULW___3singleReg_4singleReg_5singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FMULW_rounding_silent_registerW_registerZ_registerY_simple) OPCODE(PROCESSOR(v2_cpu),v2_FMULW_rounding_silent_registerW_registerZ_registerY_simple)),
          MNEMONIC("fmulw"), SYNTAX("%0 %3 = %4, %5"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(315)))
+Operator(kv3_FNARROW44WH_RD_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RD__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RNA_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RNA__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RNZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RNZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RN_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RN__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RO_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RO__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RU_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RU__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH_RZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH__S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
+Operator(kv3_FNARROW44WH___3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(376)))
 Operator(kv3_FNARROWDWP_RD_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RD__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RNA_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RNA__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RNZ_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RNZ__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RN_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RN__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RO_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RO__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RU_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RU__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RZ_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP_RZ__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP__S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDWP___3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDWP_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDWP_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowdwp"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowdwp"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWDW_RD_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RD__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RNA_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RNA__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RNZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RNZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RN_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RN__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RO_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RO__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RU_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RU__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW_RZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW__S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWDW___3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWDW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWDW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowdw"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowdw"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWHQ_RD_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RD__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RNA_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RNA__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RNZ_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RNZ__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RN_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RN__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RO_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RO__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RU_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RU__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RZ_S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ_RZ__3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ__S_3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWHQ___3singleReg_4pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHQ_rounding2_silent2_registerW_registerP_simple)),
-         MNEMONIC("fnarrowwhq"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(376)))
-Operator(kv3_FNARROWWHV_RD_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RD__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RNA_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RNA__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RNZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RNZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RN_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RN__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RO_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RO__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RU_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RU__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV_RZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV__S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
-Operator(kv3_FNARROWWHV___3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple) OPCODE(PROCESSOR(v2_cpu),_UNDEF)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(384)))
+         MNEMONIC("fnarrowwhq"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(379)))
 Operator(kv3_FNARROWWH_RD_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RD__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RNA_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RNA__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RNZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RNZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RN_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RN__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RO_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RO__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RU_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RU__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH_RZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH__S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNARROWWH___3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNARROWWH_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWH_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("fnarrowwh"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("fnarrowwh"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FNEGD_1singleReg_2singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(0, /**/),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FNEGD_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FNEGD_registerW_registerZ_simple)),
          MNEMONIC("fnegd"), SYNTAX("%0 %1 = %2"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(1), PARAMETERSINDEX(44)))
@@ -6546,100 +6546,100 @@ Operator(kv3_FNEGW_1singleReg_2singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(0
          MNEMONIC("fnegw"), SYNTAX("%0 %1 = %2"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(1), PARAMETERSINDEX(44)))
 Operator(kv3_FRECW_RD_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RD__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RNA_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RNA__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RNZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RNZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RN_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RN__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RO_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RO__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RU_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RU__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW_RZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW__S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRECW___3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRECW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRECW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frecw"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frecw"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RD_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RD__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RNA_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RNA__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RNZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RNZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RN_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RN__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RO_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RO__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RU_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RU__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RZ_S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW_RZ__3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW__S_3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FRSRW___3singleReg_4singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FRSRW_rounding2_silent2_registerW_registerZ_simple) OPCODE(PROCESSOR(v2_cpu),v2_FRSRW_rounding2_silent2_registerW_registerZ_simple)),
-         MNEMONIC("frsrw"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(380)))
+         MNEMONIC("frsrw"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(2), PARAMETERSINDEX(383)))
 Operator(kv3_FSBFCDC_RD_S_3pairedReg_4pairedReg_5pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),v1_FSBFCDC_rounding_silent_registerM_registerP_registerO_simple) OPCODE(PROCESSOR(v2_cpu),v2_FSBFCDC_rounding_silent_registerM_registerP_registerO_simple)),
          MNEMONIC("fsbfcdc"), SYNTAX("%0.rd.s %3 = %4, %5"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(312)))
@@ -20221,54 +20221,54 @@ Operator(kv3_FMULWC___S_4singleReg_5singleReg_6singleReg_simple, ATTRIBUTES(0, /
 Operator(kv3_FMULWC____4singleReg_5singleReg_6singleReg_simple, ATTRIBUTES(0, /**/), MODIFIED(3, MODIFY(RANK(1), kv3_conjugate_) MODIFY(RANK(2), kv3_rounding_) MODIFY(RANK(3), kv3_silent_)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FMULWC_conjugate_rounding_silent_registerW_registerZ_registerY_simple)),
          MNEMONIC("fmulwc"), SYNTAX("%0 %4 = %5, %6"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(878)))
-Operator(v2_FNARROWWHV_RD_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RD__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RNA_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RNA__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RNZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RNZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RN_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RN__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RO_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RO__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RU_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RU__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV_RZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV__S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
-Operator(v2_FNARROWWHV___3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
-         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple)),
-         MNEMONIC("fnarrowwhv"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RD_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rd.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RD__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rd %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RNA_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rna.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RNA__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNA) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rna %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RNZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rnz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RNZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RNZ) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rnz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RN_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rn.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RN__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RN) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rn %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RO_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ro.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RO__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RO) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ro %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RU_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ru.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RU__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RU) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.ru %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RZ_S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rz.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH_RZ__3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RZ) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.rz %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH__S_3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_S)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0.s %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
+Operator(v2_FNARROW44WH___3vectorReg_4_0wideReg_0_4_1wideReg_1_simple, ATTRIBUTES(1, ATTRIBUTE(Extension)), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_) MODIFY(RANK(2), kv3_silent_)),
+         OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple)),
+         MNEMONIC("fnarrow44wh"), SYNTAX("%0 %3 = %4"), PARAMETERARRAY(WRITECOUNT(2), READCOUNT(3), PARAMETERSINDEX(881)))
 Operator(kv3_FSBFHO_RD_S_3pairedReg_4pairedReg_5pairedReg_simple, ATTRIBUTES(0, /**/), MODIFIED(2, MODIFY(RANK(1), kv3_rounding_RD) MODIFY(RANK(2), kv3_silent_S)),
          OPCODES(OPCODE(PROCESSOR(v1_cpu),_UNDEF) OPCODE(PROCESSOR(v2_cpu),v2_FSBFHO_rounding_silent_registerM_registerP_registerO_simple)),
          MNEMONIC("fsbfho"), SYNTAX("%0.rd.s %3 = %4, %5"), PARAMETERARRAY(WRITECOUNT(1), READCOUNT(2), PARAMETERSINDEX(312)))
@@ -21420,19 +21420,19 @@ OperatorParameters(PARAMETERSINDEX(372),
                    PARAMETER(KIND(Read),RANK(3),METHOD(RegClass,kv3_vectorReg),SAME(-1))
                    PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_vectorReg),SAME(-1)))
 OperatorParameters(PARAMETERSINDEX(376),
+                   PARAMETER(KIND(Write),RANK(3),METHOD(RegClass,kv3_vectorReg),SAME(-1))
+                   PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_wideReg_0),SAME(-1))
+                   PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_wideReg_1),SAME(-1)))
+OperatorParameters(PARAMETERSINDEX(379),
                    PARAMETER(KIND(Write),RANK(0),METHOD(Register,kv3_CS),SAME(-1))
                    PARAMETER(KIND(Write),RANK(3),METHOD(RegClass,kv3_singleReg),SAME(-1))
                    PARAMETER(KIND(Read),RANK(0),METHOD(Register,kv3_CS),SAME(-1))
                    PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_pairedReg),SAME(-1)))
-OperatorParameters(PARAMETERSINDEX(380),
+OperatorParameters(PARAMETERSINDEX(383),
                    PARAMETER(KIND(Write),RANK(0),METHOD(Register,kv3_CS),SAME(-1))
                    PARAMETER(KIND(Write),RANK(3),METHOD(RegClass,kv3_singleReg),SAME(-1))
                    PARAMETER(KIND(Read),RANK(0),METHOD(Register,kv3_CS),SAME(-1))
                    PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_singleReg),SAME(-1)))
-OperatorParameters(PARAMETERSINDEX(384),
-                   PARAMETER(KIND(Write),RANK(3),METHOD(RegClass,kv3_vectorReg),SAME(-1))
-                   PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_wideReg_0),SAME(-1))
-                   PARAMETER(KIND(Read),RANK(4),METHOD(RegClass,kv3_wideReg_1),SAME(-1)))
 OperatorParameters(PARAMETERSINDEX(387),
                    PARAMETER(KIND(Write),RANK(4),METHOD(RegClass,kv3_vectorReg),SAME(-1))
                    PARAMETER(KIND(Read),RANK(5),METHOD(RegClass,kv3_vectorReg),SAME(-1)))

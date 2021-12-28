@@ -3257,7 +3257,7 @@ Decode_Decoding_v1_simple(const void *buffer)
         case 0x00000001:
           switch ((codeWord_0 >> 12) & 0x00000001) {
           case 0x00000000:
-            return Opcode_v1_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple;
+            return Opcode_v1_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple;
           default:
             break;
           }
@@ -9907,7 +9907,7 @@ Decode_Decoding_v2_simple(const void *buffer)
         case 0x00000001:
           switch ((codeWord_0 >> 12) & 0x00000001) {
           case 0x00000000:
-            return Opcode_v2_FNARROWWHV_xrounding_silent2_registerA_registerBp_simple;
+            return Opcode_v2_FNARROW44WH_xrounding_silent2_registerA_registerBp_simple;
           case 0x00000001:
             switch ((codeWord_0 >> 11) & 0x00000001) {
             case 0x00000000:
